@@ -23,7 +23,7 @@ public class NewsService {
   // one instance, reuse
   private final OkHttpClient httpClient = new OkHttpClient();
 
-  public String retrieveArticles(String topic) {
+  public String retrieveNewArticles(String topic) {
     String url = String.format("https://news.google.com/rss/search?q=%s", topic);
     String articleXml;
     try {
@@ -35,7 +35,7 @@ public class NewsService {
     return articleXml;
   }
 
-  public String httpRequest(String url) throws IOException {
+  private String httpRequest(String url) throws IOException {
     Request request = new Request.Builder().url(url).build();
 
     try (Response response = httpClient.newCall(request).execute()) {
