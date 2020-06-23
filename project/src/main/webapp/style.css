@@ -1,9 +1,78 @@
-#content {
-  margin-left: auto;
-  margin-right: auto;
-  width: 650px;
+html,
+body {
+  height: 100%;
+  font-family: 'Courier New', Courier, monospace;
+  margin: 0;
 }
 
-#greeting-container {
-  margin-top: 20px;
+.section {
+  height: 100vh;
 }
+
+#hamburger-icon {
+  width: 2.3vw;
+  height: 3vh;
+  position: absolute;
+  top: 2vw;
+  right: 2vw;
+}
+
+#hamburger-icon div {
+  width: 100%;
+  height: .35vh;
+  background-color: black;
+  position: relative;
+}
+
+#hamburger-icon div:before,
+#hamburger-icon div:after {
+  content: '';
+  height: .4vh;
+  width: 100%;
+  background-color: black;
+  position: absolute;
+  top: 1.5vh;
+}
+
+#hamburger-icon div:after {
+  top: 3vh;
+}
+
+#hamburger-icon:hover div,
+#hamburger-icon:hover div:before,
+#hamburger-icon:hover div:after {
+  background-color: gray;
+}
+
+#title {
+  text-align: center;
+  font-size: 6vw;
+  position: absolute;
+  top: 50%;
+  left: 30%;
+  transform: translate(-18%, -70%);
+}
+
+#arrow-transition,
+#arrow-transition:hover {
+  margin-top: 88vh;
+  margin-left: 50vw;
+}
+
+#arrow-transition {
+  border: solid black;
+  border-width: 0 .4vw .4vw 0;
+  display: inline-block;
+  padding: .8vw;
+  transform: rotate(45deg);
+}
+
+#arrow-transition:hover {
+  border: solid gray;
+  border-width: 0 .4vw .4vw 0;
+  display: inline-block;
+  padding: .8vw;
+  transform: rotate(45deg);
+}
+
+
