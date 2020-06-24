@@ -46,6 +46,31 @@ body {
   background-color: gray;
 }
 
+a {
+  text-decoration: none;
+  color: black;
+}
+
+ul {
+  list-style-type: none;
+  padding: 5vh 0;
+}
+
+nav {
+  position: absolute;
+  right: 5%;
+  top: 15%;
+  font-size: 2.7vw;
+  border-left: solid .2vw;
+  display: none;
+}
+
+li {
+  margin: 7vh 0;
+  padding-left: 4vw;
+  user-select: none;
+}
+
 #title {
   text-align: center;
   font-size: 6vw;
