@@ -1,4 +1,14 @@
-/** Updates trend in carousel. */
+/** Show and hide nav bar. */
+function toggleNavBar() {
+  const nav = document.getElementById('nav');
+  if (nav.style.display === 'none') {
+    nav.style.display = 'block';
+  } else {
+    nav.style.display = 'none';
+  }
+}
+
+/** Updates trend in carousel based on next/previous buttons. */
 function switchTrend(val) {
   var trends = document.getElementsByClassName('trends');
   var i = 0;
@@ -30,13 +40,16 @@ function getNextTrend(trend, val) {
   return document.getElementById('trend-' + nextSlide);
 }
 
-/** Show and hide nav bar */
-function toggleNavBar() {
-  const nav = document.getElementById('nav');
-  if (nav.style.display === 'none') {
-    nav.style.display = 'block';
-  } else {
-    nav.style.display = 'none';
+/** Updates trend in carousel based on dot controls. */
+function updateCurrentSlide(dot, val) {
+  var trends = document.getElementsByClassName('trends');
+  var dots = document.getElementsByClassName('dots');
+  for (var i = 0; i < trends.length; i++) {
+    trends[i].style.display = 'none';
+    dots[i].style.backgroundColor = 'transparent';
   }
-}
-
+  var newTrend = document.getElementById('trend-' + val);
+  newTrend.style.display = 'block';
+  dot.style.backgroundColor = 'rgb(226, 226, 226)';
+  
+} 
