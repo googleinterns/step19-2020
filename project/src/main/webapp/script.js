@@ -1,3 +1,4 @@
+/** Updates trend in carousel. */
 function switchTrend(val) {
   var trends = document.getElementsByClassName('trends');
   var i = 0;
@@ -13,6 +14,7 @@ function switchTrend(val) {
   }
 }
 
+/** Returns next trend in carousel. */
 function getNextTrend(trend, val) {
   var nextSlide = -1;
   var currentTrendVal = parseInt(trend.getAttribute('value'));
