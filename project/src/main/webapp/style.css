@@ -178,6 +178,6 @@ li {
   border-radius: 50%;
 }
 
-.dots:hover {
+.dots:hover, #dot-1 {
   background-color: rgb(226, 226, 226);
 }
