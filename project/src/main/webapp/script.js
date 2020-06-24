@@ -1,10 +1,17 @@
 /** Show and hide nav bar. */
 function toggleNavBar() {
   const nav = document.getElementById('nav');
+  const main = document.getElementById('main');
   if (nav.style.display === 'none') {
     nav.style.display = 'block';
+    if (screen.width < 480) {
+      main.style.display = 'none';
+    }
   } else {
     nav.style.display = 'none';
+    if (screen.width < 480) {
+      main.style.display = 'block';
+    }
   }
 }
 
