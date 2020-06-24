@@ -196,3 +196,143 @@ h3 {
 .right-justified {
   text-align: right;
 }
+
+
+@media only screen and (min-device-width: 320px) and (max-device-width: 480px) {
+  #hamburger-icon {
+    width: 8vw;
+    top: 5vw;
+    right: 5vw;
+  }
+  
+  #hamburger-icon div {
+    height: .4vh;
+  }
+  
+  #hamburger-icon div:before,
+  #hamburger-icon div:after {
+    top: 1.3vh;
+  }
+  
+  #hamburger-icon div:after {
+    top: 2.6vh;
+  }
+
+  nav {
+    position: absolute;
+    left: 5%;
+    top: 10%;
+    font-size: 12vw;
+    border-left: solid .5vw;
+    display: none;
+  }
+  
+  li {
+    text-align: center;
+    margin: 6vh 0;
+  }
+
+  #title {
+    font-size: 14vw;
+    top: 38%;
+    left: 27%;
+  }
+
+  #arrow-transition,
+  #arrow-transition:hover {
+    margin-top: 47vh;
+    margin-left: 48vw;
+  }
+
+  #arrow-transition:hover,
+  #slideshow-left:hover,
+  #slideshow-right:hover,
+  #arrow-transition,
+  #slideshow-left,
+  #slideshow-right {
+    border-width: 0 1.7vw 1.7vw 0;
+    padding: 2vw;
+    transform: rotate(45deg);
+  }
+
+  #trend-frequency-data {
+    font-size: 6.5vw;
+    top: 120%;
+    left: 17%;
+    max-width: 75vw;
+  }
+
+  #trend-frequency-data div {
+    margin: 6vw 0;
+  }
+}
+
+@media only screen and (min-device-width: 768px) and (max-device-width: 1024px) {
+  #hamburger-icon {
+    width: 6vw;
+    top: 5vw;
+    right: 5vw;
+  }
+  
+  #hamburger-icon div {
+    height: .4vh;
+  }
+  
+  #hamburger-icon div:before,
+  #hamburger-icon div:after {
+    top: 1.3vh;
+  }
+  
+  #hamburger-icon div:after {
+    top: 2.6vh;
+  }
+
+  ul {
+    padding: 2vh 0;
+  }
+
+  nav {
+    top: 5%;
+    font-size: 8vw;
+    border-left: solid .5vw;
+  }
+  
+  li {
+    text-align: center;
+    margin: 6vh 0;
+  }
+
+  #title {
+    font-size: 12vw;
+    top: 35%;
+    left: 27%;
+  }
+
+  #arrow-transition,
+  #arrow-transition:hover {
+    margin-top: 45vh;
+    margin-left: 48vw;
+  }
+
+  #arrow-transition:hover,
+  #slideshow-left:hover,
+  #slideshow-right:hover,
+  #arrow-transition,
+  #slideshow-left,
+  #slideshow-right {
+    border-width: 0 1.5vw 1.5vw 0;
+    padding: 2vw;
+  }
+
+  #trend-frequency-data {
+    font-size: 5.5vw;
+    top: 105%;
+    left: 22%;
+    max-width: 70vw;
+  }
+
+  #trend-frequency-data div {
+    margin: 6vw 0;
+  }
+}
+
