@@ -120,6 +120,10 @@ li {
   max-width: 70vw;
 }
 
+#slideshow-container {
+  padding-top: 1vh;
+}
+
 #slideshow-left {
   margin-left: 20vw;
 }
@@ -128,9 +132,9 @@ li {
   margin-left: 54vw;
 }
 
-#slideshow-left,
-#slideshow-right {
+#slideshow-arrows {
   margin-top: 8vh;
+  cursor: pointer;
 }
 
 #slideshow-left,
@@ -146,15 +150,34 @@ li {
 .trends {
   text-align: center;
   font-size: 3vw;
-  position: absolute;
-  left: 30vw;
-  top: 207vh;
-  max-width: 40vw;
-  min-width: 40vw;
+  margin: -5vh auto 4vh auto;
+  max-width: 50vw;
 }
 
 #trend-2,
 #trend-3,
 #trend-4 {
   display: none;
+}
+
+#dots-container {
+  text-align: center;
+  position: relative;
+}
+
+#dots-container div {
+  display: inline-block;
+  margin: 1vh;
+}
+
+.dots {
+  cursor: pointer;
+  width: 2vh;
+  height: 2vh;
+  border: solid black;
+  border-radius: 50%;
+}
+
+.dots:hover, #dot-1 {
+  background-color: rgb(226, 226, 226);
 }
