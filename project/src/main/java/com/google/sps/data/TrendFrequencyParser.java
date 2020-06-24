@@ -97,7 +97,7 @@ public class TrendFrequencyParser {
     }
     return result;
   }
-  
+
   private InputStream read() {
     try {
       return url.openStream();
