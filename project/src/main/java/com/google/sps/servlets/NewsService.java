@@ -1,4 +1,4 @@
-// Copyright 2019 Google LLC
+// Copyright 2020 Google LLC
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -18,11 +18,13 @@ import okhttp3.*;
 
 import java.io.IOException;
 
-/** Service class that delivers news under a requested topic  */
+/** Service class that delivers news under a requested topic. */
 public class NewsService {
   // one instance, reuse
   private final OkHttpClient httpClient = new OkHttpClient();
 
+  // Retrieves articles from the Google News RSS Feed using the topic parameter as the search query
+  // The Topic parameter allows for spaces and non alphanumeric characters, but null is an invalid argument
   public String retrieveNewArticles(String topic) {
     String url = String.format("https://news.google.com/rss/search?q=%s", topic);
     String articleXml;
