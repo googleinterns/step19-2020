@@ -160,12 +160,12 @@ li {
   display: none;
 }
 
-#dots-container {
+#dot-container {
   text-align: center;
   position: relative;
 }
 
-#dots-container div {
+#dot-container div {
   display: inline-block;
   margin: 1vh;
 }
@@ -180,4 +180,19 @@ li {
 
 .dots:hover, #dot-1 {
   background-color: rgb(226, 226, 226);
+}
+
+.articles {
+  border: solid black;
+  margin: 5vh 23vw;
+  padding: 1vw 2vw;
+}
+
+h1,
+h3 {
+  font-weight: normal;
+}
+
+.right-justified {
+  text-align: right;
 }
