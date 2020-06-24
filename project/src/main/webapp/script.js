@@ -4,12 +4,12 @@ function toggleNavBar() {
   const main = document.getElementById('main');
   if (nav.style.display === 'none') {
     nav.style.display = 'block';
-    if (screen.width < 480) {
+    if (screen.width < 1024) {
       main.style.display = 'none';
     }
   } else {
     nav.style.display = 'none';
-    if (screen.width < 480) {
+    if (screen.width < 1024) {
       main.style.display = 'block';
     }
   }
