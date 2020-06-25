@@ -259,26 +259,16 @@ li {
 @media only screen and (min-device-width: 768px) and (max-device-width: 1024px) {
   #hamburger-icon {
     width: 6vw;
-    height: 3vh;
-    position: absolute;
     top: 5vw;
     right: 5vw;
   }
   
   #hamburger-icon div {
-    width: 100%;
     height: .4vh;
-    background-color: black;
-    position: relative;
   }
   
   #hamburger-icon div:before,
   #hamburger-icon div:after {
-    content: '';
-    height: .4vh;
-    width: 100%;
-    background-color: black;
-    position: absolute;
     top: 1.3vh;
   }
   
@@ -287,32 +277,24 @@ li {
   }
 
   ul {
-    list-style-type: none;
     padding: 2vh 0;
   }
 
   nav {
-    position: absolute;
-    left: 5%;
     top: 5%;
     font-size: 8vw;
     border-left: solid .5vw;
-    display: none;
   }
   
   li {
     text-align: center;
     margin: 6vh 0;
-    user-select: none;
   }
 
   #title {
-    text-align: center;
     font-size: 12vw;
-    position: absolute;
     top: 35%;
     left: 27%;
-    transform: translate(-18%, -70%);
   }
 
   #arrow-transition,
@@ -327,10 +309,7 @@ li {
   #arrow-transition,
   #slideshow-left,
   #slideshow-right {
-    background-color: transparent;
     border-width: 0 1.5vw 1.5vw 0;
-    display: inline-block;
     padding: 2vw;
-    transform: rotate(45deg);
   }
 }
