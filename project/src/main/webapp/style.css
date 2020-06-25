@@ -254,6 +254,17 @@ li {
     padding: 2vw;
     transform: rotate(45deg);
   }
+
+  #trend-frequency-data {
+    font-size: 6.5vw;
+    top: 120%;
+    left: 17%;
+    max-width: 75vw;
+  }
+
+  #trend-frequency-data div {
+    margin: 6vw 0;
+  }
 }
 
 @media only screen and (min-device-width: 768px) and (max-device-width: 1024px) {
@@ -332,5 +343,16 @@ li {
     display: inline-block;
     padding: 2vw;
     transform: rotate(45deg);
+  }
+
+  #trend-frequency-data {
+    font-size: 5.5vw;
+    top: 105%;
+    left: 22%;
+    max-width: 70vw;
+  }
+
+  #trend-frequency-data div {
+    margin: 6vw 0;
   }
 }
