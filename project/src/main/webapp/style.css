@@ -254,6 +254,9 @@ h3 {
     transform: rotate(45deg);
   }
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 01044406221a7358587c5ed7f485a127d5590154
 
   #trend-frequency-data {
     font-size: 6.5vw;
@@ -266,9 +269,12 @@ h3 {
     margin: 6vw 0;
   }
 }
+<<<<<<< HEAD
 =======
 }  
 >>>>>>> 2bacd37db9ed029c5d8d7b27aa02bf883256bc36
+=======
+>>>>>>> 01044406221a7358587c5ed7f485a127d5590154
 
 @media only screen and (min-device-width: 768px) and (max-device-width: 1024px) {
   #hamburger-icon {
@@ -326,7 +332,7 @@ h3 {
     border-width: 0 1.5vw 1.5vw 0;
     padding: 2vw;
   }
-  
+
   #trend-frequency-data {
     font-size: 5.5vw;
     top: 105%;
