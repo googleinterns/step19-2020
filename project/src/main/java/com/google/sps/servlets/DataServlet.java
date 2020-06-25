@@ -1,4 +1,4 @@
-// Copyright 2019 Google LLC
+// Copyright 2020 Google LLC
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -14,6 +14,7 @@
 
 package com.google.sps.servlets;
 
+import java.util.*;
 import java.io.IOException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -28,7 +29,12 @@ public class DataServlet extends HttpServlet {
 
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    List<String> topicNames = new ArrayList<>();
+    topicNames.add("Covid-19 Symptoms");
+    topicNames.add("Mitch McConell");
+    topicNames.add("Hand Sanitizer");
+    topicNames.add("Minecraft Nether Update");
     response.setContentType("text/html;");
-    response.getWriter().println(newsService.retrieveNewArticles("Trump Rally", 5));
+    response.getWriter().println(newsService.populateTopics(topicNames, 5));
   }
 }

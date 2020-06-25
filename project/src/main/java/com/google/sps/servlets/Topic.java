@@ -16,7 +16,7 @@ package com.google.sps.servlets;
 
 import java.util.*;
 
-/** Topic class that serves as a Model for each Topic that is paired with a list of articles */
+/** Topic class that serves as a Model for each Topic that is paired with a list of articles. */
 public class Topic {
   private String name;
   private List<Article> articles;

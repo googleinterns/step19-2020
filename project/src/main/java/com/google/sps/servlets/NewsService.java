@@ -28,12 +28,18 @@ public class NewsService {
   // one instance, reuse
   private final OkHttpClient httpClient = new OkHttpClient();
 
-  // List of Topic names is passed in, 
-  /*
-  public List<Topic> populateTopics(List<String> topicNames) {
-    
+  // List of Topic names is passed in along with the number of articles for each topic, then 
+  public List<Topic> populateTopics(List<String> topicNames, int numArticles) {
+    List<Topic> topics = new ArrayList<Topic>();
+    List<Article> articles;
+    for(String topicName: topicNames) {
+      articles = retrieveNewArticles(topicName, numArticles);
+      Topic topic = new Topic(topicName, articles);
+      topics.add(topic);
+    }
+
+    return topics;
   }
-  */
 
   // Retrieves articles from the Google News RSS Feed using the topic parameter as the search query
   // The Topic parameter allows for spaces and non-alphanumeric characters. Null and "" are invalid arguments.
