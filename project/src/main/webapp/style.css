@@ -317,13 +317,63 @@ h3 {
 
   #trend-frequency-data {
     font-size: 6.5vw;
-    top: 120%;
+    top: 125%;
     left: 17%;
     max-width: 75vw;
   }
 
   #trend-frequency-data div {
     margin: 6vw 0;
+  }
+
+  #slideshow-left {
+    margin-left: 15vw;
+  }
+  
+  #slideshow-right {
+    margin-left: 58vw;
+  }
+
+  #slideshow-left,
+  #slideshow-left:hover {
+    transform: rotate(135deg);
+  }
+
+  #slideshow-right,
+  #slideshow-right:hover {
+    transform: rotate(-45deg);
+  }
+
+  .trends {
+    font-size: 7vw;
+    max-width: 55vw;
+  }
+
+  #dot-container {
+    margin-top: -2vw;;
+  }
+
+  .dots {
+    width: 1.8vh;
+    height: 1.8vh;
+  }
+
+  .articles {
+    text-align: center;
+    margin: 5vh 17vw;
+    padding: 1vw 2vw;
+  }
+
+  #first-article {
+    margin-top: 3.5vh;
+  }
+
+  h1 {
+    font-size: 6vw;
+  }
+
+  h3 {
+    font-size: 5vw;
   }
 }
 
@@ -362,8 +412,10 @@ h3 {
   }
 
   nav {
-    top: 5%;
-    font-size: 8vw;
+    position: absolute;
+    left: 5%;
+    top: 10%;
+    font-size: 12vw;
     border-left: solid .5vw;
   }
   
@@ -374,34 +426,74 @@ h3 {
 
   #title {
     font-size: 12vw;
-    top: 35%;
+    top: 45%;
     left: 27%;
   }
 
   #arrow-transition,
   #arrow-transition:hover {
-    margin-top: 45vh;
+    margin-top: 52vh;
     margin-left: 48vw;
   }
 
   #arrow-transition:hover,
-  #slideshow-left:hover,
-  #slideshow-right:hover,
-  #arrow-transition,
-  #slideshow-left,
-  #slideshow-right {
+  #arrow-transition {
     border-width: 0 1.5vw 1.5vw 0;
     padding: 2vw;
   }
 
   #trend-frequency-data {
     font-size: 5.5vw;
-    top: 105%;
+    top: 118%;
     left: 22%;
     max-width: 70vw;
   }
 
   #trend-frequency-data div {
     margin: 6vw 0;
+  }
+
+  #slideshow-left {
+    margin-left: 13vw;
+  }
+  
+  #slideshow-right {
+    margin-left: 64vw;
+  }
+
+  #slideshow-left:hover,
+  #slideshow-right:hover,
+  #slideshow-left,
+  #slideshow-right {
+    border-width: 0 1vw 1vw 0;
+    padding: 1.5vw;
+  }
+
+  .trends {
+    font-size: 6vw;
+    margin: -4vh auto 4vh auto;
+    max-width: 60vw;
+  }
+
+  #dot-container {
+    margin-top: -2.5vw;;
+  }
+
+  .articles {
+    text-align: center;
+    margin: 5vh 19vw;
+    padding: 1vw 2vw;
+  }
+
+  #first-article {
+    margin-top: 3.5vh;
+  }
+
+  h1 {
+    font-size: 5vw;
+  }
+
+  h3 {
+    font-size: 4vw;
   }
 }
