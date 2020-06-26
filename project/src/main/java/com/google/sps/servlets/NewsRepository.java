@@ -14,18 +14,17 @@
 
 package com.google.sps.servlets;
 
+import okhttp3.*;
+
+import java.net.*;
 import java.util.*;
-import java.io.IOException;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
-/** Servlet that returns some example content. TODO: modify this file to handle comments data */
-@WebServlet("/data")
-public class DataServlet extends HttpServlet {
+/** Repository class that stores and retrieves information about News from the Datastore */
+public class NewsRepository {
 
-  @Override
-  public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
+  public NewsRepository() {}
+
+  public void storeTopics(List<Topic> topics) {
+
   }
 }

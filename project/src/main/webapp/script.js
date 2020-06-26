@@ -62,3 +62,11 @@ function updateCurrentSlide(val) {
   newTrend.style.display = 'block';
   document.getElementById('dot-' + val).style.backgroundColor = 'rgb(226, 226, 226)';
 } 
+
+/** Retrieves list of topics and associated articles from the Backend Server in JSON form. */
+async function retrieveArticles(numArticles) {
+  const requestURL = '/news?num=' + numArticles;
+  const response = await fetch(requestURL);
+  const content = await response.json();
+  console.log(content);
+}

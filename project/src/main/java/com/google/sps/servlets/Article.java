@@ -16,8 +16,15 @@ package com.google.sps.servlets;
 
 import java.util.Date;
 
+import com.googlecode.objectify.annotation.Entity;
+import com.googlecode.objectify.annotation.Id;
+
 /** Article class that serves as a Model for each article retrieved by the API. */
+@Entity
 public class Article {
+  @Id
+  private Long id;
+
   private String title;
   private String link;
   private Date pubDate;

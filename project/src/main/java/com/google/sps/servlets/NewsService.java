@@ -27,16 +27,22 @@ import java.util.*;
 public class NewsService {
   // one instance, reuse
   private final OkHttpClient httpClient = new OkHttpClient();
+  private final NewsRepository newsRepository = new NewsRepository();
 
-  // List of Topic names is passed in along with the number of articles for each topic, then 
-  public List<Topic> populateTopics(List<String> topicNames, int numArticles) {
+  // List of Topic names is passed in along with the number of articles for each topic, then Topic Objects are generated pairing topic names with article lists which are all returned in one big Topic Object list.
+  public List<Topic> populateTopics(List<String> topicNames, List<Integer> frequencies, int numArticles) {
     List<Topic> topics = new ArrayList<Topic>();
     List<Article> articles;
+    int i = 0;
     for(String topicName: topicNames) {
+      int frequency = frequencies.get(i);
       articles = retrieveNewArticles(topicName, numArticles);
-      Topic topic = new Topic(topicName, articles);
+      Topic topic = new Topic(topicName, frequency, articles);
       topics.add(topic);
+      i++;
     }
+
+    newsRepository.storeTopics(topics);
 
     return topics;
   }
