@@ -6,27 +6,89 @@
     <link rel="stylesheet" href="style.css">
     <script src="script.js"></script>
   </head>
-  <body>
-    <div class="section">
-      <div id="hamburger-icon" onclick="toggleNavBar()"><div></div></div>     
-      <nav id="nav" style="display: none">
-        <ul>
-          <li><a href="#">home</a></li>
-          <li><a href="#trend-frequency">trends</a></li>
-          <li><a href="#trending-topics">topics</a></li>
-        </ul>
-      </nav>
-      <div id="main">
-        <div id="title">trending topics.</div>
-        <a href="#trend-frequency" id="arrow-transition"></a>
+  <body onload="showPreloader()">
+    <div id="preloader">
+      <div id="preloader-container">
+        <div class="down"></div>
+        <div class="up"></div>
+        <div class="down"></div>
+        <div class='up'></div>
       </div>
     </div>
-    <div class="section" id="trend-frequency">
-      <div id="trend-frequency-data">
-        <div>Covid-19 Symptoms: 100,000</div>
-        <div>Mitch McConnell: 100,000</div>
-        <div>Hand Sanitizer: 50,000</div>
-        <div>Minecraft Nether Update: 50,000</div> 
+    <div id="content">
+      <div class="section">
+        <div id="hamburger-icon" onclick="toggleNavBar()">
+          <div></div>
+        </div>     
+        <nav id="nav" style="display: none">
+          <ul>
+            <li><a href="#">home</a></li>
+            <li><a href="#trend-frequency">trends</a></li>
+            <li><a href="#trending-topics">topics</a></li>
+          </ul>
+        </nav>
+        <div id="main">
+          <div id="title">trending topics.</div>
+          <a href="#trend-frequency" id="arrow-transition"></a>
+        </div>
+      </div>
+      <div class="section" id="trend-frequency">
+        <div id="trend-frequency-data">
+          <div>Covid-19 Symptoms: 100,000</div>
+          <div>Mitch McConnell: 100,000</div>
+          <div>Hand Sanitizer: 50,000</div>
+          <div>Minecraft Nether Update: 50,000</div> 
+        </div>
+      </div>
+      <div class="section" id="trending-topics">
+      <div id="slideshow-container">
+        <div id="slideshow-arrows">
+          <div id="slideshow-left" onclick="switchTrend(-1)"></div>
+          <div id="slideshow-right" onclick="switchTrend(+1)"></div>
+        </div> 
+        <div class="trends" id="trend-1" value="1" style="display: block">Covid-19 Symptoms</div>
+        <div class="trends" id="trend-2" value="2">Mitch McConnell</div>
+        <div class="trends" id="trend-3" value="3">Hand Sanitizer</div>
+        <div class="trends" id="trend-4" value="4">Minecraft Nether Update</div>
+        <div id="dot-container">
+          <div class="dots" id="dot-1"onclick="updateCurrentSlide(1)"></div>
+          <div class="dots" id="dot-2"onclick="updateCurrentSlide(2)"></div>
+          <div class="dots" id="dot-3"onclick="updateCurrentSlide(3)"></div>
+          <div class="dots" id="dot-4"onclick="updateCurrentSlide(4)"></div>
+        </div>
+        <div class="article-container">
+          <div class="articles">
+            <h1>Article Title</h1>
+            <h3>Author:</h3>
+            <h3>Date:</h3>
+            <h3>Description:</h3>
+          </div>
+          <div class="articles right-justified">
+            <h1>Article Title</h1>
+            <h3>Author:</h3>
+            <h3>Date:</h3>
+            <h3>Description:</h3>
+          </div>
+          <div class="articles">
+            <h1>Article Title</h1>
+            <h3>Author:</h3>
+            <h3>Date:</h3>
+            <h3>Description:</h3>
+          </div>
+          <div class="articles right-justified">
+            <h1>Article Title</h1>
+            <h3>Author:</h3>
+            <h3>Date:</h3>
+            <h3>Description:</h3>
+          </div>
+          <div class="articles">
+            <h1>Article Title</h1>
+            <h3>Author:</h3>
+            <h3>Date:</h3>
+            <h3>Description:</h3>
+          </div>
+        </div>
+      </div> 
       </div>
     </div>
     <div class="section" id="trending-topics">
