@@ -197,7 +197,6 @@ h3 {
   text-align: right;
 }
 
-
 @media only screen and (min-device-width: 320px) and (max-device-width: 480px) {
   #hamburger-icon {
     width: 8vw;
@@ -252,6 +251,7 @@ h3 {
   #slideshow-right {
     border-width: 0 1.7vw 1.7vw 0;
     padding: 2vw;
+    transform: rotate(45deg);
   }
 
   #trend-frequency-data {
@@ -334,4 +334,3 @@ h3 {
     margin: 6vw 0;
   }
 }
-
