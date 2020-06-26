@@ -21,7 +21,6 @@ public final class Trend {
   private final long frequency;
   private final long timestamp;
 
-
   public Trend(long id, String title, long frequency, long timestamp) {
     this.id = id;
     this.title = title;
