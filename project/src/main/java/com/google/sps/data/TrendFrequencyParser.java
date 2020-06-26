@@ -88,6 +88,7 @@ public class TrendFrequencyParser {
     }
     return feed;
   }
+
   private String getCharacterData(XMLEvent event, XMLEventReader eventReader) throws XMLStreamException {
     String result = "";
     event = eventReader.nextEvent();
@@ -96,6 +97,7 @@ public class TrendFrequencyParser {
     }
     return result;
   }
+  
   private InputStream read() {
     try {
       return url.openStream();
