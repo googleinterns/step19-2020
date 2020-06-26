@@ -6,6 +6,40 @@ body {
   scroll-behavior: smooth;
 }
 
+#preloader {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+}
+
+#preloader-container {
+  position: absolute;
+  left: 47vw;
+  top: 40vh;
+}
+
+#preloader-container div {
+  width: 1vh;
+  height: 7vh;
+  background-color: black;
+  display: inline-block;
+  transition: 3s ease;
+  opacity: 0;
+  margin: .5vh;
+}
+
+.down {
+  animation: down 2s linear 1s;
+}
+
+.up {
+  animation: up 2s linear 1s;
+}
+
+#content {
+  display: none;
+}
+
 .section {
   height: 100vh;
   user-select: none;
@@ -197,7 +231,34 @@ h3 {
   text-align: right;
 }
 
+@keyframes up {  
+  0%   {transform: translateY(1rem); opacity:0;}
+  50%  {opacity: 1;}
+  100% {transform: translateY(-1rem); opacity:0}
+}
+
+@keyframes down {   
+  0%   {transform: translateY(-1rem); opacity:0;}
+  50%  {opacity: 1;}
+  100% {transform: translateY(1rem); opacity:0;}
+}
+
+@keyframes fade-in {
+  from {opacity:0;}
+  to   {opacity:1;} 
+}
+
 @media only screen and (min-device-width: 320px) and (max-device-width: 480px) {
+  #preloader-container {
+    left: 42vw;
+  }
+
+  #preloader-container div {
+    width: 15px;
+    height: 150px;
+    margin: 10px;
+  }
+
   #hamburger-icon {
     width: 8vw;
     top: 5vw;
@@ -256,7 +317,7 @@ h3 {
 
   #trend-frequency-data {
     font-size: 6.5vw;
-    top: 120%;
+    top: 125%;
     left: 17%;
     max-width: 75vw;
   }
@@ -264,9 +325,69 @@ h3 {
   #trend-frequency-data div {
     margin: 6vw 0;
   }
+
+  #slideshow-left {
+    margin-left: 15vw;
+  }
+  
+  #slideshow-right {
+    margin-left: 58vw;
+  }
+
+  #slideshow-left,
+  #slideshow-left:hover {
+    transform: rotate(135deg);
+  }
+
+  #slideshow-right,
+  #slideshow-right:hover {
+    transform: rotate(-45deg);
+  }
+
+  .trends {
+    font-size: 7vw;
+    max-width: 55vw;
+  }
+
+  #dot-container {
+    margin-top: -2vw;;
+  }
+
+  .dots {
+    width: 1.8vh;
+    height: 1.8vh;
+  }
+
+  .articles {
+    text-align: center;
+    margin: 5vh 17vw;
+    padding: 1vw 2vw;
+  }
+
+  #first-article {
+    margin-top: 3.5vh;
+  }
+
+  h1 {
+    font-size: 6vw;
+  }
+
+  h3 {
+    font-size: 5vw;
+  }
 }
 
 @media only screen and (min-device-width: 768px) and (max-device-width: 1024px) {
+  #preloader-container {
+    left: 42vw;
+  }
+
+  #preloader-container div {
+    width: 15px;
+    height: 150px;
+    margin: 10px;
+  }
+
   #hamburger-icon {
     width: 6vw;
     top: 5vw;
@@ -291,8 +412,10 @@ h3 {
   }
 
   nav {
-    top: 5%;
-    font-size: 8vw;
+    position: absolute;
+    left: 5%;
+    top: 10%;
+    font-size: 12vw;
     border-left: solid .5vw;
   }
   
@@ -303,34 +426,74 @@ h3 {
 
   #title {
     font-size: 12vw;
-    top: 35%;
+    top: 45%;
     left: 27%;
   }
 
   #arrow-transition,
   #arrow-transition:hover {
-    margin-top: 45vh;
+    margin-top: 52vh;
     margin-left: 48vw;
   }
 
   #arrow-transition:hover,
-  #slideshow-left:hover,
-  #slideshow-right:hover,
-  #arrow-transition,
-  #slideshow-left,
-  #slideshow-right {
+  #arrow-transition {
     border-width: 0 1.5vw 1.5vw 0;
     padding: 2vw;
   }
 
   #trend-frequency-data {
     font-size: 5.5vw;
-    top: 105%;
+    top: 118%;
     left: 22%;
     max-width: 70vw;
   }
 
   #trend-frequency-data div {
     margin: 6vw 0;
+  }
+
+  #slideshow-left {
+    margin-left: 13vw;
+  }
+  
+  #slideshow-right {
+    margin-left: 64vw;
+  }
+
+  #slideshow-left:hover,
+  #slideshow-right:hover,
+  #slideshow-left,
+  #slideshow-right {
+    border-width: 0 1vw 1vw 0;
+    padding: 1.5vw;
+  }
+
+  .trends {
+    font-size: 6vw;
+    margin: -4vh auto 4vh auto;
+    max-width: 60vw;
+  }
+
+  #dot-container {
+    margin-top: -2.5vw;;
+  }
+
+  .articles {
+    text-align: center;
+    margin: 5vh 19vw;
+    padding: 1vw 2vw;
+  }
+
+  #first-article {
+    margin-top: 3.5vh;
+  }
+
+  h1 {
+    font-size: 5vw;
+  }
+
+  h3 {
+    font-size: 4vw;
   }
 }

@@ -63,6 +63,18 @@ function updateCurrentSlide(val) {
   document.getElementById('dot-' + val).style.backgroundColor = 'rgb(226, 226, 226)';
 } 
 
+/** Shows the preloader on page load. */
+function showPreloader() {
+  setTimeout(showPage, 3000);
+}
+
+/** Shows main page after page load. */
+function showPage() {
+  document.getElementById('preloader').style.display = 'none';
+  var content = document.getElementById('content')
+  content.style.cssText = 'display: block; animation: fade-in 2.5s linear';
+}
+
 /** Retrieves list of topics and associated articles from the Backend Server in JSON form. */
 async function retrieveArticles(numArticles) {
   const requestURL = '/news?num=' + numArticles;
