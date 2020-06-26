@@ -46,10 +46,6 @@
       <groupId>com.rometools</groupId>
       <artifactId>rome</artifactId>
       <version>1.9.0</version>
-    <dependency>
-      <groupId>rome</groupId>
-      <artifactId>rome</artifactId>
-      <version>1.9.0</version>
     </dependency>
   </dependencies>
 
