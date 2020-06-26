@@ -14,15 +14,17 @@
 
 package com.google.sps.servlets;
 
+import java.util.Date;
+
 /** Article class that serves as a Model for each article retrieved by the API. */
 public class Article {
   private String title;
   private String link;
-  private String pubDate;
+  private Date pubDate;
   private String description;
   private String source;
 
-  public Article(String title, String link, String pubDate, String description, String source) {
+  public Article(String title, String link, Date pubDate, String description, String source) {
     this.title = title;
     this.link = link;
     this.pubDate = pubDate;
@@ -30,23 +32,27 @@ public class Article {
     this.source = source;
   }
 
-  public String getTitle(){
+  public String getTitle() {
     return title;
   }
 
-  public String getLink(){
+  public String getLink() {
     return link;
   }
 
-  public String getPubDate(){
+  public Date getPubDate() {
     return pubDate;
   }
 
-  public String getDescription(){
+  public String getDescription() {
     return description;
   }
 
-  public String getSource(){
+  public String getSource() {
     return source;
+  }
+
+  public String toString() {
+    return String.format("%s %s %s %s %s", title, link, pubDate.toString(), description, source);
   }
 }
