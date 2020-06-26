@@ -80,5 +80,4 @@ async function retrieveArticles(numArticles) {
   const requestURL = '/news?num=' + numArticles;
   const response = await fetch(requestURL);
   const content = await response.json();
-  console.log(content);
 }

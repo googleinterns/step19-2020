@@ -22,7 +22,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-/** Servlet that returns articles and topics that are requested at the /news endpoint "num" parameter required */
+/** Servlet that returns articles and topics that are requested at the /news endpoint "num" parameter required. */
 @WebServlet("/news")
 public class NewsServlet extends HttpServlet {
 

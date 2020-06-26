@@ -19,7 +19,7 @@ import okhttp3.*;
 import java.net.*;
 import java.util.*;
 
-/** Repository class that stores and retrieves information about News from the Datastore */
+/** Repository class that stores and retrieves information about News from the Datastore. */
 public class NewsRepository {
 
   public NewsRepository() {}
