@@ -14,6 +14,7 @@
 
 package com.google.sps.data;
 
+/* stores one instance of a trend/item in the RSS Feed */
 public class TrendRSS {
   String title;
   String trendFrequency;
@@ -30,7 +31,7 @@ public class TrendRSS {
     return trendFrequency;
   }
   
-  public void setFreq(String frequency){
+  public void setFreq(String frequency) {
     this.trendFrequency = frequency;
   }
 }

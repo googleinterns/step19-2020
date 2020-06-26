@@ -17,6 +17,8 @@ package com.google.sps.data;
 import java.util.ArrayList;
 import java.util.List;
 
+/* stores the entire Google Trends RSS Feed*/
+
 public class TrendRSSFeed {
   final String title;
   final String trendFrequency;
@@ -32,7 +34,7 @@ public class TrendRSSFeed {
     return entries;
   }
 
-  public String getTitle(){
+  public String getTitle() {
     return title;
   }
 

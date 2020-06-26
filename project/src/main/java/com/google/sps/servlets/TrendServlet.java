@@ -45,6 +45,7 @@ public class TrendServlet extends HttpServlet {
     showTrends(response);
   }
 
+  /* displays trends in json format */
   public void showTrends(HttpServletResponse response) throws IOException {
     
     Query query = new Query("Trend").addSort("timestamp", SortDirection.DESCENDING);
@@ -91,9 +92,8 @@ public class TrendServlet extends HttpServlet {
     }
   }
 
-
+  /* loops through the top four trends and stores them in Datastore */
   public void getTrends() throws IOException {
-
     int topicsLimit = 4;
 
     TrendFrequencyParser parser = new TrendFrequencyParser("https://trends.google.com/trends/trendingsearches/daily/rss?geo=US");
