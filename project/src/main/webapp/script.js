@@ -77,7 +77,9 @@ function showPage() {
 
 /** Retrieves list of topics and associated articles from the Backend Server in JSON form. */
 async function retrieveArticles(numArticles) {
-  const requestURL = '/news?num=' + numArticles;
+  const basePath = '/news';
+  const numParam = 'num=' + numArticles;
+  const requestURL = basePath + '?' + numParam;
   const response = await fetch(requestURL);
   const content = await response.json();
 }

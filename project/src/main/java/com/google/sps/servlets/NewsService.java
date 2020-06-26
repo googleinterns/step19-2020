@@ -33,13 +33,12 @@ public class NewsService {
   public List<Topic> populateTopics(List<String> topicNames, List<Integer> frequencies, int numArticles) {
     List<Topic> topics = new ArrayList<Topic>();
     List<Article> articles;
-    int i = 0;
-    for(String topicName: topicNames) {
+    for(int i = 0; i < topicNames.size(); i++) {
+      String topicName = topicNames.get(i);
       int frequency = frequencies.get(i);
       articles = retrieveNewArticles(topicName, numArticles);
       Topic topic = new Topic(topicName, frequency, articles);
       topics.add(topic);
-      i++;
     }
 
     newsRepository.storeTopics(topics);
