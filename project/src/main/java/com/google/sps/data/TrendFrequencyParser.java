@@ -29,7 +29,7 @@ import com.google.sps.data.TrendRSS;
 import com.google.sps.data.TrendRSSFeed;
 
 public class TrendFrequencyParser {
-  //these are the xml tags that data is being extracted from 
+  // These are the xml tags that data is being extracted from. 
   static final String TITLE = "title";
   static final String TRAFFIC = "approx_traffic";
   static final String ITEM = "item";
@@ -90,7 +90,7 @@ public class TrendFrequencyParser {
     return feed;
   }
 
-  /* used to get text from an xml tag */
+  /* This is used to get text from an xml tag. */
   private String getCharacterData(XMLEvent event, XMLEventReader eventReader) throws XMLStreamException {
     String result = "";
     event = eventReader.nextEvent();

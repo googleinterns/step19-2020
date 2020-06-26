@@ -45,7 +45,7 @@ public class TrendServlet extends HttpServlet {
     showTrends(response);
   }
 
-  /* displays trends in json format */
+  /* Displays trends in json format. */
   public void showTrends(HttpServletResponse response) throws IOException {
     
     Query query = new Query("Trend").addSort("timestamp", SortDirection.DESCENDING);
@@ -69,6 +69,7 @@ public class TrendServlet extends HttpServlet {
     response.getWriter().println(gson.toJson(trends));
   }
 
+  /* Stores a Trend object in Datastore. */
   public void storeTrend(String topic, String frequency) {
     long timestamp = System.currentTimeMillis();
     Integer freq = convertToInt(frequency);
@@ -82,6 +83,7 @@ public class TrendServlet extends HttpServlet {
     datastore.put(trendEntity);
   }
 
+  /* Converts a string to an Integer. */
   public Integer convertToInt(String stringNumber) {
     String result = stringNumber.replaceAll("[^\\w\\s]","");
     try {
@@ -92,7 +94,7 @@ public class TrendServlet extends HttpServlet {
     }
   }
 
-  /* loops through the top four trends and stores them in Datastore */
+  /* Loops through the top four trends and stores them in Datastore. */
   public void getTrends() throws IOException {
     int topicsLimit = 4;
 

@@ -14,7 +14,7 @@
 
 package com.google.sps.data;
 
-/* stores one instance of a trend */
+/* Stores one instance of a trend. */
 
 public final class Trend {
 

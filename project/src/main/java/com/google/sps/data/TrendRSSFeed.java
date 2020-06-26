@@ -17,7 +17,7 @@ package com.google.sps.data;
 import java.util.ArrayList;
 import java.util.List;
 
-/* stores the entire Google Trends RSS Feed*/
+/* Stores the entire Google Trends RSS Feed.*/
 
 public class TrendRSSFeed {
   final String title;

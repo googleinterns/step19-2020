@@ -14,7 +14,7 @@
 
 package com.google.sps.data;
 
-/* stores one instance of a trend/item in the RSS Feed */
+/* Stores one instance of a trend/item in the RSS Feed. */
 public class TrendRSS {
   String title;
   String trendFrequency;
