@@ -1,5 +1,6 @@
 const basePath = '/news';
 const numParam = 'num=';
+var content = '';
 
 /** Show and hide nav bar. */
 function toggleNavBar() {
@@ -31,6 +32,7 @@ function switchTrend(val) {
       dots[i].style.backgroundColor = 'transparent';
       document.getElementById('trend-' + nextTrend).style.display = 'block';
       document.getElementById('dot-' + nextTrend).style.backgroundColor='rgb(226, 226, 226)';
+      getArticles(nextTrend);
       updatedCurrentSlide = true;
     }
     i+=1;
@@ -64,6 +66,7 @@ function updateCurrentSlide(val) {
   var newTrend = document.getElementById('trend-' + val);
   newTrend.style.display = 'block';
   document.getElementById('dot-' + val).style.backgroundColor = 'rgb(226, 226, 226)';
+  getArticles(val);
 } 
 
 /** Shows the preloader on page load. */
@@ -82,5 +85,22 @@ function showPage() {
 async function retrieveArticles(numArticles) {
   const requestURL = basePath + '?' + numParam + numArticles;
   const response = await fetch(requestURL);
-  const content = await response.json();
+  content = await response.json();
+  getArticles(1);
+}
+
+/** Displays articles on page. */
+function getArticles(val) {
+  const trend = content[val-1];
+  const articles = trend.articles;
+  for (var i = 0; i < articles.length; i++) {
+    var article = articles[i];
+    var articleContainer = document.getElementsByClassName('articles')[i];
+    articleContainer.innerHTML = "<a href=\"" + article.link + "\"><h1>" + article.title + "</h1></a><h3>author: " + article.author + "</h3><h3>date: " + article.pubDate + "</h3>";
+  }
+}
+
+function loadPage() {
+  showPreloader();
+  retrieveArticles(5);
 }
