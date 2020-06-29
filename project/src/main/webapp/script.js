@@ -69,11 +69,6 @@ function updateCurrentSlide(val) {
   getArticles(val);
 } 
 
-/** Shows the preloader on page load. */
-function showPreloader() {
-  setTimeout(showPage, 3000);
-}
-
 /** Shows main page after page load. */
 function showPage() {
   document.getElementById('preloader').style.display = 'none';
@@ -93,14 +88,46 @@ async function retrieveArticles(numArticles) {
 function getArticles(val) {
   const trend = content[val-1];
   const articles = trend.articles;
-  for (var i = 0; i < articles.length; i++) {
-    var article = articles[i];
-    var articleContainer = document.getElementsByClassName('articles')[i];
-    articleContainer.innerHTML = "<a href=\"" + article.link + "\"><h1>" + article.title + "</h1></a><h3>author: " + article.author + "</h3><h3>date: " + article.pubDate + "</h3>";
-  }
+  const articleContainer = document.getElementById('article-container');
+  articleContainer.innerText = '';
+  var right = false;
+  articles.forEach((article) => {
+    articleContainer.appendChild(createArticleElement(article,right));
+    right = (!right) ? true : false;
+  })
 }
 
+/** Creates an element that represents an article. */
+function createArticleElement(article,right) {
+  const articleElement = document.createElement('div');
+  articleElement.className = (!right) ? 'articles' : 'articles right-justified';
+
+  const linkElement = document.createElement('a');
+  const href = document.createAttribute('href');
+  href.value = article.link;
+  linkElement.setAttributeNode(href);
+
+  const titleElement = document.createElement('h1');
+  // Removes source from title
+  const title = article.title.substring(0,article.title.length - article.source.length - 3);
+  titleElement.innerText = title;
+
+  const authorElement = document.createElement('h3');
+  authorElement.innerText = 'author: ' + article.source;
+
+  const dateElement = document.createElement('h3');
+  dateElement.innerText = 'date: ' + article.pubDate;
+
+  linkElement.appendChild(titleElement);
+  articleElement.appendChild(linkElement);
+  articleElement.appendChild(authorElement);
+  articleElement.appendChild(dateElement);
+  
+  return articleElement;
+}
+
+/** Shows preloader on page load and fetches articles. */
 function loadPage() {
-  showPreloader();
   retrieveArticles(5);
+  setTimeout(showPage, 4000);
 }
