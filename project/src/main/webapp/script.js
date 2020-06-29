@@ -1,3 +1,6 @@
+const basePath = '/news';
+const numParam = 'num=';
+
 /** Show and hide nav bar. */
 function toggleNavBar() {
   const nav = document.getElementById('nav');
@@ -73,4 +76,11 @@ function showPage() {
   document.getElementById('preloader').style.display = 'none';
   var content = document.getElementById('content')
   content.style.cssText = 'display: block; animation: fade-in 2.5s linear';
+}
+
+/** Retrieves list of topics and associated articles from the Backend Server in JSON form. */
+async function retrieveArticles(numArticles) {
+  const requestURL = basePath + '?' + numParam + numArticles;
+  const response = await fetch(requestURL);
+  const content = await response.json();
 }
