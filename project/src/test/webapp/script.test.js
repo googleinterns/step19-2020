@@ -1,5 +1,18 @@
 const script = require('../../main/webapp/script.js');
 
+test('Toggle nav bar', () => {
+  const nav = document.createElement('nav');
+  nav.setAttribute('id','nav');
+  nav.setAttribute('style','display:none');
+  document.body.appendChild(nav);
+  const main = document.createElement('div');
+  main.setAttribute('id','main');
+  document.body.appendChild(main); 
+  script.toggleNavBar();
+  expect(nav.getAttribute('style')).toEqual('display: block;');
+  expect(main.getAttribute('style')).toEqual('display: none;');
+});
+
 /** getNextTrendValue - returns next trend value in carousel */
 
 test('Select right on trend 1 returns trend 2', () => {
