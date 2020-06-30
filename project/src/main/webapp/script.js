@@ -1,5 +1,6 @@
 const basePath = '/news';
 const numParam = 'num=';
+var content = '';
 
 /** Show and hide nav bar. */
 function toggleNavBar() {
@@ -31,6 +32,7 @@ function switchTrend(val) {
       dots[i].style.backgroundColor = 'transparent';
       document.getElementById('trend-' + nextTrend).style.display = 'block';
       document.getElementById('dot-' + nextTrend).style.backgroundColor='rgb(226, 226, 226)';
+      getArticles(nextTrend);
       updatedCurrentSlide = true;
     }
     i+=1;
@@ -64,12 +66,8 @@ function updateCurrentSlide(val) {
   var newTrend = document.getElementById('trend-' + val);
   newTrend.style.display = 'block';
   document.getElementById('dot-' + val).style.backgroundColor = 'rgb(226, 226, 226)';
+  getArticles(val);
 } 
-
-/** Shows the preloader on page load. */
-function showPreloader() {
-  setTimeout(showPage, 3000);
-}
 
 /** Shows main page after page load. */
 function showPage() {
@@ -82,5 +80,54 @@ function showPage() {
 async function retrieveArticles(numArticles) {
   const requestURL = basePath + '?' + numParam + numArticles;
   const response = await fetch(requestURL);
-  const content = await response.json();
+  content = await response.json();
+  getArticles(1);
+}
+
+/** Displays articles on page. */
+function getArticles(val) {
+  const trend = content[val-1];
+  const articles = trend.articles;
+  const articleContainer = document.getElementById('article-container');
+  articleContainer.innerText = '';
+  var right = false;
+  articles.forEach((article) => {
+    articleContainer.appendChild(createArticleElement(article,right));
+    right = (!right) ? true : false;
+  })
+}
+
+/** Creates an element that represents an article. */
+function createArticleElement(article,right) {
+  const articleElement = document.createElement('div');
+  articleElement.className = (!right) ? 'articles' : 'articles right-justified';
+
+  const linkElement = document.createElement('a');
+  const href = document.createAttribute('href');
+  href.value = article.link;
+  linkElement.setAttributeNode(href);
+
+  const titleElement = document.createElement('h1');
+  // Removes source from title
+  const title = article.title.substring(0,article.title.length - article.source.length - 3);
+  titleElement.innerText = title;
+
+  const authorElement = document.createElement('h3');
+  authorElement.innerText = 'author: ' + article.source;
+
+  const dateElement = document.createElement('h3');
+  dateElement.innerText = 'date: ' + article.pubDate;
+
+  linkElement.appendChild(titleElement);
+  articleElement.appendChild(linkElement);
+  articleElement.appendChild(authorElement);
+  articleElement.appendChild(dateElement);
+  
+  return articleElement;
+}
+
+/** Shows preloader on page load and fetches articles. */
+function loadPage() {
+  retrieveArticles(5);
+  setTimeout(showPage, 4000);
 }
