@@ -20,15 +20,14 @@ import javax.servlet.http.HttpServlet;
 import com.google.gson.Gson;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import com.google.sps.data.TrendService;
+import com.google.sps.data.TrendService; //imports class needed to store trends and retrieve trends from Datastore
+
 
 @WebServlet("/trends")
 public class TrendServlet extends HttpServlet {
 
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    // TODO: make getTrends() an automated function. Right now, whenever you make a GET request to '/trends' it adds
-    // trends to the Datastore and it should only be doing this at certain times.
     Gson gson = new Gson();
     TrendService trend = new TrendService();
     response.setContentType("application/json;");

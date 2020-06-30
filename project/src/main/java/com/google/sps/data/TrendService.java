@@ -33,6 +33,8 @@ import com.google.sps.data.TrendRSS;
 import com.google.sps.data.TrendRSSFeed;
 import com.google.sps.data.TrendFrequencyParser;
 
+
+/* Class that contains all the functions needed to parse trends from a RSS Feed, store those trends in Datastore, and retreive them from Datastore in a list. */
 public class TrendService {
   /* Returns a list of trends. */
   public List<Trend> showTrends() {
@@ -43,14 +45,22 @@ public class TrendService {
     PreparedQuery results = datastore.prepare(query);
 
     List<Trend> trends = new ArrayList<>();
-    for (Entity entity : results.asIterable()) {
+    Iterator<Entity> totalTrends = results.asIterable().iterator();
+
+    int i = 0;
+    int topicsLimit = 4; 
+
+    while (totalTrends.hasNext() && i < topicsLimit) {
+      Entity entity = totalTrends.next();
       long id = entity.getKey().getId();
       String title = (String) entity.getProperty("title");
       long frequency = (long) entity.getProperty("traffic");
       long timestamp = (long) entity.getProperty("timestamp");
       Trend trend = new Trend(id, title, frequency, timestamp);
       trends.add(trend);
+      i++;
     }
+    
     return trends;
   }
 
