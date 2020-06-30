@@ -27,13 +27,24 @@ import java.util.*;
 public class NewsService {
   // one instance, reuse
   private final OkHttpClient httpClient = new OkHttpClient();
+  private final NewsRepository newsRepository = new NewsRepository();
 
-  // List of Topic names is passed in, 
-  /*
-  public List<Topic> populateTopics(List<String> topicNames) {
-    
+  // List of Topic names is passed in along with the number of articles for each topic, then Topic Objects are generated pairing topic names with article lists which are all returned in one big Topic Object list.
+  public List<Topic> populateTopics(List<String> topicNames, List<Integer> frequencies, int numArticles) {
+    List<Topic> topics = new ArrayList<Topic>();
+    List<Article> articles;
+    for(int i = 0; i < topicNames.size(); i++) {
+      String topicName = topicNames.get(i);
+      int frequency = frequencies.get(i);
+      articles = retrieveNewArticles(topicName, numArticles);
+      Topic topic = new Topic(topicName, frequency, articles);
+      topics.add(topic);
+    }
+
+    newsRepository.storeTopics(topics);
+
+    return topics;
   }
-  */
 
   // Retrieves articles from the Google News RSS Feed using the topic parameter as the search query
   // The Topic parameter allows for spaces and non-alphanumeric characters. Null and "" are invalid arguments.

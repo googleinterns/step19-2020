@@ -16,18 +16,31 @@ package com.google.sps.servlets;
 
 import java.util.*;
 
-/** Topic class that serves as a Model for each Topic that is paired with a list of articles */
+import com.googlecode.objectify.annotation.Entity;
+import com.googlecode.objectify.annotation.Id;
+
+/** Topic class that serves as a Model for each Topic that is paired with a list of articles. */
+@Entity
 public class Topic {
+  @Id
+  private Long id;
+
   private String name;
+  private int frequency;
   private List<Article> articles;
 
-  public Topic(String name, List<Article> articles) {
+  public Topic(String name, int frequency, List<Article> articles) {
     this.name = name;
+    this.frequency = frequency;
     this.articles = articles;
   }
 
   public String getName() {
     return name;
+  }
+
+  public int getFrequency() {
+    return frequency;
   }
 
   public List<Article> getArticles() {
