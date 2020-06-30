@@ -19,6 +19,8 @@ function toggleNavBar() {
   }
 }
 
+module.exports.toggleNavBar = toggleNavBar;
+
 /** Updates trend in carousel and respective dot based on next/previous buttons. */
 function switchTrend(val) {
   var trends = document.getElementsByClassName('trends');
@@ -54,6 +56,8 @@ function getNextTrendValue(trend, val) {
   }
   return nextSlide;
 }
+
+module.exports.getNextTrendValue = getNextTrendValue;
 
 /** Updates trend in carousel based on dot controls. */
 function updateCurrentSlide(val) {
