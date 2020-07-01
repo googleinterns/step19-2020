@@ -82,7 +82,6 @@ async function retrieveArticles(numArticles) {
   const response = await fetch(requestURL);
   content = await response.json();
   getArticles(1);
-  console.log(content);
 }
 
 /** Displays articles on page. */
