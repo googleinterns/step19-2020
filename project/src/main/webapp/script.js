@@ -82,6 +82,7 @@ async function retrieveArticles(numArticles) {
   const response = await fetch(requestURL);
   content = await response.json();
   getArticles(1);
+  getTrends();
 }
 
 /** Displays articles on page. */
@@ -124,6 +125,34 @@ function createArticleElement(article,right) {
   articleElement.appendChild(dateElement);
   
   return articleElement;
+}
+
+/** Displays trends on page. */
+function getTrends() {
+  const trendContainer = document.getElementById('trend-container');
+  trendContainer.innerText = '';  
+  for (var i = 1; i < 5; i++) {
+    var trend = content[i-1];    
+    trendContainer.appendChild(createTrendElement(trend.name, i)); 
+  }
+}
+
+/** Creates an element that represents a trend. */
+function createTrendElement(trend, val) {
+  const trendElement = document.createElement('div');
+  trendElement.className = 'trends';
+  
+  const id = document.createAttribute('id');
+  id.value = 'trend-' + val;
+
+  const value = document.createAttribute('value');
+  value.value = val;
+
+  trendElement.setAttributeNode(id);
+  trendElement.setAttributeNode(value);
+  trendElement.innerText = trend;
+  if (val === 1) trendElement.setAttribute('style', 'display: block;');
+  return trendElement;
 }
 
 /** Shows preloader on page load and fetches articles. */
