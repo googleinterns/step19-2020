@@ -16,6 +16,7 @@ package com.google.sps.servlets;
 
 import java.util.*;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import java.io.IOException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -36,12 +37,17 @@ public class NewsServlet extends HttpServlet {
     List<Trend> trends = trendService.showTrends();
     response.setContentType("text/html;");
     int numArticles = Integer.parseInt(request.getParameter("num"));
-    String jsonString = convertToJson(newsService.populateTopics(trends, numArticles));
+    List<Topic> topics = newsService.populateTopics(trends, numArticles);
+    System.out.println(topics);
+    String jsonString = convertToJson(topics).replaceAll("’", "\u0027");
+    jsonString = jsonString.replaceAll("‘",  "\u0027");
+    System.out.println(jsonString);
     response.getWriter().println(jsonString);
   }
 
   private String convertToJson(List<Topic> list) {
-    Gson gson = new Gson();
+    GsonBuilder builder = new GsonBuilder();
+    Gson gson = builder.create();
     String json = gson.toJson(list);
     return json;
   }
