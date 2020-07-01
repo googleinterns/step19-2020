@@ -28,6 +28,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
 import java.net.URL;
 import java.util.List;
+import java.util.Iterator;
 import com.google.sps.data.Trend;
 import com.google.sps.data.TrendRSS;
 import com.google.sps.data.TrendRSSFeed;

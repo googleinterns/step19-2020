@@ -21,31 +21,22 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import com.google.sps.data.Trend;
+import com.google.sps.data.TrendService; //imports class needed to store trends and retrieve trends from Datastore
 
 /** Servlet that returns articles and topics that are requested at the /news endpoint "num" parameter required. */
 @WebServlet("/news")
 public class NewsServlet extends HttpServlet {
 
   private NewsService newsService = new NewsService();
+  private TrendService trendService = new TrendService();
 
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    // Temporary placeholder topics
-    List<String> topicNames = new ArrayList<>();
-    topicNames.add("Covid-19 Symptoms");
-    topicNames.add("Mitch McConell");
-    topicNames.add("Hand Sanitizer");
-    topicNames.add("Minecraft Nether Update");
-
-    // Temporary placeholder frequencies
-    List<Integer> frequencies = new ArrayList<>();
-    frequencies.add(100000);
-    frequencies.add(100000);
-    frequencies.add(50000);
-    frequencies.add(50000);
+    List<Trend> trends = trendService.showTrends();
     response.setContentType("text/html;");
     int numArticles = Integer.parseInt(request.getParameter("num"));
-    String jsonString = convertToJson(newsService.populateTopics(topicNames, frequencies, numArticles));
+    String jsonString = convertToJson(newsService.populateTopics(trends, numArticles));
     response.getWriter().println(jsonString);
   }
 

@@ -26,10 +26,10 @@ public class Topic {
   private Long id;
 
   private String name;
-  private int frequency;
+  private long frequency;
   private List<Article> articles;
 
-  public Topic(String name, int frequency, List<Article> articles) {
+  public Topic(String name, long frequency, List<Article> articles) {
     this.name = name;
     this.frequency = frequency;
     this.articles = articles;
@@ -39,7 +39,7 @@ public class Topic {
     return name;
   }
 
-  public int getFrequency() {
+  public long getFrequency() {
     return frequency;
   }
 
