@@ -19,6 +19,7 @@ import com.rometools.rome.feed.synd.SyndFeed;
 import com.rometools.rome.feed.synd.SyndEntry;
 import com.rometools.rome.io.SyndFeedInput;
 import com.rometools.rome.io.XmlReader;
+import com.google.sps.data.Trend;
 
 import java.net.*;
 import java.util.*;
@@ -30,18 +31,16 @@ public class NewsService {
   private final NewsRepository newsRepository = new NewsRepository();
 
   // List of Topic names is passed in along with the number of articles for each topic, then Topic Objects are generated pairing topic names with article lists which are all returned in one big Topic Object list.
-  public List<Topic> populateTopics(List<String> topicNames, List<Integer> frequencies, int numArticles) {
+  public List<Topic> populateTopics(List<Trend> trends, int numArticles) {
     List<Topic> topics = new ArrayList<Topic>();
     List<Article> articles;
-    for(int i = 0; i < topicNames.size(); i++) {
-      String topicName = topicNames.get(i);
-      int frequency = frequencies.get(i);
+    for(int i = 0; i < trends.size(); i++) {
+      String topicName = trends.get(i).getTitle();
+      long frequency = trends.get(i).getFrequency();
       articles = retrieveNewArticles(topicName, numArticles);
       Topic topic = new Topic(topicName, frequency, articles);
       topics.add(topic);
     }
-
-    newsRepository.storeTopics(topics);
 
     return topics;
   }
