@@ -128,7 +128,6 @@ function createTrendElement(trend, val) {
   const trendElement = document.createElement('div');
   trendElement.className = 'trends';
   trendElement.setAttribute('id','trend-' + val);
-  trendElement.setAttribute('value',val);
   trendElement.innerText = trend;
   return trendElement;
 }
