@@ -51,6 +51,7 @@ body {
   position: absolute;
   top: 2vw;
   right: 2vw;
+  cursor: pointer;
 }
 
 #hamburger-icon div {
