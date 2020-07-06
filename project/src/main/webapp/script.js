@@ -21,8 +21,8 @@ function toggleNavBar() {
 }
 
 /** Updates trend in carousel and respective dot based on next/previous buttons. */
-function switchTrend(val) {
-  const nextTrend = getNextTrendValue(val);
+function switchTrend(val, arrow) {
+  const nextTrend = (arrow) ? getNextTrendValue(val) : val;
   const oldDot = document.getElementById('dot-' + currentTrendVal);
   const newDot = document.getElementById('dot-' + nextTrend);
   oldDot.style.backgroundColor = 'transparent';
@@ -46,17 +46,6 @@ function getNextTrendValue(val) {
     nextSlide = currentTrendVal + val;
   }
   return nextSlide;
-}
-
-/** Updates trend in carousel based on dot controls. */
-function updateCurrentSlide(newTrendVal) {
-  var oldDot = document.getElementById('dot-' + currentTrendVal);
-  oldDot.style.backgroundColor = 'transparent';
-  var newDot = document.getElementById('dot-' + newTrendVal);
-  newDot.style.backgroundColor = 'rgb(226, 226, 226)';
-  currentTrendVal = newTrendVal;
-  getTrends(newTrendVal);
-  getArticles(newTrendVal);
 }
 
 /** Shows main page after page load. */
