@@ -51,6 +51,7 @@ body {
   position: absolute;
   top: 2vw;
   right: 2vw;
+  cursor: pointer;
 }
 
 #hamburger-icon div {
@@ -186,12 +187,6 @@ li {
   font-size: 3vw;
   margin: -5vh auto 4vh auto;
   max-width: 50vw;
-}
-
-#trend-2,
-#trend-3,
-#trend-4 {
-  display: none;
 }
 
 #dot-container {

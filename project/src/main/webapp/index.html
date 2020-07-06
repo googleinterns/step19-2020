@@ -43,21 +43,17 @@
       <div class="section" id="trending-topics">
         <div id="slideshow-container">
           <div id="slideshow-arrows">
-            <div id="slideshow-left" onclick="switchTrend(-1)"></div>
-            <div id="slideshow-right" onclick="switchTrend(+1)"></div>
+            <div id="slideshow-left" onclick="switchTrend(-1,true)"></div>
+            <div id="slideshow-right" onclick="switchTrend(+1,true)"></div>
           </div> 
-          <div class="trends" id="trend-1" value="1" style="display: block">Covid-19 Symptoms</div>
-          <div class="trends" id="trend-2" value="2">Mitch McConnell</div>
-          <div class="trends" id="trend-3" value="3">Hand Sanitizer</div>
-          <div class="trends" id="trend-4" value="4">Minecraft Nether Update</div>
+          <div id="trend-container"></div>
           <div id="dot-container">
-            <div class="dots" id="dot-1" onclick="updateCurrentSlide(1)"></div>
-            <div class="dots" id="dot-2" onclick="updateCurrentSlide(2)"></div>
-            <div class="dots" id="dot-3" onclick="updateCurrentSlide(3)"></div>
-            <div class="dots" id="dot-4" onclick="updateCurrentSlide(4)"></div>
+            <div class="dots" id="dot-1" onclick="switchTrend(1,false)"></div>
+            <div class="dots" id="dot-2" onclick="switchTrend(2,false)"></div>
+            <div class="dots" id="dot-3" onclick="switchTrend(3,false)"></div>
+            <div class="dots" id="dot-4" onclick="switchTrend(4,false)"></div>
           </div>
-          <div id="article-container">
-          </div>
+          <div id="article-container"></div>
         </div> 
       </div>
     </div>

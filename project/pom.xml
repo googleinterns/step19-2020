@@ -53,6 +53,7 @@
       <artifactId>rome</artifactId>
       <version>1.9.0</version>
     </dependency>
+
   </dependencies>
 
   <build>
@@ -65,7 +66,7 @@
         <version>2.2.0</version>
         <configuration>
           <!-- TODO: set project ID. -->
-          <deploy.projectId>YOUR_PROJECT_ID_HERE</deploy.projectId>
+          <deploy.projectId>step-peas-in-a-pod</deploy.projectId>
           <deploy.version>1</deploy.version>
         </configuration>
       </plugin>
