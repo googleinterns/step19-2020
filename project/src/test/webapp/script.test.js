@@ -1,7 +1,4 @@
-const content = require('../../main/webapp/content.js');
 const script = require('../../main/webapp/script.js');
-
-jest.mock('../../main/webapp/content.js');
 
 /** toggleNavBar - show and hide nav bar. */
 describe('Toggle nav bar', () => {
