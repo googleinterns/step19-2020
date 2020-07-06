@@ -189,12 +189,6 @@ li {
   max-width: 50vw;
 }
 
-#trend-2,
-#trend-3,
-#trend-4 {
-  display: none;
-}
-
 #dot-container {
   text-align: center;
   position: relative;
