@@ -5,6 +5,12 @@ var trend = {
   currentTrendVal: 1
 };
 
+module.exports = {
+  toggleNavBar: toggleNavBar,
+  switchTrend: switchTrend,
+  getNextTrendValue: getNextTrendValue
+};
+
 /** Show and hide nav bar. */
 function toggleNavBar() {
   const nav = document.getElementById('nav');
@@ -22,11 +28,10 @@ function toggleNavBar() {
   }
 }
 
-exports.toggleNavBar = toggleNavBar;
-
 /** Updates trend in carousel and respective dot based on next/previous buttons. */
-function switchTrend(val, arrow, trend) {
-  const nextTrend = arrow ? getNextTrendValue(val) : val;
+function switchTrend(val, arrow, trends) {
+  if (trends === undefined) trends = trend;  
+  const nextTrend = arrow ? getNextTrendValue(val, trends.currentTrendVal) : val;
   const oldDot = document.getElementById('dot-' + trend.currentTrendVal);
   const newDot = document.getElementById('dot-' + nextTrend);
   oldDot.style.backgroundColor = 'transparent';
@@ -40,25 +45,19 @@ function switchTrend(val, arrow, trend) {
   }
 }
 
-exports.switchTrend = switchTrend;
-
 /** Returns next trend value in carousel. */
-function getNextTrendValue(val) {
-  var nextSlide = -1;
-
+function getNextTrendValue(direction, trendVal) {
+  var nextSlide = direction + trendVal;
   // Clicking left on the first slide returns to last slide
-  if (trend.currentTrendVal + val === 0) {
+  if (nextSlide === 0) {
     nextSlide = 4;
   // Clicking right on the last slide returns to first slide  
-  } else if (trend.currentTrendVal + val === 5) {
+  } else if (nextSlide === 5) {
     nextSlide = 1;
-  } else {
-    nextSlide = trend.currentTrendVal + val;
-  }
+  } 
+
   return nextSlide;
 }
-
-exports.getNextTrendValue = getNextTrendValue;
 
 /** Shows main page after page load. */
 function showPage() {
