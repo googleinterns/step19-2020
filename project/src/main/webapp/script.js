@@ -1,7 +1,8 @@
+//import content from './content.js';
 const basePath = '/news';
 const numParam = 'num=';
+//var content = new Content();
 var content = '';
-
 /** Show and hide nav bar. */
 function toggleNavBar() {
   const nav = document.getElementById('nav');
@@ -18,6 +19,8 @@ function toggleNavBar() {
     }
   }
 }
+
+exports.toggleNavBar = toggleNavBar;
 
 /** Updates trend in carousel and respective dot based on next/previous buttons. */
 function switchTrend(val) {
@@ -38,6 +41,8 @@ function switchTrend(val) {
     i+=1;
   }
 }
+
+exports.switchTrend = switchTrend;
 
 /** Returns next trend value in carousel. */
 function getNextTrendValue(trend, val) {
@@ -80,7 +85,8 @@ function showPage() {
 async function retrieveArticles(numArticles) {
   const requestURL = basePath + '?' + numParam + numArticles;
   const response = await fetch(requestURL);
-  content = await response.json();
+  //content = await response.json();
+  content.setContent(await response.json());
   getArticles(1);
 }
 
@@ -127,7 +133,7 @@ function createArticleElement(article,right) {
 }
 
 /** Shows preloader on page load and fetches articles. */
-function loadPage() {
+function loadPage() {  
   retrieveArticles(5);
   setTimeout(showPage, 4000);
 }
