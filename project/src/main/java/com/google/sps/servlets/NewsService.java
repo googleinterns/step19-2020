@@ -14,7 +14,6 @@
 
 package com.google.sps.servlets;
 
-import okhttp3.*;
 import com.rometools.rome.feed.synd.SyndFeed;
 import com.rometools.rome.feed.synd.SyndEntry;
 import com.rometools.rome.io.SyndFeedInput;
@@ -27,8 +26,12 @@ import java.util.*;
 /** Service class that delivers news under a requested topic. */
 public class NewsService {
   // one instance, reuse
-  private final OkHttpClient httpClient = new OkHttpClient();
   private final NewsRepository newsRepository = new NewsRepository();
+  private Fetcher fetcher;
+
+  public NewsService(Fetcher fetcher) {
+    this.fetcher = fetcher;
+  }
 
   // List of Topic names is passed in along with the number of articles for each topic, then Topic Objects are generated pairing topic names with article lists which are all returned in one big Topic Object list.
   public List<Topic> populateTopics(List<Trend> trends, int numArticles) {
@@ -51,24 +54,13 @@ public class NewsService {
     String url = String.format("https://news.google.com/rss/search?q=%s", topic);
     List<Article> articles;
     try {
-      articles = cleanSyndFeed(getSyndFeed(url), numArticles);
+      articles = cleanSyndFeed(fetcher.getSyndFeed(url), numArticles);
     } catch(Exception exception) {
       articles = null;
       exception.printStackTrace();
     }
 
     return articles;
-  }
-
-  private SyndFeed getSyndFeed(String url) throws Exception{
-    // Encode URL so that it can include spaces
-    String encodedUrl = url.replaceAll(" ", "%20");
-    // Building SyndFeed
-    URL feedSource = new URL(encodedUrl);
-    SyndFeedInput input = new SyndFeedInput();
-    SyndFeed feed = input.build(new XmlReader(feedSource));
-
-    return feed;
   }
 
   private List<Article> cleanSyndFeed(SyndFeed syndFeed, int numArticles) {
