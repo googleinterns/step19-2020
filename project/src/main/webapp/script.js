@@ -8,7 +8,12 @@ var trend = {
 module.exports = {
   toggleNavBar: toggleNavBar,
   switchTrend: switchTrend,
-  getNextTrendValue: getNextTrendValue
+  getNextTrendValue: getNextTrendValue,
+  showPage: showPage,
+  getArticles: getArticles,
+  createArticleElement: createArticleElement,
+  getTrends: getTrends,
+  createTrendElement: createTrendElement
 };
 
 /** Show and hide nav bar. */
@@ -80,33 +85,32 @@ function getArticles(val, content) {
   const trend = content[val-1];
   const articles = trend.articles;
   const articleContainer = document.getElementById('article-container');
-  articleContainer.innerText = '';
+  articleContainer.innerHTML = '';
   var right = false;
+  console.log(articles);
   articles.forEach((article) => {
-    articleContainer.appendChild(createArticleElement(article,right));
+    articleContainer.appendChild(createArticleElement(article.link, article.title, article.source, article.pubDate, right));
     right = (!right) ? true : false;
   })
 }
 
 /** Creates an element that represents an article. */
-function createArticleElement(article,right) {
+function createArticleElement(link, title, source, date, right) {
   const articleElement = document.createElement('div');
   articleElement.className = (!right) ? 'articles' : 'articles right-justified';
 
   const linkElement = document.createElement('a');
-  linkElement.setAttribute('href',article.link);
+  linkElement.setAttribute('href',link);
 
   const titleElement = document.createElement('h1');
   // Removes source from title
-  const title = article.title.substring(0,article.title.length - article.source.length - 3);
-  titleElement.innerText = title;
-
+  const articleTitle = title.substring(0,title.length - source.length - 3);
+  titleElement.innerText = articleTitle;
   const authorElement = document.createElement('h3');
-  authorElement.innerText = 'author: ' + article.source;
+  authorElement.innerText = 'author: ' + source;
 
   const dateElement = document.createElement('h3');
-  dateElement.innerText = 'date: ' + article.pubDate;
-
+  dateElement.innerText = 'date: ' + date;
   linkElement.appendChild(titleElement);
   articleElement.appendChild(linkElement);
   articleElement.appendChild(authorElement);
@@ -118,8 +122,8 @@ function createArticleElement(article,right) {
 /** Displays trends on page. */
 function getTrends(val, content) {
   const trendContainer = document.getElementById('trend-container');
-  trendContainer.innerText = '';  
-  var trend = content[val-1];    
+  trendContainer.innerHTML = '';  
+  var trend = content[val-1];   
   trendContainer.appendChild(createTrendElement(trend.name, val)); 
 }
 
