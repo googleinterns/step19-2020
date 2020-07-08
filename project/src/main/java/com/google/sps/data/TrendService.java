@@ -32,6 +32,7 @@ import com.google.sps.data.Trend;
 import com.google.sps.data.TrendRSS;
 import com.google.sps.data.TrendRSSFeed;
 import com.google.sps.data.TrendFrequencyParser;
+import java.util.Iterator;
 
 
 /* Class that contains all the functions needed to parse trends from a RSS Feed, store those trends in Datastore, and retreive them from Datastore in a list. */
@@ -65,17 +66,24 @@ public class TrendService {
   }
 
   /* Stores a Trend object in Datastore. */
-  public void storeTrend(String topic, String frequency) {
+  public Entity makeTrend(String topic, String frequency) {
+    
     long timestamp = System.currentTimeMillis();
     Integer freq = convertToInt(frequency);
     Entity trendEntity = new Entity("Trend");
     trendEntity.setProperty("title", topic);
     if (freq != null) {
       trendEntity.setProperty("traffic", freq.intValue());
+    } else {
+      trendEntity.setProperty("traffic", 0);
     }
     trendEntity.setProperty("timestamp", timestamp);
+    return trendEntity;
+  }
+
+  public void storeTrend(Entity trend) {
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
-    datastore.put(trendEntity);
+    datastore.put(trend);
   }
 
   /* Converts a string to an Integer. */
@@ -90,16 +98,19 @@ public class TrendService {
   }
 
   /* Loops through the top four trends and stores them in Datastore. */
-  public void getTrends() throws IOException {
+  public void newTrends() throws IOException {
     int topicsLimit = 4;
 
     TrendFrequencyParser parser = new TrendFrequencyParser("https://trends.google.com/trends/trendingsearches/daily/rss?geo=US");
     TrendRSSFeed feed = parser.readTrends();
     List<TrendRSS> trends = feed.getTrends();
+    limitTrends(topicsLimit, trends);
+  }
 
-    for (int i = 0; i < topicsLimit; i++) {
-      TrendRSS trend = trends.get(i);
-      storeTrend(trend.getTitle(), trend.getFreq());
+  public void limitTrends(int limit, List<TrendRSS> source) {
+    for (int i = 0; i < limit; i++) {
+      TrendRSS trend = source.get(i);
+      storeTrend(makeTrend(trend.getTitle(), trend.getFreq()));
     }
   }
 }
