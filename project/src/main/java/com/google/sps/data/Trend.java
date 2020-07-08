@@ -29,4 +29,12 @@ public final class Trend {
     this.frequency = frequency;
     this.timestamp = timestamp;
   }
+
+  public String getTitle() {
+    return title;
+  }
+
+  public long getFrequency() {
+    return frequency;
+  }
 }

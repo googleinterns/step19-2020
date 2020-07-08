@@ -1,6 +1,7 @@
 const basePath = '/news';
 const numParam = 'num=';
 var content = '';
+var currentTrendVal = 1;
 
 /** Show and hide nav bar. */
 function toggleNavBar() {
@@ -20,29 +21,21 @@ function toggleNavBar() {
 }
 
 /** Updates trend in carousel and respective dot based on next/previous buttons. */
-function switchTrend(val) {
-  var trends = document.getElementsByClassName('trends');
-  var dots = document.getElementsByClassName('dots');
-  var i = 0;
-  var updatedCurrentSlide = false;
-  while(i < trends.length && !updatedCurrentSlide) {
-    if(trends[i].style.display === 'block') {
-      var nextTrend = getNextTrendValue(trends[i],val);
-      trends[i].style.display = 'none';
-      dots[i].style.backgroundColor = 'transparent';
-      document.getElementById('trend-' + nextTrend).style.display = 'block';
-      document.getElementById('dot-' + nextTrend).style.backgroundColor='rgb(226, 226, 226)';
-      getArticles(nextTrend);
-      updatedCurrentSlide = true;
-    }
-    i+=1;
-  }
+function switchTrend(val, arrow) {
+  const nextTrend = (arrow) ? getNextTrendValue(val) : val;
+  const oldDot = document.getElementById('dot-' + currentTrendVal);
+  const newDot = document.getElementById('dot-' + nextTrend);
+  oldDot.style.backgroundColor = 'transparent';
+  newDot.style.backgroundColor = 'rgb(226, 226, 226)';
+  currentTrendVal = nextTrend;
+  getTrends(currentTrendVal);
+  getArticles(currentTrendVal);
 }
 
 /** Returns next trend value in carousel. */
-function getNextTrendValue(trend, val) {
+function getNextTrendValue(val) {
   var nextSlide = -1;
-  var currentTrendVal = parseInt(trend.getAttribute('value'));
+
   // Clicking left on the first slide returns to last slide
   if (currentTrendVal + val === 0) {
     nextSlide = 4;
@@ -54,20 +47,6 @@ function getNextTrendValue(trend, val) {
   }
   return nextSlide;
 }
-
-/** Updates trend in carousel based on dot controls. */
-function updateCurrentSlide(val) {
-  var trends = document.getElementsByClassName('trends');
-  var dots = document.getElementsByClassName('dots');
-  for (var i = 0; i < trends.length; i++) {
-    trends[i].style.display = 'none';
-    dots[i].style.backgroundColor = 'transparent';
-  }
-  var newTrend = document.getElementById('trend-' + val);
-  newTrend.style.display = 'block';
-  document.getElementById('dot-' + val).style.backgroundColor = 'rgb(226, 226, 226)';
-  getArticles(val);
-} 
 
 /** Shows main page after page load. */
 function showPage() {
@@ -81,7 +60,8 @@ async function retrieveArticles(numArticles) {
   const requestURL = basePath + '?' + numParam + numArticles;
   const response = await fetch(requestURL);
   content = await response.json();
-  getArticles(1);
+  getArticles(currentTrendVal);
+  getTrends(currentTrendVal);
 }
 
 /** Displays articles on page. */
@@ -103,9 +83,7 @@ function createArticleElement(article,right) {
   articleElement.className = (!right) ? 'articles' : 'articles right-justified';
 
   const linkElement = document.createElement('a');
-  const href = document.createAttribute('href');
-  href.value = article.link;
-  linkElement.setAttributeNode(href);
+  linkElement.setAttribute('href',article.link);
 
   const titleElement = document.createElement('h1');
   // Removes source from title
@@ -124,6 +102,23 @@ function createArticleElement(article,right) {
   articleElement.appendChild(dateElement);
   
   return articleElement;
+}
+
+/** Displays trends on page. */
+function getTrends(val) {
+  const trendContainer = document.getElementById('trend-container');
+  trendContainer.innerText = '';  
+  var trend = content[val-1];    
+  trendContainer.appendChild(createTrendElement(trend.name, val)); 
+}
+
+/** Creates an element that represents a trend. */
+function createTrendElement(trend, val) {
+  const trendElement = document.createElement('div');
+  trendElement.className = 'trends';
+  trendElement.setAttribute('id','trend-' + val);
+  trendElement.innerText = trend;
+  return trendElement;
 }
 
 /** Shows preloader on page load and fetches articles. */
