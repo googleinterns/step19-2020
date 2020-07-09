@@ -1,7 +1,15 @@
 const basePath = '/news';
 const numParam = 'num=';
-var content = '';
-var currentTrendVal = 1;
+var trend = {
+  content: '',
+  currentTrendVal: 1
+};
+
+module.exports = {
+  toggleNavBar: toggleNavBar,
+  switchTrend: switchTrend,
+  getNextTrendValue: getNextTrendValue
+};
 
 /** Show and hide nav bar. */
 function toggleNavBar() {
@@ -21,30 +29,33 @@ function toggleNavBar() {
 }
 
 /** Updates trend in carousel and respective dot based on next/previous buttons. */
-function switchTrend(val, arrow) {
-  const nextTrend = (arrow) ? getNextTrendValue(val) : val;
-  const oldDot = document.getElementById('dot-' + currentTrendVal);
+function switchTrend(val, arrow, trends) {
+  if (trends === undefined) trends = trend;  
+  const nextTrend = arrow ? getNextTrendValue(val, trends.currentTrendVal) : val;
+  const oldDot = document.getElementById('dot-' + trend.currentTrendVal);
   const newDot = document.getElementById('dot-' + nextTrend);
   oldDot.style.backgroundColor = 'transparent';
   newDot.style.backgroundColor = 'rgb(226, 226, 226)';
-  currentTrendVal = nextTrend;
-  getTrends(currentTrendVal);
-  getArticles(currentTrendVal);
+  trend.currentTrendVal = nextTrend;
+  if (trend.content.length === 0) {
+    return '';
+  } else {
+    getTrends(trend.currentTrendVal,trend.content);
+    getArticles(trend.currentTrendVal,trend.content);
+  }
 }
 
 /** Returns next trend value in carousel. */
-function getNextTrendValue(val) {
-  var nextSlide = -1;
-
+function getNextTrendValue(direction, trendVal) {
+  var nextSlide = direction + trendVal;
   // Clicking left on the first slide returns to last slide
-  if (currentTrendVal + val === 0) {
+  if (nextSlide === 0) {
     nextSlide = 4;
   // Clicking right on the last slide returns to first slide  
-  } else if (currentTrendVal + val === 5) {
+  } else if (nextSlide === 5) {
     nextSlide = 1;
-  } else {
-    nextSlide = currentTrendVal + val;
-  }
+  } 
+
   return nextSlide;
 }
 
@@ -56,16 +67,16 @@ function showPage() {
 }
 
 /** Retrieves list of topics and associated articles from the Backend Server in JSON form. */
-async function retrieveArticles(numArticles) {
+async function retrieveArticles(numArticles, trend) {
   const requestURL = basePath + '?' + numParam + numArticles;
   const response = await fetch(requestURL);
-  content = await response.json();
-  getArticles(currentTrendVal);
-  getTrends(currentTrendVal);
+  trend.content = await response.json();
+  getArticles(trend.currentTrendVal, trend.content);
+  getTrends(trend.currentTrendVal, trend.content);
 }
 
 /** Displays articles on page. */
-function getArticles(val) {
+function getArticles(val, content) {
   const trend = content[val-1];
   const articles = trend.articles;
   const articleContainer = document.getElementById('article-container');
@@ -105,7 +116,7 @@ function createArticleElement(article,right) {
 }
 
 /** Displays trends on page. */
-function getTrends(val) {
+function getTrends(val, content) {
   const trendContainer = document.getElementById('trend-container');
   trendContainer.innerText = '';  
   var trend = content[val-1];    
@@ -122,7 +133,7 @@ function createTrendElement(trend, val) {
 }
 
 /** Shows preloader on page load and fetches articles. */
-function loadPage() {
-  retrieveArticles(5);
+function loadPage() {  
+  retrieveArticles(5, trend);
   setTimeout(showPage, 4000);
 }
