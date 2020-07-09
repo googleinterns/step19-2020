@@ -52,8 +52,6 @@ public final class TrendRSSFeedTest {
     Assert.assertEquals(results.size(), 20);
   }
 
-
-
   @Test
   public void IntConverterCatchesError() {
     Assert.assertNull(service.convertToInt("hello"));
@@ -88,5 +86,3 @@ public final class TrendRSSFeedTest {
     Assert.assertEquals(0, trend.getProperty("traffic"));
   }
 }
-
-
