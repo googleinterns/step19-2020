@@ -65,7 +65,7 @@ public class Article {
     return String.format("%s %s %s %s %s", title, link, pubDate.toString(), description, source);
   }
 
-  public Integer getSentiment() {
+  public Float getSentiment() {
     return sentiment;
   }
 }
