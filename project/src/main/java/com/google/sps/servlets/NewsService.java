@@ -85,7 +85,7 @@ public class NewsService {
     List<Article> articles = new ArrayList<Article>();
     for(int i = 0; i < numArticles; i++) {
       SyndEntry syndEntry = syndEntries.get(i);
-      Integer articleSentiment = findSentimentScore(syndEntry.getTitle());
+      Float articleSentiment = findSentimentScore(syndEntry.getTitle());
       Article article = new Article(syndEntry.getTitle(), syndEntry.getLink(), syndEntry.getPublishedDate(), syndEntry.getDescription().getValue(), syndEntry.getSource().getTitleEx().getValue(), articleSentiment);
       articles.add(article);
     }
@@ -99,7 +99,7 @@ public class NewsService {
       AnalyzeSentimentResponse response = language.analyzeSentiment(doc);
       Sentiment sentiment = response.getDocumentSentiment();
       if (sentiment == null) {
-        return sentiment;
+        return null;
       } else {
         return sentiment.getScore();
       }

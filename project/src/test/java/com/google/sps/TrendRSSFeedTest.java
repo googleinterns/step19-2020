@@ -42,13 +42,13 @@ public final class TrendRSSFeedTest {
 
   @Test
   public void ReadTrendsTest() throws IOException {
-    TrendRSSFeed testfeed = parser.readTrendsFromStream(new FileInputStream(new File("/home/acnwigwe/step19-2020/project/src/test/java/com/google/sps/RSSFeed.xml")));
+    TrendRSSFeed testfeed = parser.readTrendsFromStream(new FileInputStream(new File("src/test/java/com/google/sps/RSSFeed.xml")));
     Assert.assertNotNull(testfeed);
   }
 
   @Test
   public void GetTrendsTest() throws IOException {
-    List<TrendRSS> results = parser.readTrendsFromStream(new FileInputStream(new File("/home/acnwigwe/step19-2020/project/src/test/java/com/google/sps/RSSFeed.xml"))).getTrends();
+    List<TrendRSS> results = parser.readTrendsFromStream(new FileInputStream(new File("src/test/java/com/google/sps/RSSFeed.xml"))).getTrends();
     Assert.assertEquals(results.size(), 20);
   }
 
