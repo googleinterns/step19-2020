@@ -25,11 +25,11 @@ import org.junit.runners.JUnit4;
 /** */
 @RunWith(JUnit4.class)
 public final class FindMeetingQueryTest {
-  private NewsServlet newsServlet;
+  private NewsService newsService;
 
   @Before
   public void setUp() {
-    newsServlet = new NewsServlet(new MockFetcher());
+    newsService = new NewsService(new MockFetcher());
   }
 
   @Test
@@ -40,8 +40,7 @@ public final class FindMeetingQueryTest {
     trends.add(new Trend(2, "Trump", 10000, 0));
     trends.add(new Trend(3, "Trump", 500000, 0));
 
-    Collection<TimeRange> actual = query.query(NO_EVENTS, request);
-    Collection<TimeRange> expected = Arrays.asList(TimeRange.WHOLE_DAY);
+    List<Topic> topics = newsService(populateTopics, 5);
 
     Assert.assertEquals(expected, actual);
   }

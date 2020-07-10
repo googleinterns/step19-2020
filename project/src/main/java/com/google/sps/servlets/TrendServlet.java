@@ -30,6 +30,7 @@ public class TrendServlet extends HttpServlet {
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
     Gson gson = new Gson();
     TrendService trend = new TrendService();
+    
     response.setContentType("application/json;");
     response.getWriter().println(gson.toJson(trend.showTrends()));
   }

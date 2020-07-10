@@ -12,10 +12,15 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+package com.google.sps.servlets;
+
 import com.rometools.rome.feed.synd.SyndFeed;
 import com.rometools.rome.feed.synd.SyndEntry;
 import com.rometools.rome.io.SyndFeedInput;
 import com.rometools.rome.io.XmlReader;
+
+import java.net.*;
+import java.util.*;
 
 public class MockFetcher implements Fetcher {
   public SyndFeed getSyndFeed(String url) throws Exception{
@@ -24,7 +29,7 @@ public class MockFetcher implements Fetcher {
     // Building SyndFeed
     URL feedSource = new URL(encodedUrl);
     SyndFeedInput input = new SyndFeedInput();
-    SyndFeed feed = input.build(new XmlReader(feedSource));
+    SyndFeed feed = input.build(new XmlReader(""));
 
     return feed;
   }

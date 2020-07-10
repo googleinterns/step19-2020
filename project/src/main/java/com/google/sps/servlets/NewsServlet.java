@@ -29,7 +29,7 @@ import com.google.sps.data.TrendService; //imports class needed to store trends 
 @WebServlet("/news")
 public class NewsServlet extends HttpServlet {
 
-  private NewsService newsService = new NewsService();
+  private NewsService newsService = new NewsService(new RssFeedFetcher());
   private TrendService trendService = new TrendService();
 
   @Override
