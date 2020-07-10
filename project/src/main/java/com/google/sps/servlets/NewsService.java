@@ -19,6 +19,8 @@ import com.rometools.rome.feed.synd.SyndFeed;
 import com.google.cloud.language.v1.AnalyzeSentimentResponse;
 import com.google.cloud.language.v1.LanguageServiceClient;
 import com.google.cloud.language.v1.Sentiment;
+import com.google.cloud.language.v1.*;
+import com.google.cloud.language.v1.Document.Type;
 import com.rometools.rome.feed.synd.SyndEntry;
 import com.rometools.rome.io.SyndFeedInput;
 import com.rometools.rome.io.XmlReader;
@@ -85,7 +87,7 @@ public class NewsService {
     List<Article> articles = new ArrayList<Article>();
     for(int i = 0; i < numArticles; i++) {
       SyndEntry syndEntry = syndEntries.get(i);
-      Integer articleSentiment = findSentimentScore(syndEntry.getTitle());
+      Float articleSentiment = findSentimentScore(syndEntry.getTitle());
       Article article = new Article(syndEntry.getTitle(), syndEntry.getLink(), syndEntry.getPublishedDate(), syndEntry.getDescription().getValue(), syndEntry.getSource().getTitleEx().getValue(), articleSentiment);
       articles.add(article);
     }
@@ -93,16 +95,19 @@ public class NewsService {
     return articles;
   }
 
-  private Integer findSentimentScore(String articleTitle) {
+  private Float findSentimentScore(String articleTitle) {
     try (LanguageServiceClient language = LanguageServiceClient.create()) {
-      Document doc = Document.newBuilder().setContext(articleTitle).setType(Type.PLAIN_TEXT).build();
+      Document doc = Document.newBuilder().setContent(articleTitle).setType(Type.PLAIN_TEXT).build();
       AnalyzeSentimentResponse response = language.analyzeSentiment(doc);
       Sentiment sentiment = response.getDocumentSentiment();
       if (sentiment == null) {
-        return sentiment;
+        return null;
       } else {
         return sentiment.getScore();
       }
+    } catch(Exception exception) {
+      exception.printStackTrace();
+      return null;
     }
   }
 }
