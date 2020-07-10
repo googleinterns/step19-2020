@@ -138,21 +138,32 @@ function createTrendElement(trend, val) {
 
 /** Displays trend frequency bubbles on page. */
 function getTrendBubbles(content) {
-  const bubbleContainer = document.getElementById('trend-frequency-data');
+  const bubbleFirstRow = document.getElementById('frequency-row-1');
+  const bubbleSecondRow = document.getElementById('frequency-row-2');
   const bubbleSizes = getTrendBubbleSize(content);
   const keys = bubbleSizes.keys();
+  const max = Math.max(...bubbleSizes.values());
   let key = keys.next().value;
+  let length = (bubbleSizes.size)/2;
+  let i = 0;
   while (key != undefined) {
-    bubbleContainer.appendChild(createTrendBubbles(key,bubbleSizes.get(key)));
+    i < length ? bubbleFirstRow.appendChild(createTrendBubbles(key,bubbleSizes.get(key),i,max)) : bubbleSecondRow.appendChild(createTrendBubbles(key,bubbleSizes.get(key),i,max));
     key = keys.next().value;
+    i += 1;
   }
 }
 
 /** Creates an element that represents a trend and its frequency. */
-function createTrendBubbles(trend, size) {
+function createTrendBubbles(trend, size,i,max) {
   const bubbleElement = document.createElement('div');
   bubbleElement.className = 'bubbles';
-  let style = 'width:' + size + 'vw; height:' + size + 'vw; line-height:' + size + 'vw; font-size:' + size/10 + 'vw;';
+  let adjustment = '';
+  if (i === 0) {
+    adjustment = 'bottom: -' + (size/2) + (max/2) + 'vw;';
+  } else if (i === 2) {
+    adjustment = 'top: -' + (size/2) + (max/2) + 'vw;';
+  }
+  let style = 'width:' + size + 'vw; height:' + size + 'vw; line-height:' + size + 'vw; font-size:' + size/10 + 'vw;' + adjustment;
   bubbleElement.setAttribute('style',style);
   bubbleElement.innerText = trend;
   return bubbleElement;
@@ -162,7 +173,7 @@ function createTrendBubbles(trend, size) {
 function getTrendBubbleSize(content) {
   let max = content[3].frequency;
   let size = new Map();
-  content.forEach(trend => size.set(trend.name,(trend.frequency/max)*30));
+  content.forEach(trend => size.set(trend.name,(trend.frequency/max)*26));
   return size;
 }
 
