@@ -65,7 +65,6 @@ public class Article {
     return String.format("%s %s %s %s %s", title, link, pubDate.toString(), description, source);
   }
 
-  // Returns Float representation of the Sentiment of the article title.
   public Float getSentiment() {
     return sentiment;
   }
