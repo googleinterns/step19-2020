@@ -130,17 +130,16 @@ function getTrendBubbles(content) {
   const bubbleFirstRow = document.getElementById('frequency-row-1');
   const bubbleSecondRow = document.getElementById('frequency-row-2');
   const bubbleSizes = getTrendBubbleSize(content);
-  const max = Math.max(...bubbleSizes.values());
   let length = (bubbleSizes.size)/2;
   let i = 0;
   for (const [key,value] of bubbleSizes.entries()) {  
-    i < length ? bubbleFirstRow.appendChild(createTrendBubbles(key,bubbleSizes.get(key),i,max)) : bubbleSecondRow.appendChild(createTrendBubbles(key,bubbleSizes.get(key),i,max));
+    i < length ? bubbleFirstRow.appendChild(createTrendBubbles(key,bubbleSizes.get(key),i)) : bubbleSecondRow.appendChild(createTrendBubbles(key,bubbleSizes.get(key),i));
     i += 1;
   } 
 }
 
 /** Creates an element that represents a trend and its frequency. */
-function createTrendBubbles(trend, size,i,max) {
+function createTrendBubbles(trend, size,i) {
   const bubbleElement = document.createElement('div');
   bubbleElement.className = 'bubbles';
   let style = '';
