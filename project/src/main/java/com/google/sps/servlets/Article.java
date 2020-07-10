@@ -30,9 +30,9 @@ public class Article {
   private Date pubDate;
   private String description;
   private String source;
-  private Integer sentiment;
+  private Float sentiment;
 
-  public Article(String title, String link, Date pubDate, String description, String source, Integer sentiment) {
+  public Article(String title, String link, Date pubDate, String description, String source, Float sentiment) {
     this.title = title;
     this.link = link;
     this.pubDate = pubDate;
