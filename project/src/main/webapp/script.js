@@ -140,22 +140,28 @@ function createTrendElement(trend, val) {
 function getTrendBubbles(content) {
   const bubbleContainer = document.getElementById('trend-frequency-data');
   const bubbleSizes = getTrendBubbleSize(content);
-  const keys = bubbleSizes.keys();
-  let key = keys.next().value;
-  while (key != undefined) {
+  for (const [key,value] of bubbleSizes.entries()) {  
     bubbleContainer.appendChild(createTrendBubbles(key,bubbleSizes.get(key)));
-    key = keys.next().value;
-  }
+  } 
 }
 
 /** Creates an element that represents a trend and its frequency. */
 function createTrendBubbles(trend, size) {
   const bubbleElement = document.createElement('div');
   bubbleElement.className = 'bubbles';
-  let style = 'width:' + size + 'vw; height:' + size + 'vw; line-height:' + size + 'vw; font-size:' + size/10 + 'vw;';
+  let style = '';
+  style = addStyleProperty(style,'width',size);
+  style = addStyleProperty(style,'height',size);
+  style = addStyleProperty(style,'line-height',size);
+  style = addStyleProperty(style,'font-size',size/10);
   bubbleElement.setAttribute('style',style);
   bubbleElement.innerText = trend;
   return bubbleElement;
+}
+
+/** Add style property. */
+function addStyleProperty(style, property, value) {
+  return style.concat(property,':',value,'vw;');
 }
 
 /** Returns the diameter of each trend bubble. */
