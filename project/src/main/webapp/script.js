@@ -5,16 +5,16 @@ var trend = {
   currentTrendVal: 1
 };
 
-module.exports = {
-  toggleNavBar: toggleNavBar,
-  switchTrend: switchTrend,
-  getNextTrendValue: getNextTrendValue,
-  showPage: showPage,
-  getArticles: getArticles,
-  createArticleElement: createArticleElement,
-  getTrends: getTrends,
-  createTrendElement: createTrendElement
-};
+// module.exports = {
+//   toggleNavBar: toggleNavBar,
+//   switchTrend: switchTrend,
+//   getNextTrendValue: getNextTrendValue,
+//   showPage: showPage,
+//   getArticles: getArticles,
+//   createArticleElement: createArticleElement,
+//   getTrends: getTrends,
+//   createTrendElement: createTrendElement
+// };
 
 /** Show and hide nav bar. */
 function toggleNavBar() {
@@ -78,6 +78,7 @@ async function retrieveArticles(numArticles, trend) {
   trend.content = await response.json();
   getArticles(trend.currentTrendVal, trend.content);
   getTrends(trend.currentTrendVal, trend.content);
+  getTrendBubbles(trend.content);
 }
 
 /** Displays articles on page. */
@@ -87,7 +88,6 @@ function getArticles(val, content) {
   const articleContainer = document.getElementById('article-container');
   articleContainer.innerHTML = '';
   var right = false;
-  console.log(articles);
   articles.forEach((article) => {
     articleContainer.appendChild(createArticleElement(article.link, article.title, article.source, article.pubDate, right));
     right = (!right) ? true : false;
@@ -134,6 +134,36 @@ function createTrendElement(trend, val) {
   trendElement.setAttribute('id','trend-' + val);
   trendElement.innerText = trend;
   return trendElement;
+}
+
+/** Displays trend frequency bubbles on page. */
+function getTrendBubbles(content) {
+  const bubbleContainer = document.getElementById('trend-frequency-data');
+  const bubbleSizes = getTrendBubbleSize(content);
+  const keys = bubbleSizes.keys();
+  let key = keys.next().value;
+  while (key != undefined) {
+    bubbleContainer.appendChild(createTrendBubbles(key,bubbleSizes.get(key)));
+    key = keys.next().value;
+  }
+}
+
+/** Creates an element that represents a trend and its frequency. */
+function createTrendBubbles(trend, size) {
+  const bubbleElement = document.createElement('div');
+  bubbleElement.className = 'bubbles';
+  let style = 'width:' + size + 'vw; height:' + size + 'vw; line-height:' + size + 'vw; font-size:' + size/10 + 'vw;';
+  bubbleElement.setAttribute('style',style);
+  bubbleElement.innerText = trend;
+  return bubbleElement;
+}
+
+/** Returns the diameter of each trend bubble. */
+function getTrendBubbleSize(content) {
+  let max = content[3].frequency;
+  let size = new Map();
+  content.forEach(trend => size.set(trend.name,(trend.frequency/max)*30));
+  return size;
 }
 
 /** Shows preloader on page load and fetches articles. */
