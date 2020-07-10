@@ -5,17 +5,6 @@ var trend = {
   currentTrendVal: 1
 };
 
-module.exports = {
-  toggleNavBar: toggleNavBar,
-  switchTrend: switchTrend,
-  getNextTrendValue: getNextTrendValue,
-  showPage: showPage,
-  getArticles: getArticles,
-  createArticleElement: createArticleElement,
-  getTrends: getTrends,
-  createTrendElement: createTrendElement
-};
-
 /** Show and hide nav bar. */
 function toggleNavBar() {
   const nav = document.getElementById('nav');
@@ -78,6 +67,7 @@ async function retrieveArticles(numArticles, trend) {
   trend.content = await response.json();
   getArticles(trend.currentTrendVal, trend.content);
   getTrends(trend.currentTrendVal, trend.content);
+  getTrendBubbles(trend.content);
 }
 
 /** Displays articles on page. */
@@ -87,7 +77,6 @@ function getArticles(val, content) {
   const articleContainer = document.getElementById('article-container');
   articleContainer.innerHTML = '';
   var right = false;
-  console.log(articles);
   articles.forEach((article) => {
     articleContainer.appendChild(createArticleElement(article.link, article.title, article.source, article.pubDate, right));
     right = (!right) ? true : false;
@@ -134,6 +123,42 @@ function createTrendElement(trend, val) {
   trendElement.setAttribute('id','trend-' + val);
   trendElement.innerText = trend;
   return trendElement;
+}
+
+/** Displays trend frequency bubbles on page. */
+function getTrendBubbles(content) {
+  const bubbleContainer = document.getElementById('trend-frequency-data');
+  const bubbleSizes = getTrendBubbleSize(content);
+  for (const [key,value] of bubbleSizes.entries()) {  
+    bubbleContainer.appendChild(createTrendBubbles(key,bubbleSizes.get(key)));
+  } 
+}
+
+/** Creates an element that represents a trend and its frequency. */
+function createTrendBubbles(trend, size) {
+  const bubbleElement = document.createElement('div');
+  bubbleElement.className = 'bubbles';
+  let style = '';
+  style = addStyleProperty(style,'width',size);
+  style = addStyleProperty(style,'height',size);
+  style = addStyleProperty(style,'line-height',size);
+  style = addStyleProperty(style,'font-size',size/10);
+  bubbleElement.setAttribute('style',style);
+  bubbleElement.innerText = trend;
+  return bubbleElement;
+}
+
+/** Add style property. */
+function addStyleProperty(style, property, value) {
+  return style.concat(property,':',value,'vw;');
+}
+
+/** Returns the diameter of each trend bubble. */
+function getTrendBubbleSize(content) {
+  let max = content[3].frequency;
+  let size = new Map();
+  content.forEach(trend => size.set(trend.name,(trend.frequency/max)*30));
+  return size;
 }
 
 /** Shows preloader on page load and fetches articles. */

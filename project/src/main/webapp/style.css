@@ -146,15 +146,6 @@ li {
   transform: rotate(45deg);
 }
 
-#trend-frequency-data {
-  font-size: 3.5vw;
-  position: absolute;
-  top: 130%;
-  left: 20%;
-  height: auto;
-  max-width: 70vw;
-}
-
 #slideshow-container {
   padding-top: 1vh;
 }
@@ -237,6 +228,19 @@ h3 {
 
 .right-justified {
   text-align: right;
+}
+
+#trend-frequency-data {
+  padding-top: 18vh;
+  text-align: center;
+}
+
+.bubbles {
+  display: inline-block;
+  border: solid 3px black;
+  border-radius: 50%;
+  margin: 5px;
+  position: relative;
 }
 
 @keyframes up {  
