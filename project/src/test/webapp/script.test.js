@@ -193,3 +193,203 @@ describe('Returns next trend value in carousel', () => {
   });
 });
 
+/** showPage - shows main page after page load. */
+describe('Shows main page after page load', () => {
+  const preloader = document.createElement('div');
+  const content = document.createElement('content');
+  preloader.setAttribute('id','preloader');
+  content.setAttribute('id','content');
+  document.body.appendChild(preloader);
+  document.body.appendChild(content);
+
+  test('Show main page after page load', () => {
+    script.showPage();
+    expect(document.getElementById('preloader').getAttribute('style')).toEqual('display: none;');
+    expect(document.getElementById('content').getAttribute('style')).toEqual('display: block; animation: fade-in 2.5s linear;');
+  });  
+});
+
+/** getArticles - displays articles on page. */
+describe('displays trends on page', () => {
+  const article = { link: 'link', title: 'title', source: 'source', pubDate: 'date' };
+  const articles = [article];
+  const topicOne = { articles: articles };
+  const topicTwo = { articles: articles };
+  const topicThree = { articles: articles };
+  const topicFour = { articles: articles };
+  const content = [topicOne,topicTwo,topicThree,topicFour];
+  const articleContainer = document.createElement('div');
+  articleContainer.setAttribute('id','article-container');
+  document.body.appendChild(articleContainer);
+  
+  test('adds articles for trend 1', () => {
+    script.getArticles(1,content);
+    expect(articleContainer.childNodes.length).toBe(1);
+    const articleElement = script.createArticleElement(article.link,article.title,article.source,article.pubDate);
+    expect(articleContainer.childNodes[0]).toEqual(articleElement);
+  });  
+
+  test('adds articles for trend 2', () => {
+    script.getArticles(2,content);
+    expect(articleContainer.childNodes.length).toBe(1);
+    const articleElement = script.createArticleElement(article.link,article.title,article.source,article.pubDate);
+    expect(articleContainer.childNodes[0]).toEqual(articleElement);
+  });  
+
+  test('adds articles for trend 3', () => {
+    script.getArticles(3,content);
+    expect(articleContainer.childNodes.length).toBe(1);
+    const articleElement = script.createArticleElement(article.link,article.title,article.source,article.pubDate);
+    expect(articleContainer.childNodes[0]).toEqual(articleElement);
+  });  
+
+  test('adds articles for trend 4', () => {
+    script.getArticles(4,content);
+    expect(articleContainer.childNodes.length).toBe(1);
+    const articleElement = script.createArticleElement(article.link,article.title,article.source,article.pubDate);
+    expect(articleContainer.childNodes[0]).toEqual(articleElement);
+  });  
+});
+
+/** createArticleElement - creates an element that represents an article. */
+describe('creates article elements', () => {
+  test('create left-justified article element', () => {
+    const articleElement = script.createArticleElement('link','title - source','source','date',false);
+
+    // checks container element is created correctly with 3 child nodes
+    expect(articleElement.nodeName).toEqual('DIV');
+    expect(articleElement.getAttribute('class')).toEqual('articles');
+    expect(articleElement.childNodes.length).toBe(3);
+  });
+
+  test('create right-justified article element', () => {
+    const articleElement = script.createArticleElement('link','title - source','source','date',true);
+
+    // checks container element is created correctly with 3 child nodes
+    expect(articleElement.nodeName).toEqual('DIV');
+    expect(articleElement.getAttribute('class')).toEqual('articles right-justified');
+    expect(articleElement.childNodes.length).toBe(3);
+  });
+
+  test('check child nodes of left-justified article element', () => {
+    const articleElement = script.createArticleElement('link','title - source','source','date',false);
+
+    const linkElement = articleElement.childNodes[0];
+    const authorElement = articleElement.childNodes[1];
+    const dateElement = articleElement.childNodes[2];
+    
+    // checks link element is created correctly with 1 child node
+    expect(linkElement.nodeName).toEqual('A');
+    expect(linkElement.getAttribute('href')).toEqual('link');
+    expect(linkElement.childNodes.length).toBe(1);
+
+    const titleElement = linkElement.childNodes[0];
+
+    // checks all child nodes are created correctly
+    expect(titleElement.nodeName).toEqual('H1');
+    expect(authorElement.nodeName).toEqual('H3');
+    expect(dateElement.nodeName).toEqual('H3');
+    expect(titleElement.innerText).toEqual('title');
+    expect(authorElement.innerText).toEqual('author: source');
+    expect(dateElement.innerText).toEqual('date: date');
+  });
+
+  test('check child nodes of right-justified article element', () => {
+    const articleElement = script.createArticleElement('link','title - source','source','date',true);
+    
+    const linkElement = articleElement.childNodes[0];
+    const authorElement = articleElement.childNodes[1];
+    const dateElement = articleElement.childNodes[2];
+    
+    // checks link element is created correctly with 1 child node
+    expect(linkElement.nodeName).toEqual('A');
+    expect(linkElement.getAttribute('href')).toEqual('link');
+    expect(linkElement.childNodes.length).toBe(1);
+
+    const titleElement = linkElement.childNodes[0];
+
+    // checks all child nodes are created correctly
+    expect(titleElement.nodeName).toEqual('H1');
+    expect(authorElement.nodeName).toEqual('H3');
+    expect(dateElement.nodeName).toEqual('H3');
+    expect(titleElement.innerText).toEqual('title');
+    expect(authorElement.innerText).toEqual('author: source');
+    expect(dateElement.innerText).toEqual('date: date');
+  });
+});
+
+/** getTrends - displays trends on page. */
+describe('displays trends on page', () => {
+  const topicOne = { name: 'trend 1' };
+  const topicTwo = { name: 'trend 2' };
+  const topicThree = { name: 'trend 3' };
+  const topicFour = { name: 'trend 4' };
+  const content = [topicOne,topicTwo,topicThree,topicFour];
+  const trendContainer = document.createElement('div');
+  trendContainer.setAttribute('id','trend-container');
+  document.body.appendChild(trendContainer);
+
+  test('adds trend 1', () => {
+    script.getTrends(1, content);
+    expect(trendContainer.childNodes.length).toBe(1);
+    const trendElement = script.createTrendElement('trend',1);
+    expect(trendContainer.childNodes[0]).toEqual(trendElement);
+  });
+
+  test('adds trend 2', () => {
+    script.getTrends(2, content);
+    expect(trendContainer.childNodes.length).toBe(1);
+    const trendElement = script.createTrendElement('trend',2);
+    expect(trendContainer.childNodes[0]).toEqual(trendElement);
+  });
+
+  test('adds trend 3', () => {
+    script.getTrends(3, content);
+    expect(trendContainer.childNodes.length).toBe(1);
+    const trendElement = script.createTrendElement('trend',3);
+    expect(trendContainer.childNodes[0]).toEqual(trendElement);
+  });
+
+  test('adds trend 4', () => {
+    script.getTrends(4, content);
+    expect(trendContainer.childNodes.length).toBe(1);
+    const trendElement = script.createTrendElement('trend',4);
+    expect(trendContainer.childNodes[0]).toEqual(trendElement);
+  });
+});
+
+/** createTrendElement - creates an element that represents a trend. */
+describe('creates trend elements', () => {
+  test('create first trend element', () => {
+    const trendElement = script.createTrendElement('trend 1',1);
+    expect(trendElement.nodeName).toEqual('DIV');
+    expect(trendElement.className).toEqual('trends');
+    expect(trendElement.getAttribute('id')).toEqual('trend-1');
+    expect(trendElement.innerText).toEqual('trend 1');
+  });
+  
+  test('create second trend element', () => {
+    const trendElement = script.createTrendElement('trend 2',2);
+    expect(trendElement.nodeName).toEqual('DIV');
+    expect(trendElement.className).toEqual('trends');
+    expect(trendElement.getAttribute('id')).toEqual('trend-2');
+    expect(trendElement.innerText).toEqual('trend 2');
+  });
+
+  test('create third trend element', () => {
+    const trendElement = script.createTrendElement('trend 3',3);
+    expect(trendElement.nodeName).toEqual('DIV');
+    expect(trendElement.className).toEqual('trends');
+    expect(trendElement.getAttribute('id')).toEqual('trend-3');
+    expect(trendElement.innerText).toEqual('trend 3');
+  });
+
+  test('create fourth trend element', () => {
+    const trendElement = script.createTrendElement('trend 4',4);
+    expect(trendElement.nodeName).toEqual('DIV');
+    expect(trendElement.className).toEqual('trends');
+    expect(trendElement.getAttribute('id')).toEqual('trend-4');
+    expect(trendElement.innerText).toEqual('trend 4');
+  });
+});
+
