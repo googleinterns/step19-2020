@@ -141,32 +141,37 @@ function getTrendBubbles(content) {
   const bubbleFirstRow = document.getElementById('frequency-row-1');
   const bubbleSecondRow = document.getElementById('frequency-row-2');
   const bubbleSizes = getTrendBubbleSize(content);
-  const keys = bubbleSizes.keys();
   const max = Math.max(...bubbleSizes.values());
-  let key = keys.next().value;
   let length = (bubbleSizes.size)/2;
   let i = 0;
-  while (key != undefined) {
+  for (const [key,value] of bubbleSizes.entries()) {  
     i < length ? bubbleFirstRow.appendChild(createTrendBubbles(key,bubbleSizes.get(key),i,max)) : bubbleSecondRow.appendChild(createTrendBubbles(key,bubbleSizes.get(key),i,max));
-    key = keys.next().value;
     i += 1;
-  }
+  } 
 }
 
 /** Creates an element that represents a trend and its frequency. */
 function createTrendBubbles(trend, size,i,max) {
   const bubbleElement = document.createElement('div');
   bubbleElement.className = 'bubbles';
-  let adjustment = '';
+  let style = '';
+  style = addStyleProperty(style,'width',size);
+  style = addStyleProperty(style,'height',size);
+  style = addStyleProperty(style,'line-height',size);
+  style = addStyleProperty(style,'font-size',size/10);
   if (i === 0) {
-    adjustment = 'bottom: -' + (size/2) + (max/2) + 'vw;';
+    style = addStyleProperty(style,'bottom',-(size/2));
   } else if (i === 2) {
-    adjustment = 'top: -' + (size/2) + (max/2) + 'vw;';
+    style = addStyleProperty(style,'top',-(size/2));
   }
-  let style = 'width:' + size + 'vw; height:' + size + 'vw; line-height:' + size + 'vw; font-size:' + size/10 + 'vw;' + adjustment;
   bubbleElement.setAttribute('style',style);
   bubbleElement.innerText = trend;
   return bubbleElement;
+}
+
+/** Add style property. */
+function addStyleProperty(style, property, value) {
+  return style.concat(property,':',value,'vw;');
 }
 
 /** Returns the diameter of each trend bubble. */
