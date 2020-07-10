@@ -5,17 +5,6 @@ var trend = {
   currentTrendVal: 1
 };
 
-// module.exports = {
-//   toggleNavBar: toggleNavBar,
-//   switchTrend: switchTrend,
-//   getNextTrendValue: getNextTrendValue,
-//   showPage: showPage,
-//   getArticles: getArticles,
-//   createArticleElement: createArticleElement,
-//   getTrends: getTrends,
-//   createTrendElement: createTrendElement
-// };
-
 /** Show and hide nav bar. */
 function toggleNavBar() {
   const nav = document.getElementById('nav');
