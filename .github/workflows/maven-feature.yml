@@ -17,6 +17,8 @@ jobs:
         uses: actions/setup-java@v1
         with:
           java-version: 1.8.0
+      - name: Open Project
+        run: cd project
       - name: Maven Package
         run: |
             cd project
