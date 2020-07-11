@@ -145,15 +145,10 @@ function createTrendBubbles(trend, size,i) {
   let style = '';
   style = addStyleProperty(style,'width',size);
   style = addStyleProperty(style,'height',size);
-  style = addStyleProperty(style,'line-height',size);
   style = addStyleProperty(style,'font-size',size/10);
-  if (i === 0) {
-    style = addStyleProperty(style,'bottom',-(size/2));
-  } else if (i === 2) {
-    style = addStyleProperty(style,'top',-(size/2));
-  }
   bubbleElement.setAttribute('style',style);
   bubbleElement.innerText = trend;
+
   return bubbleElement;
 }
 
@@ -162,11 +157,27 @@ function addStyleProperty(style, property, value) {
   return style.concat(property,':',value,'vw;');
 }
 
-/** Returns the diameter of each trend bubble. */
+/** Returns a map with trends and their respective bubble size. */
 function getTrendBubbleSize(content) {
-  let max = content[3].frequency;
+  let max = content[content.length - 1].frequency;
+  let min = content[0].frequency;
+  let proportions = [];
+  for (var i = 0; i < content.length; i++) {
+    proportions[i] = content[i].frequency/max;
+  }
   let size = new Map();
-  content.forEach(trend => size.set(trend.name,(trend.frequency/max)*26));
+  content.forEach(trend => size.set(trend.name,getSize(trend.frequency,max,min)));
+  return size;
+}
+
+/** Calculates and returns the bubble size. */
+function getSize(frequency,max,min) {
+  let maxSize = 23;
+  let minSize = 6;
+  let size = 20;
+  if(max != min) {
+    size = ((maxSize - minSize) * (frequency - min)) / (max - min) + minSize;
+  }
   return size;
 }
 
