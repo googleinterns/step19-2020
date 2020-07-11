@@ -130,22 +130,24 @@ function getTrendBubbles(content) {
   const bubbleFirstRow = document.getElementById('frequency-row-1');
   const bubbleSecondRow = document.getElementById('frequency-row-2');
   const bubbleSizes = getTrendBubbleSize(content);
+  const sentimentScore = .7;
   let length = (bubbleSizes.size)/2;
   let i = 0;
   for (const [key,value] of bubbleSizes.entries()) {  
-    i < length ? bubbleFirstRow.appendChild(createTrendBubbles(key,bubbleSizes.get(key),i)) : bubbleSecondRow.appendChild(createTrendBubbles(key,bubbleSizes.get(key),i));
+    i < length ? bubbleFirstRow.appendChild(createTrendBubbles(key,bubbleSizes.get(key),sentimentScore)) : bubbleSecondRow.appendChild(createTrendBubbles(key,bubbleSizes.get(key),sentimentScore));
     i += 1;
   } 
 }
 
 /** Creates an element that represents a trend and its frequency. */
-function createTrendBubbles(trend, size,i) {
+function createTrendBubbles(trend, size, score) {
   const bubbleElement = document.createElement('div');
   bubbleElement.className = 'bubbles';
   let style = '';
-  style = addStyleProperty(style,'width',size);
-  style = addStyleProperty(style,'height',size);
-  style = addStyleProperty(style,'font-size',size/10);
+  style = addStyleProperty(style,'width',size + 'vw;');
+  style = addStyleProperty(style,'height',size + 'vw;');
+  style = addStyleProperty(style,'font-size',size/10 +'vw;');
+  style = addStyleProperty(style,'background-color',getSentimentColor(score));
   bubbleElement.setAttribute('style',style);
   bubbleElement.innerText = trend;
 
@@ -154,7 +156,7 @@ function createTrendBubbles(trend, size,i) {
 
 /** Add style property. */
 function addStyleProperty(style, property, value) {
-  return style.concat(property,':',value,'vw;');
+  return style.concat(property,':',value);
 }
 
 /** Returns a map with trends and their respective bubble size. */
@@ -180,6 +182,53 @@ function getSize(frequency,max,min) {
   }
   return size;
 }
+
+/** Assigns and returns a color based on the sentiment value. */
+function getSentimentColor(sentimentValue) {
+  if (sentimentValue > .9) {
+    return '#c4ddfe'
+  } else if (sentimentValue > .8) {
+    return '#c7ddff';
+  } else if (sentimentValue > .7) {
+    return '#c9ddff';
+  } else if (sentimentValue > .6) {
+    return '#ccdcff'; 
+  } else if (sentimentValue > .5) {
+    return '#cfdcff';
+  } else if (sentimentValue > .4) {
+    return '#d2dcff';
+  } else if (sentimentValue > .3) {
+    return '#d5dcff';
+  } else if (sentimentValue > .2) {
+    return '#d8dbff'; 
+  } else if (sentimentValue > .1) {
+    return '#dbdbff';
+  } else if (sentimentValue > 0) {
+    return '#dedbff';
+  } else if (sentimentValue > -.1) {
+    return '#e1daff';
+  } else if (sentimentValue > -.2) {
+    return '#e4daff'; 
+  } else if (sentimentValue > -.3) {
+    return '#e7daff';
+  } else if (sentimentValue > -.4) {
+    return '#eadaff';
+  } else if (sentimentValue > -.5) {
+    return '#edd9fe'; 
+  } else if (sentimentValue > -.6) {
+    return '#f0d9fd';
+  } else if (sentimentValue > -.7) {
+    return '#f3d9fc';
+  } else if (sentimentValue > -.8) {
+    return '#f6d9fb';
+  } else if (sentimentValue > -.9) {
+    return '#f9d8fa'; 
+  } else if (sentimentValue > -1) {
+    return '#fbd8f8';
+  } else {
+    return '#fed8f7';
+  }
+} 
 
 /** Shows preloader on page load and fetches articles. */
 function loadPage() {  
