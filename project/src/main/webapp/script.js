@@ -133,13 +133,13 @@ function getTrendBubbles(content) {
   let length = (bubbleSizes.size)/2;
   let i = 0;
   for (const [key,value] of bubbleSizes.entries()) {  
-    i < length ? bubbleFirstRow.appendChild(createTrendBubbles(key,bubbleSizes.get(key),i)) : bubbleSecondRow.appendChild(createTrendBubbles(key,bubbleSizes.get(key),i));
+    i < length ? bubbleFirstRow.appendChild(createTrendBubbles(key,bubbleSizes.get(key))) : bubbleSecondRow.appendChild(createTrendBubbles(key,bubbleSizes.get(key)));
     i += 1;
   } 
 }
 
 /** Creates an element that represents a trend and its frequency. */
-function createTrendBubbles(trend, size,i) {
+function createTrendBubble(trend, size) {
   const bubbleElement = document.createElement('div');
   bubbleElement.className = 'bubbles';
   let style = '';
