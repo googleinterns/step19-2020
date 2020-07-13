@@ -45,6 +45,11 @@ public class TrendFrequencyParser {
   }
 
   public TrendRSSFeed readTrends() {
+    InputStream in = read();
+    return readTrendsFromStream(in);
+  }
+
+  public TrendRSSFeed readTrendsFromStream(InputStream stream) {
     TrendRSSFeed feed = null;
     try {
       boolean isFeedHeader = true;
@@ -52,8 +57,7 @@ public class TrendFrequencyParser {
       String trendFrequency = "";
 
       XMLInputFactory inputFactory = XMLInputFactory.newInstance();
-      InputStream in = read();
-      XMLEventReader eventReader = inputFactory.createXMLEventReader(in);
+      XMLEventReader eventReader = inputFactory.createXMLEventReader(stream);
       while (eventReader.hasNext()) {
         XMLEvent event = eventReader.nextEvent();
         if (event.isStartElement()) {
