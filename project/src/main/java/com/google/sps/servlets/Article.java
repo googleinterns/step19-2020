@@ -30,13 +30,15 @@ public class Article {
   private Date pubDate;
   private String description;
   private String source;
+  private Float sentiment;
 
-  public Article(String title, String link, Date pubDate, String description, String source) {
+  public Article(String title, String link, Date pubDate, String description, String source, Float sentiment) {
     this.title = title;
     this.link = link;
     this.pubDate = pubDate;
     this.description = description;
     this.source = source;
+    this.sentiment = sentiment;
   }
 
   public String getTitle() {
@@ -61,5 +63,9 @@ public class Article {
 
   public String toString() {
     return String.format("%s %s %s %s %s", title, link, pubDate.toString(), description, source);
+  }
+
+  public Float getSentiment() {
+    return sentiment;
   }
 }

@@ -37,7 +37,7 @@ public class TrendServlet extends HttpServlet {
   @Override
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
     TrendService trend = new TrendService();
-    trend.getTrends();
+    trend.newTrends();
   }
 } 
 
