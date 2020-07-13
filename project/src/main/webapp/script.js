@@ -2,7 +2,8 @@ const basePath = '/news';
 const numParam = 'num=';
 var trend = {
   content: '',
-  currentTrendVal: 1
+  currentTrendVal: 1,
+  color: ''
 };
 
 /** Show and hide nav bar. */
@@ -130,24 +131,24 @@ function getTrendBubbles(content) {
   const bubbleFirstRow = document.getElementById('frequency-row-1');
   const bubbleSecondRow = document.getElementById('frequency-row-2');
   const bubbleSizes = getTrendBubbleSize(content);
-  const sentimentScore = .7;
+  const sentimentScore = getTrendBubbleScore(content);
   let length = (bubbleSizes.size)/2;
   let i = 0;
   for (const [key,value] of bubbleSizes.entries()) {  
-    i < length ? bubbleFirstRow.appendChild(createTrendBubbles(key,bubbleSizes.get(key),sentimentScore)) : bubbleSecondRow.appendChild(createTrendBubbles(key,bubbleSizes.get(key),sentimentScore));
+    i < length ? bubbleFirstRow.appendChild(createTrendBubbles(key,bubbleSizes.get(key),trend.color.get(sentimentScore.get(key)))) : bubbleSecondRow.appendChild(createTrendBubbles(key,bubbleSizes.get(key),trend.color.get(sentimentScore.get(key))));
     i += 1;
   } 
 }
 
 /** Creates an element that represents a trend and its frequency. */
-function createTrendBubbles(trend, size, score) {
+function createTrendBubbles(trend, size, color) {
   const bubbleElement = document.createElement('div');
   bubbleElement.className = 'bubbles';
   let style = '';
   style = addStyleProperty(style,'width',size + 'vw;');
   style = addStyleProperty(style,'height',size + 'vw;');
   style = addStyleProperty(style,'font-size',size/10 +'vw;');
-  style = addStyleProperty(style,'background-color',getSentimentColor(score));
+  style = addStyleProperty(style,'background-color',color);
   bubbleElement.setAttribute('style',style);
   bubbleElement.innerText = trend;
 
@@ -183,55 +184,38 @@ function getSize(frequency,max,min) {
   return size;
 }
 
+/** Returns a map of the trends and their respective sentiment scores. */
+function getTrendBubbleScore(trends) {
+  let score = new Map();
+  trends.forEach(trend => score.set(trend.name,getAverageSentiment(trend.articles)));
+  return score;
+}
+
+/** Returns the average of the sentiment scores of all the articles. */
+function getAverageSentiment(articles) {
+  let avg = 0;
+  let length = articles.length;
+  articles.forEach(article => avg += article.sentiment);
+  avg /= length;
+  return avg.toFixed(1);
+}
+
 /** Assigns and returns a color based on the sentiment value. */
-function getSentimentColor(sentimentValue) {
-  if (sentimentValue > .9) {
-    return '#c4ddfe'
-  } else if (sentimentValue > .8) {
-    return '#c7ddff';
-  } else if (sentimentValue > .7) {
-    return '#c9ddff';
-  } else if (sentimentValue > .6) {
-    return '#ccdcff'; 
-  } else if (sentimentValue > .5) {
-    return '#cfdcff';
-  } else if (sentimentValue > .4) {
-    return '#d2dcff';
-  } else if (sentimentValue > .3) {
-    return '#d5dcff';
-  } else if (sentimentValue > .2) {
-    return '#d8dbff'; 
-  } else if (sentimentValue > .1) {
-    return '#dbdbff';
-  } else if (sentimentValue > 0) {
-    return '#dedbff';
-  } else if (sentimentValue > -.1) {
-    return '#e1daff';
-  } else if (sentimentValue > -.2) {
-    return '#e4daff'; 
-  } else if (sentimentValue > -.3) {
-    return '#e7daff';
-  } else if (sentimentValue > -.4) {
-    return '#eadaff';
-  } else if (sentimentValue > -.5) {
-    return '#edd9fe'; 
-  } else if (sentimentValue > -.6) {
-    return '#f0d9fd';
-  } else if (sentimentValue > -.7) {
-    return '#f3d9fc';
-  } else if (sentimentValue > -.8) {
-    return '#f6d9fb';
-  } else if (sentimentValue > -.9) {
-    return '#f9d8fa'; 
-  } else if (sentimentValue > -1) {
-    return '#fbd8f8';
-  } else {
-    return '#fed8f7';
+function getColorGradient() {
+  let sentimentValueCount = 20;  
+  let chromaColor = chroma.scale(['#FED8F7','#C4DDFE']).colors(sentimentValueCount);
+  let colors = new Map();
+  let j = 1;
+  for (let i = 0; i <= chromaColor.length; i++) {
+    colors.set(j.toFixed(1),chromaColor[i]);
+    j -= .1;
   }
+  trend.color = colors;
 } 
 
 /** Shows preloader on page load and fetches articles. */
 function loadPage() {  
   retrieveArticles(5, trend);
   setTimeout(showPage, 4000);
+  getColorGradient();
 }
