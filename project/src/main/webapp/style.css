@@ -230,19 +230,27 @@ h3 {
   text-align: right;
 }
 
-#trend-frequency-data {
-  padding-top: 18vh;
+#trend-frequency {
+  display: table-cell;
+  vertical-align: middle;
   text-align: center;
+  padding-left: 30vw;
+} 
+
+.trend-frequency-data {
+  display: inline-grid;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .bubbles {
-  display: inline-block;
+  display: inline-grid;
   border: solid 3px black;
   border-radius: 50%;
-  margin: 5px;
-  position: relative;
+  margin: 0;
+  align-items: center;
+  text-align: center;
 }
-
 @keyframes up {  
   0%   {transform: translateY(1rem); opacity:0;}
   50%  {opacity: 1;}
