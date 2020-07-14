@@ -2,7 +2,8 @@ const basePath = '/news';
 const numParam = 'num=';
 var trend = {
   content: '',
-  currentTrendVal: 1
+  currentTrendVal: 1,
+  color: ''
 };
 
 /** Show and hide nav bar. */
@@ -130,22 +131,28 @@ function getTrendBubbles(content) {
   const bubbleFirstRow = document.getElementById('frequency-row-1');
   const bubbleSecondRow = document.getElementById('frequency-row-2');
   const bubbleSizes = getTrendBubbleSize(content);
+  const sentimentScore = getTrendBubbleScore(content);
   let length = (bubbleSizes.size)/2;
   let i = 0;
   for (const [key,value] of bubbleSizes.entries()) {  
-    i < length ? bubbleFirstRow.appendChild(createTrendBubbles(key,bubbleSizes.get(key))) : bubbleSecondRow.appendChild(createTrendBubbles(key,bubbleSizes.get(key)));
+    if (i < length) {
+      bubbleFirstRow.appendChild(createTrendBubbles(key,bubbleSizes.get(key),trend.color.get(sentimentScore.get(key))));
+    } else {
+      bubbleSecondRow.appendChild(createTrendBubbles(key,bubbleSizes.get(key),trend.color.get(sentimentScore.get(key))));
+    }
     i += 1;
   } 
 }
 
 /** Creates an element that represents a trend and its frequency. */
-function createTrendBubble(trend, size) {
+function createTrendBubbles(trend, size, color) {
   const bubbleElement = document.createElement('div');
   bubbleElement.className = 'bubbles';
   let style = '';
-  style = addStyleProperty(style,'width',size);
-  style = addStyleProperty(style,'height',size);
-  style = addStyleProperty(style,'font-size',size/10);
+  style = addStyleProperty(style,'width',size + 'vw;');
+  style = addStyleProperty(style,'height',size + 'vw;');
+  style = addStyleProperty(style,'font-size',size/10 +'vw;');
+  style = addStyleProperty(style,'background-color',color);
   bubbleElement.setAttribute('style',style);
   bubbleElement.innerText = trend;
 
@@ -154,7 +161,7 @@ function createTrendBubble(trend, size) {
 
 /** Add style property. */
 function addStyleProperty(style, property, value) {
-  return style.concat(property,':',value,'vw;');
+  return style.concat(property,':',value);
 }
 
 /** Returns a map with trends and their respective bubble size. */
@@ -181,8 +188,35 @@ function getSize(frequency,max,min) {
   return size;
 }
 
+/** Returns a map of the trends and their respective sentiment scores. */
+function getTrendBubbleScore(trends) {
+  let score = new Map();
+  trends.forEach(trend => score.set(trend.name,getAverageSentiment(trend.articles)));
+  return score;
+}
+
+/** Returns the average of the sentiment scores of all the articles. */
+function getAverageSentiment(articles) {
+  let avg = articles.reduce((sum, value) => sum + value, 0) / length;
+  return avg.toFixed(1);
+}
+
+/** Assigns and returns a color based on the sentiment value. */
+function getColorGradient() {
+  let sentimentValueCount = 20;  
+  let chromaColor = chroma.scale(['#FED8F7','#C4DDFE']).colors(sentimentValueCount);
+  let colors = new Map();
+  let j = 1;
+  for (let i = 0; i <= chromaColor.length; i++) {
+    colors.set(j.toFixed(1),chromaColor[i]);
+    j -= .1;
+  }
+  return colors;
+} 
+
 /** Shows preloader on page load and fetches articles. */
 function loadPage() {  
   retrieveArticles(5, trend);
   setTimeout(showPage, 4000);
+  trend.color = getColorGradient();
 }
