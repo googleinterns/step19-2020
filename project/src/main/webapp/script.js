@@ -135,7 +135,11 @@ function getTrendBubbles(content) {
   let length = (bubbleSizes.size)/2;
   let i = 0;
   for (const [key,value] of bubbleSizes.entries()) {  
-    i < length ? bubbleFirstRow.appendChild(createTrendBubbles(key,bubbleSizes.get(key),trend.color.get(sentimentScore.get(key)))) : bubbleSecondRow.appendChild(createTrendBubbles(key,bubbleSizes.get(key),trend.color.get(sentimentScore.get(key))));
+    if (i < length) {
+      bubbleFirstRow.appendChild(createTrendBubbles(key,bubbleSizes.get(key),trend.color.get(sentimentScore.get(key))));
+    } else {
+      bubbleSecondRow.appendChild(createTrendBubbles(key,bubbleSizes.get(key),trend.color.get(sentimentScore.get(key))));
+    }
     i += 1;
   } 
 }
@@ -207,12 +211,12 @@ function getColorGradient() {
     colors.set(j.toFixed(1),chromaColor[i]);
     j -= .1;
   }
-  trend.color = colors;
+  return colors;
 } 
 
 /** Shows preloader on page load and fetches articles. */
 function loadPage() {  
   retrieveArticles(5, trend);
   setTimeout(showPage, 4000);
-  getColorGradient();
+  trend.color = getColorGradient();
 }
