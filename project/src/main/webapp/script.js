@@ -193,7 +193,7 @@ function getTrendBubbleScore(trends) {
 
 /** Returns the average of the sentiment scores of all the articles. */
 function getAverageSentiment(articles) {
-  let avg = articles.reduce((sum, value) -> sum + value, 0) / length;
+  let avg = articles.reduce((sum, value) => sum + value, 0) / length;
   return avg.toFixed(1);
 }
 
