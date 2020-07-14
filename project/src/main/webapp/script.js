@@ -136,22 +136,22 @@ function getTrendBubbles(content) {
   let i = 0;
   for (const [key,value] of bubbleSizes.entries()) {  
     if (i < length) {
-      bubbleFirstRow.appendChild(createTrendBubbles(key,bubbleSizes.get(key),trend.color.get(sentimentScore.get(key))));
+      bubbleFirstRow.appendChild(createTrendBubble(key,bubbleSizes.get(key),trend.color.get(sentimentScore.get(key))));
     } else {
-      bubbleSecondRow.appendChild(createTrendBubbles(key,bubbleSizes.get(key),trend.color.get(sentimentScore.get(key))));
+      bubbleSecondRow.appendChild(createTrendBubble(key,bubbleSizes.get(key),trend.color.get(sentimentScore.get(key))));
     }
     i += 1;
   } 
 }
 
 /** Creates an element that represents a trend and its frequency. */
-function createTrendBubbles(trend, size, color) {
+function createTrendBubble(trend, size, color) {
   const bubbleElement = document.createElement('div');
   bubbleElement.className = 'bubbles';
   let style = '';
-  style = addStyleProperty(style,'width',size + 'vw;');
-  style = addStyleProperty(style,'height',size + 'vw;');
-  style = addStyleProperty(style,'font-size',size/10 +'vw;');
+  style = addStyleProperty(style,'width',size + 'vw');
+  style = addStyleProperty(style,'height',size + 'vw');
+  style = addStyleProperty(style,'font-size',size/10 +'vw');
   style = addStyleProperty(style,'background-color',color);
   bubbleElement.setAttribute('style',style);
   bubbleElement.innerText = trend;
@@ -161,7 +161,7 @@ function createTrendBubbles(trend, size, color) {
 
 /** Add style property. */
 function addStyleProperty(style, property, value) {
-  return style.concat(property,':',value);
+  return style.concat(property,':',value,';');
 }
 
 /** Returns a map with trends and their respective bubble size. */
@@ -185,7 +185,7 @@ function getSize(frequency,max,min) {
   if(max != min) {
     size = ((maxSize - minSize) * (frequency - min)) / (max - min) + minSize;
   }
-  return size;
+  return parseInt(size.toFixed(0));
 }
 
 /** Returns a map of the trends and their respective sentiment scores. */

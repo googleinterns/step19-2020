@@ -393,3 +393,147 @@ describe('creates trend elements', () => {
   });
 });
 
+/** createTrendBubble - creates an element that represents a trend and its frequency. */
+describe('creates a trend bubble element', () => {
+  test('create trend 1', () => {
+    let trendBubble = script.createTrendBubble('trendOne', 20, 'pink');
+    expect(trendBubble.nodeName).toEqual('DIV');
+    expect(trendBubble.className).toEqual('bubbles');
+    expect(trendBubble.getAttribute('style')).toEqual('width:20vw;height:20vw;font-size:2vw;background-color:pink;');
+    expect(trendBubble.innerText).toEqual('trendOne');
+  });
+});
+
+/** addStyleProperty - adds a property to an element's style. */
+describe('add style property', () => {
+  test('add width', () => {
+    let noStyle = '';
+    let withStyle = script.addStyleProperty(noStyle,'width','50vw');
+    expect(withStyle).toEqual('width:50vw;');
+  });
+
+  test('add height', () => {
+    let noStyle = '';
+    let withStyle = script.addStyleProperty(noStyle,'height','50vw');
+    expect(withStyle).toEqual('height:50vw;');
+  });
+
+  test('add font-size', () => {
+    let noStyle = '';
+    let withStyle = script.addStyleProperty(noStyle,'font-size','12px');
+    expect(withStyle).toEqual('font-size:12px;');
+  });
+
+  test('add width', () => {
+    let noStyle = '';
+    let withStyle = script.addStyleProperty(noStyle,'background-color','pink');
+    expect(withStyle).toEqual('background-color:pink;');
+  });
+});
+
+/** getTrendBubbleSize - returns a map with trends and their respective bubble size. */
+describe('returns a map with trend and bubble size', () => {
+  const topicOne = { frequency: 5000, name: 'topicOne' };
+  const topicTwo = { frequency: 5000, name: 'topicTwo'};
+  const topicThree = { frequency: 5000, name: 'topicThree' };
+  const topicFour = { frequency: 5000, name: 'topicFour' };
+  const content = [topicOne,topicTwo,topicThree,topicFour];
+  let expectedSize = new Map();
+  expectedSize.set('topicOne',20);
+  expectedSize.set('topicTwo',20);
+  expectedSize.set('topicThree',20);
+  expectedSize.set('topicFour',20);
+
+  test('same size large', () => {
+    let size = script.getTrendBubbleSize(content);
+    expect(size).toEqual(expectedSize);
+  });
+
+  test('same size small', () => {
+    topicOne.frequency = 1;
+    topicTwo.frequency = 1;
+    topicThree.frequency = 1;
+    topicFour.frequency = 1;
+    let size = script.getTrendBubbleSize(content);
+    expect(size).toEqual(expectedSize);
+  });
+
+  test('one small, three large', () => {
+    topicOne.frequency = 1;
+    topicTwo.frequency = 5000;
+    topicThree.frequency = 5000;
+    topicFour.frequency = 5000;
+    let size = script.getTrendBubbleSize(content);
+    expectedSize.set('topicOne',6);
+    expectedSize.set('topicTwo',23);
+    expectedSize.set('topicThree',23);
+    expectedSize.set('topicFour',23);
+
+    expect(size).toEqual(expectedSize);
+  });
+
+  test('two small, two large', () => {
+    topicOne.frequency = 1;
+    topicTwo.frequency = 1;
+    topicThree.frequency = 5000;
+    topicFour.frequency = 5000;
+    let size = script.getTrendBubbleSize(content);
+    expectedSize.set('topicOne',6);
+    expectedSize.set('topicTwo',6);
+    expectedSize.set('topicThree',23);
+    expectedSize.set('topicFour',23);
+
+    expect(size).toEqual(expectedSize);
+  });
+
+  test('three small, one large', () => {
+    topicOne.frequency = 1;
+    topicTwo.frequency = 1;
+    topicThree.frequency = 1;
+    topicFour.frequency = 50000;
+    let size = script.getTrendBubbleSize(content);
+    expectedSize.set('topicOne',6);
+    expectedSize.set('topicTwo',6);
+    expectedSize.set('topicThree',6);
+    expectedSize.set('topicFour',23);
+
+    expect(size).toEqual(expectedSize);
+  });
+
+  test('all different sizes', () => {
+    topicOne.frequency = 20000;
+    topicTwo.frequency = 30000;
+    topicThree.frequency = 40000;
+    topicFour.frequency = 50000;
+    let size = script.getTrendBubbleSize(content);
+    expectedSize.set('topicOne',6);
+    expectedSize.set('topicTwo',12);
+    expectedSize.set('topicThree',17);
+    expectedSize.set('topicFour',23);
+
+    expect(size).toEqual(expectedSize);
+  });
+});
+
+/** getSize - calculates and returns the bubble size. */
+describe('calculates bubble size', () => {
+  test('same size', () => {
+    let size = script.getSize(50000,50000,50000);
+    expect(size).toBe(20);
+  });
+
+  test('min', () => {
+    let size = script.getSize(1,50000,1);
+    expect(size).toBe(6);
+  });       
+
+  test('max', () => {
+    let size = script.getSize(50000,50000,1);
+    expect(size).toBe(23);
+  });  
+
+  test('median', () => {
+    let size = script.getSize(30000,50000,10000);
+    expect(size).toBe(15);
+  });   
+});
