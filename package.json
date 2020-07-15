@@ -1,0 +1,26 @@
+{
+  "name": "step19-2020",
+  "version": "1.0.0",
+  "description": "Web app that auto-generates trends and related articles",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/googleinterns/step19-2020.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/googleinterns/step19-2020/issues"
+  },
+  "homepage": "https://github.com/googleinterns/step19-2020#readme",
+  "devDependencies": {
+    "eslint": "^7.4.0",
+    "eslint-config-google": "^0.14.0",
+    "htmllint-cli": "0.0.7",
+    "stylelint": "^13.6.1",
+    "stylelint-config-standard": "^20.0.0"
+  }
+}
