@@ -7,24 +7,6 @@ const trend = {
   color: '',
 };
 
-module.exports = {
-  toggleNavBar: toggleNavBar,
-  switchTrend: switchTrend,
-  getNextTrendValue: getNextTrendValue,
-  showPage: showPage,
-  getArticles: getArticles,
-  createArticleElement: createArticleElement,
-  getTrends: getTrends,
-  createTrendElement: createTrendElement,
-  getSize: getSize,
-  getTrendBubbleSize: getTrendBubbleSize,
-  addStyleProperty: addStyleProperty,
-  createTrendBubble: createTrendBubble,
-  getTrendBubbles: getTrendBubbles,
-  getTrendBubbleScore: getTrendBubbleScore,
-  getAverageSentiment: getAverageSentiment,
-};
-
 /** Show and hide nav bar. */
 function toggleNavBar() {
   const nav = document.getElementById('nav');
