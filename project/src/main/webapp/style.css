@@ -265,7 +265,7 @@ li {
 }
 
 .sentiment-key {
-  background-image: linear-gradient(to right, #fed8F7 , #c4ddfe);
+  background-image: linear-gradient(to right,#fed8f7 ,#c4ddfe);
   height: 3vh;
   margin: 0.5vh;
   width: 12vw;
@@ -273,7 +273,7 @@ li {
 
 .neg,
 .pos {
-  display: inline-block;  
+  display: inline-block;
 }
 
 .neg {
@@ -281,20 +281,36 @@ li {
 }
 
 @keyframes up {  
-  0%   { opacity: 0; transform: translateY(1rem); }
-  50%  { opacity: 1; }
-  100% { opacity:0; transform: translateY(-1rem); }
+  0% {
+    opacity: 0;
+    transform: translateY(1rem);
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity:0;
+    transform: translateY(-1rem);
+  }
 }
 
 @keyframes down {   
-  0%   { opacity: 0; transform: translateY(-1rem); }
-  50%  { opacity: 1; }
-  100% { opacity: 0; transform: translateY(1rem); }
+  0% {
+    opacity: 0;
+    transform: translateY(-1rem);
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(1rem);
+  }
 }
 
 @keyframes fade-in {
   from { opacity: 0; }
-  to   { opacity: 1; }
+  to { opacity: 1; }
 }
 
 @media only screen and (min-device-width: 320px) and (max-device-width: 480px) {
