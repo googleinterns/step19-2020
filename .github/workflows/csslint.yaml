@@ -1,6 +1,6 @@
 name: CSS Presubmit
 
-on: [push,pull_request]
+on: [push]
 
 jobs:
   lint:
