@@ -21,7 +21,7 @@ html {
   background-color: black;
   display: inline-block;
   height: 7vh;
-  margin: .5vh;
+  margin: 0.5vh;
   opacity: 0;
   transition: 3s ease;
   width: 1vh;
@@ -55,28 +55,28 @@ html {
 
 .hamburger-icon div {
   background-color: black;
-  height: .35vh;
+  height: 0.35vh;
   position: relative;
   width: 100%;
 }
 
-.hamburger-icon div:before,
-.hamburger-icon div:after {
+.hamburger-icon div::before,
+.hamburger-icon div::after {
   background-color: black;
   content: '';
-  height: .4vh;
+  height: 0.4vh;
   position: absolute;
   top: 1.5vh;
   width: 100%;
 }
 
-.hamburger-icon div:after {
+.hamburger-icon div::after {
   top: 3vh;
 }
 
 .hamburger-icon:hover div,
-.hamburger-icon:hover div:before,
-.hamburger-icon:hover div:after {
+.hamburger-icon:hover div::before,
+.hamburger-icon:hover div::after {
   background-color: gray;
 }
 
@@ -91,7 +91,7 @@ ul {
 }
 
 nav {
-  border-left: solid .2vw;
+  border-left: solid 0.2vw;
   display: none;
   position: absolute;
   right: 5%;
@@ -119,38 +119,15 @@ li {
 }
 
 .arrow-transition,
-.arrow-transition:hover {
-  margin-left: 50vw;
-  margin-top: 88vh;
-}
-
-.arrow-transition,
 .slideshow-left,
 .slideshow-right {
   border: solid black;
 }
 
-.arrow-transition:hover,
-.slideshow-left:hover,
-.slideshow-right:hover {
-  border: solid gray;
-}
-
-.arrow-transition:hover,
-.slideshow-left:hover,
-.slideshow-right:hover,
 .arrow-transition,
-.slideshow-left,
-.slideshow-right {
-  background-color: transparent;
-  border-width: 0 .4vw .4vw 0;
-  display: inline-block;
-  padding: .8vw;
-  transform: rotate(45deg);
-}
-
-.slideshow-container {
-  padding-top: 1vh;
+.arrow-transition:hover {
+  margin-left: 50vw;
+  margin-top: 88vh;
 }
 
 .slideshow-left {
@@ -159,6 +136,29 @@ li {
 
 .slideshow-right {
   margin-left: 54vw;
+}
+
+.arrow-transition:hover,
+.slideshow-left:hover,
+.slideshow-right:hover {
+  border: solid gray;
+}
+
+.arrow-transition,
+.arrow-transition:hover,
+.slideshow-left,
+.slideshow-right,
+.slideshow-left:hover,
+.slideshow-right:hover {
+  background-color: transparent;
+  border-width: 0 0.4vw 0.4vw 0;
+  display: inline-block;
+  padding: 0.8vw;
+  transform: rotate(45deg);
+}
+
+.slideshow-container {
+  padding-top: 1vh;
 }
 
 .slideshow-arrows {
@@ -199,7 +199,8 @@ li {
   padding: 1.5vh;
 }
 
-.dots:hover, .dot-1 {
+.dots:hover,
+.dot-1 {
   background-color: rgb(226, 226, 226);
 }
 
@@ -216,7 +217,7 @@ li {
 
 .headers {
   font-size: 2vw;
-  margin-bottom: 4vh;    
+  margin-bottom: 4vh;
 }
 
 .headers:hover {
@@ -241,7 +242,7 @@ li {
   padding-left: 30vw;
   text-align: center;
   vertical-align: middle;
-} 
+}
 
 .trend-frequency-data {
   display: inline-grid;
@@ -264,9 +265,9 @@ li {
 }
 
 .sentiment-key {
-  background-image: linear-gradient(to right, #FED8F7 , #C4DDFE);
+  background-image: linear-gradient(to right, #fed8F7 , #c4ddfe);
   height: 3vh;
-  margin: .5vh;
+  margin: 0.5vh;
   width: 12vw;
 }
 
@@ -280,20 +281,20 @@ li {
 }
 
 @keyframes up {  
-  0%   {opacity:0; transform: translateY(1rem);}
-  50%  {opacity: 1;}
-  100% {opacity:0; transform: translateY(-1rem);}
+  0%   { opacity: 0; transform: translateY(1rem); }
+  50%  { opacity: 1; }
+  100% { opacity:0; transform: translateY(-1rem); }
 }
 
 @keyframes down {   
-  0%   {opacity:0; transform: translateY(-1rem);}
-  50%  {opacity: 1;}
-  100% {opacity:0; transform: translateY(1rem);}
+  0%   { opacity: 0; transform: translateY(-1rem); }
+  50%  { opacity: 1; }
+  100% { opacity: 0; transform: translateY(1rem); }
 }
 
 @keyframes fade-in {
-  from {opacity:0;}
-  to   {opacity:1;} 
+  from { opacity: 0; }
+  to   { opacity: 1; }
 }
 
 @media only screen and (min-device-width: 320px) and (max-device-width: 480px) {
@@ -312,22 +313,22 @@ li {
     top: 5vw;
     width: 8vw;
   }
-  
+
   .hamburger-icon div {
-    height: .4vh;
+    height: 0.4vh;
   }
-  
-  .hamburger-icon div:before,
-  .hamburger-icon div:after {
+
+  .hamburger-icon div::before,
+  .hamburger-icon div::after {
     top: 1.3vh;
   }
-  
-  .hamburger-icon div:after {
+
+  .hamburger-icon div::after {
     top: 2.6vh;
   }
 
   nav {
-    border-left: solid .5vw;
+    border-left: solid 0.5vw;
     display: none;
     left: 5%;
     position: absolute;
@@ -338,7 +339,7 @@ li {
   .title {
     font-size: 14vw;
   }
-  
+
   li {
     margin: 6vh 0;
     text-align: center;
@@ -379,7 +380,7 @@ li {
   .slideshow-left {
     margin-left: 15vw;
   }
-  
+
   .slideshow-right {
     margin-left: 58vw;
   }
@@ -399,7 +400,7 @@ li {
   }
 
   .dot-container {
-    margin-top: -2vw;;
+    margin-top: -2vw;
   }
 
   .dots {
@@ -439,17 +440,17 @@ li {
     top: 5vw;
     width: 6vw;
   }
-  
+
   .hamburger-icon div {
-    height: .4vh;
+    height: 0.4vh;
   }
-  
-  .hamburger-icon div:before,
-  .hamburger-icon div:after {
+
+  .hamburger-icon div::before,
+  .hamburger-icon div::after {
     top: 1.3vh;
   }
-  
-  .hamburger-icon div:after {
+
+  .hamburger-icon div::after {
     top: 2.6vh;
   }
 
@@ -458,12 +459,12 @@ li {
   }
 
   nav {
-    border-left: solid .5vw;
+    border-left: solid 0.5vw;
     left: 5%;
     position: absolute;
     top: 10%;
   }
-  
+
   li {
     margin: 6vh 0;
     text-align: center;
@@ -483,10 +484,6 @@ li {
   .arrow-transition:hover {
     margin-left: 48vw;
     margin-top: 52vh;
-  }
-
-  .arrow-transition:hover,
-  .arrow-transition {
     border-width: 0 1.5vw 1.5vw 0;
     padding: 2vw;
   }
@@ -504,15 +501,15 @@ li {
   .slideshow-left {
     margin-left: 13vw;
   }
-  
+
   .slideshow-right {
     margin-left: 64vw;
   }
 
-  .slideshow-left:hover,
-  .slideshow-right:hover,
   .slideshow-left,
-  .slideshow-right {
+  .slideshow-right,
+  .slideshow-left:hover,
+  .slideshow-right:hover {
     border-width: 0 1vw 1vw 0;
     padding: 1.5vw;
   }
@@ -523,7 +520,7 @@ li {
   }
 
   .dot-container {
-    margin-top: -2.5vw;;
+    margin-top: -2.5vw;
   }
 
   .articles {
