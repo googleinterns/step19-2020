@@ -62,7 +62,7 @@ public class Article {
   }
 
   public String toString() {
-    return String.format("%s %s %s %s %s", title, link, pubDate.toString(), description, source);
+    return String.format("%s %s %s %s %s %.3f", title, link, pubDate.toString(), description, source, sentiment.floatValue());
   }
 
   public Float getSentiment() {

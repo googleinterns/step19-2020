@@ -29,6 +29,8 @@ import com.google.sps.data.Trend;
 import java.net.*;
 import java.util.*;
 
+
+
 /** Service class that delivers news under a requested topic. */
 public class NewsService {
   // one instance, reuse
@@ -87,7 +89,7 @@ public class NewsService {
     List<Article> articles = new ArrayList<Article>();
     for(int i = 0; i < numArticles; i++) {
       SyndEntry syndEntry = syndEntries.get(i);
-      Float articleSentiment = findSentimentScore(syndEntry.getTitle());
+      Float articleSentiment = findSentimentScore(syndEntry.getTitle()); // We find the sentiment of the article's title
       Article article = new Article(syndEntry.getTitle(), syndEntry.getLink(), syndEntry.getPublishedDate(), syndEntry.getDescription().getValue(), syndEntry.getSource().getTitleEx().getValue(), articleSentiment);
       articles.add(article);
     }
@@ -95,7 +97,9 @@ public class NewsService {
     return articles;
   }
 
+  // We run a sentiment analysis on the String parameter and return a float representing the sentiment
   private Float findSentimentScore(String articleTitle) {
+
     try (LanguageServiceClient language = LanguageServiceClient.create()) {
       Document doc = Document.newBuilder().setContent(articleTitle).setType(Type.PLAIN_TEXT).build();
       AnalyzeSentimentResponse response = language.analyzeSentiment(doc);
