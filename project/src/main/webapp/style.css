@@ -265,7 +265,7 @@ li {
 }
 
 .sentiment-key {
-  background-image: linear-gradient(to right, #fed8f7 , #c4ddfe); /* stylelint-disable-line declaration-no-important */
+  background-image: linear-gradient(to right, #fed8f7 , #c4ddfe);
   height: 3vh;
   margin: 0.5vh;
   width: 12vw;
@@ -281,12 +281,11 @@ li {
 }
 
 @keyframes up {
-
   0% {
     opacity: 0;
     transform: translateY(1rem);
   }
- 
+
   50% {
     opacity: 1;
   }
@@ -298,7 +297,6 @@ li {
 }
 
 @keyframes down {
-
   0% {
     opacity: 0;
     transform: translateY(-1rem);
@@ -312,7 +310,6 @@ li {
     opacity: 0;
     transform: translateY(1rem);
   }
-
 }
 
 @keyframes fade-in {
