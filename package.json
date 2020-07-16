@@ -19,8 +19,6 @@
   "devDependencies": {
     "eslint": "^7.4.0",
     "eslint-config-google": "^0.14.0",
-    "grunt-htmllint": "^0.3.0",
-    "htmlhint": "^0.14.1",
     "htmllint-cli": "0.0.7",
     "stylelint": "^13.6.1",
     "stylelint-config-standard": "^20.0.0"
