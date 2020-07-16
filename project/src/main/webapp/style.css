@@ -265,7 +265,7 @@ li {
 }
 
 .sentiment-key {
-  background-image: linear-gradient(to right,#fed8f7 ,#c4ddfe);
+  background-image: linear-gradient(to right, #fed8f7 , #c4ddfe); /* stylelint-disable-line declaration-no-important */
   height: 3vh;
   margin: 0.5vh;
   width: 12vw;
@@ -280,32 +280,39 @@ li {
   margin-right: 12vh;
 }
 
-@keyframes up {  
+@keyframes up {
+
   0% {
     opacity: 0;
     transform: translateY(1rem);
   }
+ 
   50% {
     opacity: 1;
   }
+
   100% {
-    opacity:0;
+    opacity: 0;
     transform: translateY(-1rem);
   }
 }
 
-@keyframes down {   
+@keyframes down {
+
   0% {
     opacity: 0;
     transform: translateY(-1rem);
   }
+
   50% {
     opacity: 1;
   }
+
   100% {
     opacity: 0;
     transform: translateY(1rem);
   }
+
 }
 
 @keyframes fade-in {
