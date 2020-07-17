@@ -35,7 +35,7 @@ function toggleNavBar() {
  */
 function switchTrend(val, arrow, trends) {
   if (trends === undefined) trends = trend;
-  const nextTrend = -1;
+  let nextTrend = -1;
   if (arrow) {
     nextTrend = getNextTrendValue(val, trends.currentTrendVal);
   } else {
@@ -92,7 +92,7 @@ async function retrieveArticles(numArticles, trend) {
   trend.content = await response.json();
   getArticles(trend.currentTrendVal, trend.content);
   getTrends(trend.currentTrendVal, trend.content);
-  getTrendBubbles(trend.content);
+  getTrendBubbles(trend.content, trend.color);
 }
 
 /**
@@ -129,7 +129,7 @@ function createArticleElement(article, right) {
   const titleElement = document.createElement('h1');
   // Removes source from title
   const newEnd = article.title.length - article.source.length - 3;
-  const articleTitle = title.substring(0, newEnd);
+  const articleTitle = article.title.substring(0, newEnd);
   titleElement.innerText = articleTitle;
   const authorElement = document.createElement('h3');
   authorElement.innerText = 'author: ' + article.source;
@@ -173,8 +173,9 @@ function createTrendElement(trend, val) {
 /**
  * Displays trend frequency bubbles on page.
  * @param {Array} content Array of Topic objects.
+ * @param {Map} colors Map of sentiments and their color assignments.
  */
-function getTrendBubbles(content) {
+function getTrendBubbles(content, colors) {
   const bubbleFirstRow = document.getElementById('frequency-row-1');
   const bubbleSecondRow = document.getElementById('frequency-row-2');
   const bubbleSizes = getTrendBubbleSize(content);
@@ -182,7 +183,7 @@ function getTrendBubbles(content) {
   const length = (bubbleSizes.size)/2;
   let i = 0;
   for (const [key, value] of bubbleSizes.entries()) {
-    const color = trend.color.get(sentimentScore.get(key));
+    const color = colors.get(sentimentScore.get(key));
     const child = createTrendBubble(key, value, color);
     if (i < length) {
       bubbleFirstRow.appendChild(child);
@@ -280,8 +281,10 @@ function getTrendBubbleScore(trends) {
  * @return {number} The average of the sentiment of all of the articles.
 */
 function getAverageSentiment(articles) {
-  const avg = articles.reduce((sum, value) => sum + value, 0) / length;
-  return avg.toFixed(1);
+  const score = [];
+  articles.forEach((article) => score.push(article.sentiment));
+  const avg = score.reduce((sum, value) => sum + value, 0) / articles.length;
+  return parseFloat(avg.toFixed(1));
 }
 
 /**
