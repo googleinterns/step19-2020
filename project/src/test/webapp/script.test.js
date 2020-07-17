@@ -247,6 +247,132 @@ describe('Shows main page after page load', () => {
   });
 });
 
+/** getArticles - displays articles on page. */
+describe('displays trends on page', () => {
+  const article = {
+    link: 'link',
+    title: 'title',
+    source: 'source',
+    pubDate: 'date',
+  };
+  const articles = [article];
+  const topicOne = {articles: articles};
+  const topicTwo = {articles: articles};
+  const topicThree = {articles: articles};
+  const topicFour = {articles: articles};
+  const content = [topicOne, topicTwo, topicThree, topicFour];
+  const articleContainer = document.createElement('div');
+  articleContainer.setAttribute('id', 'article-container');
+  document.body.appendChild(articleContainer);
+
+  test('adds articles for trend 1', () => {
+    script.getArticles(1, content);
+    expect(articleContainer.childNodes.length).toBe(1);
+    const articleElement = script.createArticleElement(article, false);
+    expect(articleContainer.childNodes[0]).toEqual(articleElement);
+    articleContainer.innerHTML = '';
+  });
+
+  test('adds articles for trend 2', () => {
+    script.getArticles(2, content);
+    expect(articleContainer.childNodes.length).toBe(1);
+    const articleElement = script.createArticleElement(article, false);
+    expect(articleContainer.childNodes[0]).toEqual(articleElement);
+    articleContainer.innerHTML = '';
+  });
+
+  test('adds articles for trend 3', () => {
+    script.getArticles(3, content);
+    expect(articleContainer.childNodes.length).toBe(1);
+    const articleElement = script.createArticleElement(article, false);
+    expect(articleContainer.childNodes[0]).toEqual(articleElement);
+    articleContainer.innerHTML = '';
+  });
+
+  test('adds articles for trend 4', () => {
+    script.getArticles(4, content);
+    expect(articleContainer.childNodes.length).toBe(1);
+    const articleElement = script.createArticleElement(article, false);
+    expect(articleContainer.childNodes[0]).toEqual(articleElement);
+    articleContainer.innerHTML = '';
+  });
+});
+
+/** createArticleElement - creates an element that represents an article. */
+describe('creates article elements', () => {
+  const article = {
+    link: 'link',
+    title: 'title - source',
+    source: 'source',
+    pubDate: 'date',
+  };
+
+  test('create left-justified article element', () => {
+    const articleElement = script.createArticleElement(article, false);
+
+    // checks container element is created correctly with 3 child nodes
+    expect(articleElement.nodeName).toEqual('DIV');
+    expect(articleElement.getAttribute('class')).toEqual('articles');
+    expect(articleElement.childNodes.length).toBe(3);
+  });
+
+  test('create right-justified article element', () => {
+    const articleElement = script.createArticleElement(article, true);
+    const expectedClass = 'articles right-justified';
+
+    // checks container element is created correctly with 3 child nodes
+    expect(articleElement.nodeName).toEqual('DIV');
+    expect(articleElement.getAttribute('class')).toEqual(expectedClass);
+    expect(articleElement.childNodes.length).toBe(3);
+  });
+
+  test('check child nodes of left-justified article element', () => {
+    const articleElement = script.createArticleElement(article, false);
+
+    const linkElement = articleElement.childNodes[0];
+    const authorElement = articleElement.childNodes[1];
+    const dateElement = articleElement.childNodes[2];
+
+    // checks link element is created correctly with 1 child node
+    expect(linkElement.nodeName).toEqual('A');
+    expect(linkElement.getAttribute('href')).toEqual('link');
+    expect(linkElement.childNodes.length).toBe(1);
+
+    const titleElement = linkElement.childNodes[0];
+
+    // checks all child nodes are created correctly
+    expect(titleElement.nodeName).toEqual('H1');
+    expect(authorElement.nodeName).toEqual('H3');
+    expect(dateElement.nodeName).toEqual('H3');
+    expect(titleElement.innerText).toEqual('title');
+    expect(authorElement.innerText).toEqual('author: source');
+    expect(dateElement.innerText).toEqual('date: date');
+  });
+
+  test('check child nodes of right-justified article element', () => {
+    const articleElement = script.createArticleElement(article, true);
+
+    const linkElement = articleElement.childNodes[0];
+    const authorElement = articleElement.childNodes[1];
+    const dateElement = articleElement.childNodes[2];
+
+    // checks link element is created correctly with 1 child node
+    expect(linkElement.nodeName).toEqual('A');
+    expect(linkElement.getAttribute('href')).toEqual('link');
+    expect(linkElement.childNodes.length).toBe(1);
+
+    const titleElement = linkElement.childNodes[0];
+
+    // checks all child nodes are created correctly
+    expect(titleElement.nodeName).toEqual('H1');
+    expect(authorElement.nodeName).toEqual('H3');
+    expect(dateElement.nodeName).toEqual('H3');
+    expect(titleElement.innerText).toEqual('title');
+    expect(authorElement.innerText).toEqual('author: source');
+    expect(dateElement.innerText).toEqual('date: date');
+  });
+});
+
 /** getTrends - displays trends on page. */
 describe('displays trends on page', () => {
   const topicOne = {name: 'trend 1'};
@@ -322,13 +448,52 @@ describe('creates trend elements', () => {
   });
 });
 
+/** getTrendBubbles - displays trend frequency bubbles on page. */
+describe('displays trend frequency bubbles', () => {
+  const color = new Map();
+  color.set(1.0, 'pink');
+  const article = {
+    link: 'link',
+    title: 'title',
+    source: 'source',
+    pubDate: 'date',
+    sentiment: 1.0,
+  };
+  const articles = [article];
+  const bubbleFirstRow = document.createElement('div');
+  const bubbleSecondRow = document.createElement('div');
+  bubbleFirstRow.setAttribute('id', 'frequency-row-1');
+  bubbleSecondRow.setAttribute('id', 'frequency-row-2');
+  document.body.appendChild(bubbleFirstRow);
+  document.body.appendChild(bubbleSecondRow);
+  const topicOne = {frequency: 5000, name: 'topicOne', articles: articles};
+  const topicTwo = {frequency: 5000, name: 'topicTwo', articles: articles};
+  const topicThree = {frequency: 5000, name: 'topicThree', articles: articles};
+  const topicFour = {frequency: 5000, name: 'topicFour', articles: articles};
+  const content = [topicOne, topicTwo, topicThree, topicFour];
+
+  test('displays trend frequency bubbles', () => {
+    const bubbleElementOne = script.createTrendBubble('trend-1', 20, 'pink');
+    const bubbleElementTwo = script.createTrendBubble('trend-2', 20, 'pink');
+    const bubbleElementThree = script.createTrendBubble('trend-3', 20, 'pink');
+    const bubbleElementFour = script.createTrendBubble('trend-4', 20, 'pink');
+    script.getTrendBubbles(content, color);
+    expect(bubbleFirstRow.childNodes.length).toBe(2);
+    expect(bubbleSecondRow.childNodes.length).toBe(2);
+    expect(bubbleFirstRow.childNodes[0]).toEqual(bubbleElementOne);
+    expect(bubbleFirstRow.childNodes[1]).toEqual(bubbleElementTwo);
+    expect(bubbleSecondRow.childNodes[0]).toEqual(bubbleElementThree);
+    expect(bubbleSecondRow.childNodes[1]).toEqual(bubbleElementFour);
+  });
+});
+
 /** createTrendBubble - creates an element that
  *  represents a trend and its frequency. */
 describe('creates a trend bubble element', () => {
   test('create trend 1', () => {
     const trendBubble = script.createTrendBubble('trendOne', 20, 'pink');
-    const expectedStyle = 'width:20vw;height:20vw;font-size:2vw;';
-    expectedStyle.append('background-color:pink;');
+    let expectedStyle = 'width:20vw;height:20vw;font-size:2vw;';
+    expectedStyle = expectedStyle.concat('background-color:pink;');
     expect(trendBubble.nodeName).toEqual('DIV');
     expect(trendBubble.className).toEqual('bubbles');
     expect(trendBubble.getAttribute('style')).toEqual(expectedStyle);
@@ -469,5 +634,119 @@ describe('calculates bubble size', () => {
   test('median', () => {
     const size = script.getSize(30000, 50000, 10000);
     expect(size).toBe(15);
+  });
+});
+
+/** getTrendBubbleScore - returns a map of the trends
+ * and their respective sentiment scores. */
+describe('returns a map of trends and sentiment scores', () => {
+  const article = {
+    link: 'link',
+    title: 'title',
+    source: 'source',
+    pubDate: 'date',
+    sentiment: 1.0,
+  };
+  const articles = [article];
+  const topicOne = {frequency: 5000, name: 'topicOne', articles: articles};
+  const topicTwo = {frequency: 5000, name: 'topicTwo', articles: articles};
+  const topicThree = {frequency: 5000, name: 'topicThree', articles: articles};
+  const topicFour = {frequency: 5000, name: 'topicFour', articles: articles};
+  const content = [topicOne, topicTwo, topicThree, topicFour];
+
+  test('add trends and sentiment value to map', () => {
+    const score = script.getTrendBubbleScore(content);
+    const expectedScore = new Map();
+    expectedScore.set('topicOne', 1.0);
+    expectedScore.set('topicTwo', 1.0);
+    expectedScore.set('topicThree', 1.0);
+    expectedScore.set('topicFour', 1.0);
+    expect(score).toEqual(expectedScore);
+  });
+});
+
+/** getAverageSentiment - returns the average of
+ * the sentiment scores of all the articles. */
+describe('returns average sentiment score of a given trend', () => {
+  test('all positive scores', () => {
+    const article = {
+      name: 'article',
+      sentiment: .7,
+    };
+    const articles = [article, article, article];
+    const avg = script.getAverageSentiment(articles);
+    expect(avg).toBe(0.7);
+  });
+
+  test('all negative scores', () => {
+    const articleOne = {
+      name: 'article',
+      sentiment: -.7,
+    };
+    const articleTwo = {
+      name: 'article',
+      sentiment: -.7,
+    };
+    const articleThree = {
+      name: 'article',
+      sentiment: -.7,
+    };
+    const articles = [articleOne, articleTwo, articleThree];
+    const avg = script.getAverageSentiment(articles);
+    expect(avg).toBe(-0.7);
+  });
+
+  test('different positive scores', () => {
+    const articleOne = {
+      name: 'article',
+      sentiment: .7,
+    };
+    const articleTwo = {
+      name: 'article',
+      sentiment: .5,
+    };
+    const articleThree = {
+      name: 'article',
+      sentiment: .9,
+    };
+    const articles = [articleOne, articleTwo, articleThree];
+    const avg = script.getAverageSentiment(articles);
+    expect(avg).toBe(0.7);
+  });
+
+  test('different negative scores', () => {
+    const articleOne = {
+      name: 'article',
+      sentiment: -.7,
+    };
+    const articleTwo = {
+      name: 'article',
+      sentiment: -.5,
+    };
+    const articleThree = {
+      name: 'article',
+      sentiment: -.9,
+    };
+    const articles = [articleOne, articleTwo, articleThree];
+    const avg = script.getAverageSentiment(articles);
+    expect(avg).toBe(-0.7);
+  });
+
+  test('mixed positive and negative scores', () => {
+    const articleOne = {
+      name: 'article',
+      sentiment: -.7,
+    };
+    const articleTwo = {
+      name: 'article',
+      sentiment: .7,
+    };
+    const articleThree = {
+      name: 'article',
+      sentiment: -.9,
+    };
+    const articles = [articleOne, articleTwo, articleThree];
+    const avg = script.getAverageSentiment(articles);
+    expect(avg).toBe(-.3);
   });
 });
