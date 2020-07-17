@@ -98,7 +98,6 @@ public class GeoService {
       }
     }
 
-
     public List<String> getCountryList() {
       return validCountryList;
     }
