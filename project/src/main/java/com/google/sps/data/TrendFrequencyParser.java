@@ -25,7 +25,6 @@ import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.events.Characters;
 import javax.xml.stream.events.XMLEvent;
 
-
 public class TrendFrequencyParser {
   // These are the xml tags that data is being extracted from.
   static final String TITLE = "title";
