@@ -160,7 +160,7 @@ public class GeoService {
       }
     }
 
-    public void getUserLocation() throws IOException {
+    public String getUserLocation() throws IOException {
       return getUserCountry(getUserCoordinates());
     }
 }
