@@ -11,7 +11,7 @@ const trend = {
 function toggleNavBar() {
   const nav = document.getElementById('nav');
   const main = document.getElementById('main');
-  if (nav.style.display === 'none') {
+  if (nav.style.display === 'none' || nav.style.display === '') {
     nav.style.display = 'block';
     if (screen.width < 1024) {
       main.style.display = 'none';
@@ -123,18 +123,21 @@ function createArticleElement(article, right) {
   const articleElement = document.createElement('div');
   articleElement.className = (!right) ? 'articles' : 'articles right-justified';
 
-  const linkElement = document.createElement('a');
-  linkElement.setAttribute('href', article.link);
+  const linkElement = document.createElement("a");
+  linkElement.setAttribute("href", article.link);
 
   const titleElement = document.createElement('h1');
+  titleElement.className = 'headers';
   // Removes source from title
   const newEnd = article.title.length - article.source.length - 3;
   const articleTitle = title.substring(0, newEnd);
   titleElement.innerText = articleTitle;
   const authorElement = document.createElement('h3');
+  authorElement.className = 'subHeaders';
   authorElement.innerText = 'author: ' + article.source;
 
   const dateElement = document.createElement('h3');
+  dateElement.className = 'subHeaders';
   dateElement.innerText = 'date: ' + article.pubDate;
   linkElement.appendChild(titleElement);
   articleElement.appendChild(linkElement);
@@ -173,6 +176,7 @@ function createTrendElement(trend, val) {
 /**
  * Displays trend frequency bubbles on page.
  * @param {Array} content Array of Topic objects.
+ * @param {Map} colors Map of sentiments and their color assignments.
  */
 function getTrendBubbles(content) {
   const bubbleFirstRow = document.getElementById('frequency-row-1');
@@ -280,8 +284,10 @@ function getTrendBubbleScore(trends) {
  * @return {number} The average of the sentiment of all of the articles.
 */
 function getAverageSentiment(articles) {
-  const avg = articles.reduce((sum, value) => sum + value, 0) / length;
-  return avg.toFixed(1);
+  const score = [];
+  articles.forEach((article) => score.push(article.sentiment));
+  const avg = score.reduce((sum, value) => sum + value, 0) / articles.length;
+  return parseFloat(avg.toFixed(1));
 }
 
 /**
