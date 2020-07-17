@@ -33,8 +33,9 @@ public final class TrendRSSFeedTest {
   TrendService service = new TrendService();
   TrendFrequencyParser parser = new TrendFrequencyParser("https://mock.url");
 
-  private final LocalServiceTestHelper helper = new LocalServiceTestHelper(new LocalDatastoreServiceTestConfig());
-  
+  private final LocalServiceTestHelper helper =
+      new LocalServiceTestHelper(new LocalDatastoreServiceTestConfig());
+
   @Before
   public void setUp() {
     helper.setUp();
@@ -42,13 +43,19 @@ public final class TrendRSSFeedTest {
 
   @Test
   public void ReadTrendsTest() throws IOException {
-    TrendRSSFeed testfeed = parser.readTrendsFromStream(new FileInputStream(new File("src/test/java/com/google/sps/RSSFeed.xml")));
+    TrendRSSFeed testfeed =
+        parser.readTrendsFromStream(
+            new FileInputStream(new File("src/test/java/com/google/sps/RSSFeed.xml")));
     Assert.assertNotNull(testfeed);
   }
 
   @Test
   public void GetTrendsTest() throws IOException {
-    List<TrendRSS> results = parser.readTrendsFromStream(new FileInputStream(new File("src/test/java/com/google/sps/RSSFeed.xml"))).getTrends();
+    List<TrendRSS> results =
+        parser
+            .readTrendsFromStream(
+                new FileInputStream(new File("src/test/java/com/google/sps/RSSFeed.xml")))
+            .getTrends();
     Assert.assertEquals(results.size(), 20);
   }
 
@@ -57,7 +64,7 @@ public final class TrendRSSFeedTest {
     Assert.assertNull(service.convertToInt("hello"));
   }
 
-  @Test 
+  @Test
   public void IntConverterNumberStringTest() {
     Assert.assertEquals(398, service.convertToInt("398").intValue());
   }

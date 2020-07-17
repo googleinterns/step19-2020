@@ -30,7 +30,7 @@ public class TrendRSS {
   public String getFreq() {
     return trendFrequency;
   }
-  
+
   public void setFreq(String frequency) {
     this.trendFrequency = frequency;
   }
