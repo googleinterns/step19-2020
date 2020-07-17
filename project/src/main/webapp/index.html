@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <meta charset="UTF-8">
+        <meta charset="UTF-8" />
         <title>trending topics</title>
-        <link rel="stylesheet" href="style.css">
+        <link rel="stylesheet" href="style.css" />
         <script src="script.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/chroma-js/1.3.4/chroma.min.js"></script>
     </head>
@@ -18,18 +18,23 @@
         </div>
         <div class="content" id="content">
             <div class="section">
+                <div class="languages">
+                    <div onclick="changeLanguage('en')">en |</div>
+                    <div onclick="changeLanguage('es')">es |</div>
+                    <div onclick="changeLanguage('cn')">cn</div>
+                </div>
                 <div class="hamburger-icon" onclick="toggleNavBar()">
                     <div></div>
                 </div>
                 <nav id="nav">
                     <ul>
-                        <li><a href="#">home</a></li>
-                        <li><a href="#trend-frequency">trends</a></li>
-                        <li><a href="#trending-topics">topics</a></li>
+                        <li><a href="#" id="home">home</a></li>
+                        <li><a href="#trend-frequency" id="trends">trends</a></li>
+                        <li><a href="#trending-topics" id="topics">topics</a></li>
                     </ul>
                 </nav>
                 <div class="main" id="main">
-                    <div class="title">trending topics.</div>
+                    <div class="title" id="title">trending topics.</div>
                     <a href="#trend-frequency" class="arrow-transition"></a>
                 </div>
             </div>
