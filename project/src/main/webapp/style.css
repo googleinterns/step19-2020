@@ -1,31 +1,30 @@
-html,
-body {
-  height: 100%;
+body,
+html {
   font-family: 'Courier New', Courier, monospace;
+  height: 100%;
   margin: 0;
-  scroll-behavior: smooth;
 }
 
-#preloader {
-  width: 100%;
+.preloader {
   height: 100%;
   position: absolute;
+  width: 100%;
 }
 
-#preloader-container {
-  position: absolute;
+.preloader-container {
   left: 47vw;
+  position: absolute;
   top: 40vh;
 }
 
-#preloader-container div {
-  width: 1vh;
-  height: 7vh;
+.preloader-container div {
   background-color: black;
   display: inline-block;
-  transition: 3s ease;
+  height: 7vh;
+  margin: 0.5vh;
   opacity: 0;
-  margin: .5vh;
+  transition: 3s ease;
+  width: 1vh;
 }
 
 .down {
@@ -36,7 +35,7 @@ body {
   animation: up 2s linear 1s;
 }
 
-#content {
+.content {
   display: none;
 }
 
@@ -45,45 +44,45 @@ body {
   user-select: none;
 }
 
-#hamburger-icon {
-  width: 2.3vw;
+.hamburger-icon {
+  cursor: pointer;
   height: 3vh;
   position: absolute;
-  top: 2vw;
   right: 2vw;
-  cursor: pointer;
+  top: 2vw;
+  width: 2.3vw;
 }
 
-#hamburger-icon div {
-  width: 100%;
-  height: .35vh;
+.hamburger-icon div {
   background-color: black;
+  height: 0.35vh;
   position: relative;
+  width: 100%;
 }
 
-#hamburger-icon div:before,
-#hamburger-icon div:after {
-  content: '';
-  height: .4vh;
-  width: 100%;
+.hamburger-icon div::before,
+.hamburger-icon div::after {
   background-color: black;
+  content: '';
+  height: 0.4vh;
   position: absolute;
   top: 1.5vh;
+  width: 100%;
 }
 
-#hamburger-icon div:after {
+.hamburger-icon div::after {
   top: 3vh;
 }
 
-#hamburger-icon:hover div,
-#hamburger-icon:hover div:before,
-#hamburger-icon:hover div:after {
+.hamburger-icon:hover div,
+.hamburger-icon:hover div::before,
+.hamburger-icon:hover div::after {
   background-color: gray;
 }
 
 a {
-  text-decoration: none;
   color: black;
+  text-decoration: none;
 }
 
 ul {
@@ -92,12 +91,16 @@ ul {
 }
 
 nav {
+  border-left: solid 0.2vw;
+  display: none;
   position: absolute;
   right: 5%;
   top: 15%;
-  font-size: 2.7vw;
-  border-left: solid .2vw;
-  display: none;
+}
+
+nav,
+.trends {
+  font-size: 3vw;
 }
 
 li {
@@ -106,99 +109,98 @@ li {
   user-select: none;
 }
 
-#title {
-  text-align: center;
+.title {
   font-size: 6vw;
-  position: absolute;
-  top: 50%;
   left: 30%;
+  position: absolute;
+  text-align: center;
+  top: 50%;
   transform: translate(-18%, -70%);
 }
 
-#arrow-transition,
-#arrow-transition:hover {
-  margin-top: 88vh;
-  margin-left: 50vw;
-}
-
-#arrow-transition,
-#slideshow-left,
-#slideshow-right {
+.arrow-transition,
+.slideshow-left,
+.slideshow-right {
   border: solid black;
 }
 
-#arrow-transition:hover,
-#slideshow-left:hover,
-#slideshow-right:hover {
-  border: solid gray;
+.arrow-transition,
+.arrow-transition:hover {
+  margin-left: 50vw;
+  margin-top: 88vh;
 }
 
-#arrow-transition:hover,
-#slideshow-left:hover,
-#slideshow-right:hover,
-#arrow-transition,
-#slideshow-left,
-#slideshow-right {
-  background-color: transparent;
-  border-width: 0 .4vw .4vw 0;
-  display: inline-block;
-  padding: .8vw;
-  transform: rotate(45deg);
-}
-
-#slideshow-container {
-  padding-top: 1vh;
-}
-
-#slideshow-left {
+.slideshow-left {
   margin-left: 20vw;
 }
 
-#slideshow-right {
+.slideshow-right {
   margin-left: 54vw;
 }
 
-#slideshow-arrows {
-  margin-top: 8vh;
-  cursor: pointer;
+.arrow-transition:hover,
+.slideshow-left:hover,
+.slideshow-right:hover {
+  border: solid gray;
 }
 
-#slideshow-left,
-#slideshow-left:hover {
+.arrow-transition,
+.arrow-transition:hover,
+.slideshow-left,
+.slideshow-right,
+.slideshow-left:hover,
+.slideshow-right:hover {
+  background-color: transparent;
+  border-width: 0 0.4vw 0.4vw 0;
+  display: inline-block;
+  padding: 0.8vw;
+  transform: rotate(45deg);
+}
+
+.slideshow-container {
+  padding-top: 1vh;
+}
+
+.slideshow-arrows {
+  cursor: pointer;
+  margin-top: 8vh;
+}
+
+.slideshow-left,
+.slideshow-left:hover {
   transform: rotate(135deg);
 }
 
-#slideshow-right,
-#slideshow-right:hover {
+.slideshow-right,
+.slideshow-right:hover {
   transform: rotate(-45deg);
 }
 
 .trends {
-  text-align: center;
-  font-size: 3vw;
   margin: -5vh auto 4vh auto;
   max-width: 50vw;
-}
-
-#dot-container {
   text-align: center;
-  position: relative;
 }
 
-#dot-container div {
+.dot-container {
+  position: relative;
+  text-align: center;
+}
+
+.dot-container div {
   display: inline-block;
   margin: 1vh;
 }
 
 .dots {
-  cursor: pointer;
-  width: 2vh;
-  height: 2vh;
   border: solid black;
   border-radius: 50%;
+  cursor: pointer;
+  padding: 1.5vh;
 }
 
-.dots:hover, #dot-1 {
+.dots:hover,
+.dot-1 {
   background-color: rgb(226, 226, 226);
 }
 
@@ -208,34 +210,39 @@ li {
   padding: 1vw 3vw;
 }
 
-h1,
-h3 {
+.headers,
+.subHeaders {
   font-weight: normal;
 }
 
-h1 {
-  margin-bottom: 4vh;    
+.headers {
+  font-size: 2vw;
+  margin-bottom: 4vh;
 }
 
-h1:hover {
+.headers:hover {
   color: gray;
 }
 
-h3 {
-  font-size: 1.5vw;
+.subHeaders {
   margin-top: -2vh;
+}
+
+.subHeader,
+.sentiment-container {
+  font-size: 1.5vw;
 }
 
 .right-justified {
   text-align: right;
 }
 
-#trend-frequency {
+.trend-frequency {
   display: table-cell;
-  vertical-align: middle;
-  text-align: center;
   padding-left: 30vw;
-} 
+  text-align: center;
+  vertical-align: middle;
+}
 
 .trend-frequency-data {
   display: inline-grid;
@@ -244,209 +251,226 @@ h3 {
 }
 
 .bubbles {
-  display: inline-grid;
+  align-items: center;
   border: solid 3px black;
   border-radius: 50%;
+  display: inline-grid;
   margin: 0;
-  align-items: center;
   text-align: center;
 }
 
-#sentiment-container {
+.sentiment-container {
   position: absolute;
   right: 11vw;
-  font-size: 2.5vh;
 }
 
-#sentiment-key {
-  width: 10vw;
-  height: 2.5vh;
-  margin: .5vh;
-  background-image: linear-gradient(to right, #FED8F7 , #C4DDFE);
+.sentiment-key {
+  background-image: linear-gradient(to right, #fed8f7 , #c4ddfe);
+  height: 3vh;
+  margin: 0.5vh;
+  width: 12vw;
 }
 
-#neg,
-#pos {
-  display: inline-block;  
+.neg,
+.pos {
+  display: inline-block;
 }
 
-#neg {
-  margin-right: 10vh;
+.neg {
+  margin-right: 12vh;
 }
 
-@keyframes up {  
-  0%   {transform: translateY(1rem); opacity:0;}
-  50%  {opacity: 1;}
-  100% {transform: translateY(-1rem); opacity:0}
+@keyframes up {
+  0% {
+    opacity: 0;
+    transform: translateY(1rem);
+  }
+
+  50% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+    transform: translateY(-1rem);
+  }
 }
 
-@keyframes down {   
-  0%   {transform: translateY(-1rem); opacity:0;}
-  50%  {opacity: 1;}
-  100% {transform: translateY(1rem); opacity:0;}
+@keyframes down {
+  0% {
+    opacity: 0;
+    transform: translateY(-1rem);
+  }
+
+  50% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+    transform: translateY(1rem);
+  }
 }
 
 @keyframes fade-in {
-  from {opacity:0;}
-  to   {opacity:1;} 
+  from { opacity: 0; }
+  to { opacity: 1; }
 }
 
 @media only screen and (min-device-width: 320px) and (max-device-width: 480px) {
-  #preloader-container {
+  .preloader-container {
     left: 42vw;
   }
 
-  #preloader-container div {
-    width: 15px;
+  .preloader-container div {
     height: 150px;
     margin: 10px;
+    width: 15px;
   }
 
-  #hamburger-icon {
-    width: 8vw;
-    top: 5vw;
+  .hamburger-icon {
     right: 5vw;
+    top: 5vw;
+    width: 8vw;
   }
-  
-  #hamburger-icon div {
-    height: .4vh;
+
+  .hamburger-icon div {
+    height: 0.4vh;
   }
-  
-  #hamburger-icon div:before,
-  #hamburger-icon div:after {
+
+  .hamburger-icon div::before,
+  .hamburger-icon div::after {
     top: 1.3vh;
   }
-  
-  #hamburger-icon div:after {
+
+  .hamburger-icon div::after {
     top: 2.6vh;
   }
 
   nav {
-    position: absolute;
-    left: 5%;
-    top: 10%;
-    font-size: 12vw;
-    border-left: solid .5vw;
+    border-left: solid 0.5vw;
     display: none;
-  }
-  
-  li {
-    text-align: center;
-    margin: 6vh 0;
+    left: 5%;
+    position: absolute;
+    top: 10%;
   }
 
-  #title {
+  nav,
+  .title {
     font-size: 14vw;
-    top: 38%;
+  }
+
+  li {
+    margin: 6vh 0;
+    text-align: center;
+  }
+
+  .title {
     left: 27%;
+    top: 38%;
   }
 
-  #arrow-transition,
-  #arrow-transition:hover {
-    margin-top: 47vh;
+  .arrow-transition,
+  .arrow-transition:hover {
     margin-left: 48vw;
+    margin-top: 47vh;
   }
 
-  #arrow-transition:hover,
-  #slideshow-left:hover,
-  #slideshow-right:hover,
-  #arrow-transition,
-  #slideshow-left,
-  #slideshow-right {
+  .arrow-transition:hover,
+  .slideshow-left:hover,
+  .slideshow-right:hover,
+  .arrow-transition,
+  .slideshow-left,
+  .slideshow-right {
     border-width: 0 1.7vw 1.7vw 0;
     padding: 2vw;
     transform: rotate(45deg);
   }
 
-  #trend-frequency-data {
-    font-size: 6.5vw;
-    top: 125%;
+  .trend-frequency-data {
     left: 17%;
     max-width: 75vw;
+    top: 125%;
   }
 
-  #trend-frequency-data div {
+  .trend-frequency-data div {
     margin: 6vw 0;
   }
 
-  #slideshow-left {
+  .slideshow-left {
     margin-left: 15vw;
   }
-  
-  #slideshow-right {
+
+  .slideshow-right {
     margin-left: 58vw;
   }
 
-  #slideshow-left,
-  #slideshow-left:hover {
+  .slideshow-left,
+  .slideshow-left:hover {
     transform: rotate(135deg);
   }
 
-  #slideshow-right,
-  #slideshow-right:hover {
+  .slideshow-right,
+  .slideshow-right:hover {
     transform: rotate(-45deg);
   }
 
   .trends {
-    font-size: 7vw;
     max-width: 55vw;
   }
 
-  #dot-container {
-    margin-top: -2vw;;
+  .dot-container {
+    margin-top: -2vw;
   }
 
   .dots {
-    width: 1.8vh;
     height: 1.8vh;
+    width: 1.8vh;
   }
 
   .articles {
-    text-align: center;
     margin: 5vh 17vw;
     padding: 1vw 2vw;
+    text-align: center;
   }
 
-  #first-article {
-    margin-top: 3.5vh;
+  .trends,
+  .headers {
+    font-size: 7vw;
   }
 
-  h1 {
-    font-size: 6vw;
-  }
-
-  h3 {
+  .subHeaders {
     font-size: 5vw;
   }
 }
 
 @media only screen and (min-device-width: 768px) and (max-device-width: 1024px) {
-  #preloader-container {
+  .preloader-container {
     left: 42vw;
   }
 
-  #preloader-container div {
-    width: 15px;
+  .preloader-container div {
     height: 150px;
     margin: 10px;
+    width: 15px;
   }
 
-  #hamburger-icon {
-    width: 6vw;
-    top: 5vw;
+  .hamburger-icon {
     right: 5vw;
+    top: 5vw;
+    width: 6vw;
   }
-  
-  #hamburger-icon div {
-    height: .4vh;
+
+  .hamburger-icon div {
+    height: 0.4vh;
   }
-  
-  #hamburger-icon div:before,
-  #hamburger-icon div:after {
+
+  .hamburger-icon div::before,
+  .hamburger-icon div::after {
     top: 1.3vh;
   }
-  
-  #hamburger-icon div:after {
+
+  .hamburger-icon div::after {
     top: 2.6vh;
   }
 
@@ -455,88 +479,79 @@ h3 {
   }
 
   nav {
-    position: absolute;
+    border-left: solid 0.5vw;
     left: 5%;
+    position: absolute;
     top: 10%;
-    font-size: 12vw;
-    border-left: solid .5vw;
   }
-  
+
   li {
-    text-align: center;
     margin: 6vh 0;
+    text-align: center;
   }
 
-  #title {
+  nav,
+  title {
     font-size: 12vw;
-    top: 45%;
+  }
+
+  .title {
     left: 27%;
+    top: 45%;
   }
 
-  #arrow-transition,
-  #arrow-transition:hover {
-    margin-top: 52vh;
+  .arrow-transition,
+  .arrow-transition:hover {
     margin-left: 48vw;
-  }
-
-  #arrow-transition:hover,
-  #arrow-transition {
+    margin-top: 52vh;
     border-width: 0 1.5vw 1.5vw 0;
     padding: 2vw;
   }
 
-  #trend-frequency-data {
-    font-size: 5.5vw;
-    top: 118%;
+  .trend-frequency-data {
     left: 22%;
     max-width: 70vw;
+    top: 118%;
   }
 
-  #trend-frequency-data div {
+  .trend-frequency-data div {
     margin: 6vw 0;
   }
 
-  #slideshow-left {
+  .slideshow-left {
     margin-left: 13vw;
   }
-  
-  #slideshow-right {
+
+  .slideshow-right {
     margin-left: 64vw;
   }
 
-  #slideshow-left:hover,
-  #slideshow-right:hover,
-  #slideshow-left,
-  #slideshow-right {
+  .slideshow-left,
+  .slideshow-right,
+  .slideshow-left:hover,
+  .slideshow-right:hover {
     border-width: 0 1vw 1vw 0;
     padding: 1.5vw;
   }
 
   .trends {
-    font-size: 6vw;
     margin: -4vh auto 4vh auto;
     max-width: 60vw;
   }
 
-  #dot-container {
-    margin-top: -2.5vw;;
+  .dot-container {
+    margin-top: -2.5vw;
   }
 
   .articles {
-    text-align: center;
     margin: 5vh 19vw;
     padding: 1vw 2vw;
+    text-align: center;
   }
 
-  #first-article {
-    margin-top: 3.5vh;
-  }
-
-  h1 {
-    font-size: 5vw;
-  }
-
-  h3 {
-    font-size: 4vw;
+  .trends,
+  .headers,
+  .subHeaders {
+    font-size: 6vw;
   }
 }

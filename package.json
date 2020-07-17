@@ -4,7 +4,8 @@
   "description": "Web app that auto-generates trends and related articles",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "stylelint-check": "stylelint-config-prettier-check"
   },
   "repository": {
     "type": "git",
@@ -19,8 +20,14 @@
   "devDependencies": {
     "eslint": "^7.4.0",
     "eslint-config-google": "^0.14.0",
+    "eslint-config-prettier": "^6.11.0",
     "htmllint-cli": "0.0.7",
+    "prettier": "2.0.5",
     "stylelint": "^13.6.1",
+    "stylelint-config-prettier": "^8.0.2",
     "stylelint-config-standard": "^20.0.0"
+  },
+  "dependencies": {
+    "htmllint": "^0.8.0"
   }
 }
