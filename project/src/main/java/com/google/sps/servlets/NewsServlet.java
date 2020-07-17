@@ -23,9 +23,13 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import com.google.sps.data.Trend;
-import com.google.sps.data.TrendService; //imports class needed to store trends and retrieve trends from Datastore
+import com.google.sps.data.TrendService; // imports class needed to store trends and retrieve trends
+                                         // from Datastore
 
-/** Servlet that returns articles and topics that are requested at the /news endpoint "num" parameter required. */
+/**
+ * Servlet that returns articles and topics that are requested at the /news endpoint "num" parameter
+ * required.
+ */
 @WebServlet("/news")
 public class NewsServlet extends HttpServlet {
 
@@ -40,7 +44,7 @@ public class NewsServlet extends HttpServlet {
     List<Topic> topics = newsService.populateTopics(trends, numArticles);
     Collections.reverse(topics);
     String jsonString = convertToJson(topics).replaceAll("’", "\u0027");
-    jsonString = jsonString.replaceAll("‘",  "\u0027");
+    jsonString = jsonString.replaceAll("‘", "\u0027");
     response.getWriter().println(jsonString);
   }
 

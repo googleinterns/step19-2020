@@ -22,8 +22,7 @@ import com.googlecode.objectify.annotation.Id;
 /** Topic class that serves as a Model for each Topic that is paired with a list of articles. */
 @Entity
 public class Topic {
-  @Id
-  private Long id;
+  @Id private Long id;
 
   private String name;
   private long frequency;

@@ -24,7 +24,5 @@ public class NewsRepository {
 
   public NewsRepository() {}
 
-  public void storeTopics(List<Topic> topics) {
-
-  }
+  public void storeTopics(List<Topic> topics) {}
 }
