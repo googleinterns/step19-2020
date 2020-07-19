@@ -11,7 +11,7 @@ const trend = {
 function toggleNavBar() {
   const nav = document.getElementById('nav');
   const main = document.getElementById('main');
-  if (nav.style.display === 'none') {
+  if (nav.style.display === 'none' || nav.style.display === '') {
     nav.style.display = 'block';
     if (screen.width < 1024) {
       main.style.display = 'none';
