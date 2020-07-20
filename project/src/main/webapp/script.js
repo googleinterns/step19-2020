@@ -11,7 +11,7 @@ const trend = {
 function toggleNavBar() {
   const nav = document.getElementById('nav');
   const main = document.getElementById('main');
-  if (nav.style.display === 'none' || nav.style.display === '') {
+  if (nav.style.display === 'none') {
     nav.style.display = 'block';
     if (screen.width < 1024) {
       main.style.display = 'none';
@@ -127,17 +127,14 @@ function createArticleElement(article, right) {
   linkElement.setAttribute('href', article.link);
 
   const titleElement = document.createElement('h1');
-  titleElement.className = 'headers';
   // Removes source from title
   const newEnd = article.title.length - article.source.length - 3;
   const articleTitle = article.title.substring(0, newEnd);
   titleElement.innerText = articleTitle;
   const authorElement = document.createElement('h3');
-  authorElement.className = 'subHeaders';
   authorElement.innerText = 'author: ' + article.source;
 
   const dateElement = document.createElement('h3');
-  dateElement.className = 'subHeaders';
   dateElement.innerText = 'date: ' + article.pubDate;
   linkElement.appendChild(titleElement);
   articleElement.appendChild(linkElement);
@@ -282,7 +279,7 @@ function getTrendBubbleScore(trends) {
  * Returns the average of the sentiment scores of all the articles.
  * @param {Array} articles Array of all the articles for a trend.
  * @return {number} The average of the sentiment of all of the articles.
-*/
+ */
 function getAverageSentiment(articles) {
   const score = [];
   articles.forEach((article) => score.push(article.sentiment));
@@ -293,7 +290,7 @@ function getAverageSentiment(articles) {
 /**
  * Assigns and returns a color based on the sentiment value.
  * @return {string} the color of the sentiment.
-*/
+ */
 function getColorGradient() {
   const sentimentValueCount = 20;
   const chromaColor = chroma.scale(['#FED8F7', '#C4DDFE']);
