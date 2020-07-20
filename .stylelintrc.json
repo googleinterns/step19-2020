@@ -1,8 +1,4 @@
 {
-    "extends": "stylelint-config-standard",
-    "rules": {
-        "no-descending-specificity": null,
-        "function-comma-space-before": null
-    }
+    "extends": "stylelint-config-standard"
 }
   
