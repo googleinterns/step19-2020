@@ -279,7 +279,7 @@ function getTrendBubbleScore(trends) {
  * Returns the average of the sentiment scores of all the articles.
  * @param {Array} articles Array of all the articles for a trend.
  * @return {number} The average of the sentiment of all of the articles.
-*/
+ */
 function getAverageSentiment(articles) {
   const score = [];
   articles.forEach((article) => score.push(article.sentiment));
@@ -290,7 +290,7 @@ function getAverageSentiment(articles) {
 /**
  * Assigns and returns a color based on the sentiment value.
  * @return {string} the color of the sentiment.
-*/
+ */
 function getColorGradient() {
   const sentimentValueCount = 20;
   const chromaColor = chroma.scale(['#FED8F7', '#C4DDFE']);
