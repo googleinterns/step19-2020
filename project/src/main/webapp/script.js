@@ -123,8 +123,8 @@ function createArticleElement(article, right) {
   const articleElement = document.createElement('div');
   articleElement.className = (!right) ? 'articles' : 'articles right-justified';
 
-  const linkElement = document.createElement("a");
-  linkElement.setAttribute("href", article.link);
+  const linkElement = document.createElement('a');
+  linkElement.setAttribute('href', article.link);
 
   const titleElement = document.createElement('h1');
   titleElement.className = 'headers';
