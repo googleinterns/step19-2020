@@ -292,7 +292,7 @@ function getAverageSentiment(articles) {
 
 /**
  * Assigns and returns a color based on the sentiment value.
- * @return {string} The color of the sentiment.
+ * @return {string} the color of the sentiment.
  */
 function getColorGradient() {
   const sentimentValueCount = 20;
