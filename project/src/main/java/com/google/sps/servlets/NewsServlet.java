@@ -42,6 +42,7 @@ public class NewsServlet extends HttpServlet {
     response.setContentType("text/html;");
     int numArticles = Integer.parseInt(request.getParameter("num"));
     List<Topic> topics = newsService.populateTopics(trends, numArticles);
+    Collections.reverse(topics);
     String jsonString = convertToJson(topics).replaceAll("’", "\u0027");
     jsonString = jsonString.replaceAll("‘", "\u0027");
     response.getWriter().println(jsonString);

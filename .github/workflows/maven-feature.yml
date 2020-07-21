@@ -3,10 +3,9 @@ name: Feature Branch
 on:
   push:
     branches-ignore:
-      - 'master'
+      - "master"
 
 jobs:
-
   test:
     name: Unit Test
     runs-on: ubuntu-18.04
@@ -18,6 +17,10 @@ jobs:
         with:
           java-version: 1.8.0
       - name: Maven Package
-        run: mvn -B clean package -DskipTests
+        run: |
+          cd project
+          mvn -B clean package -DskipTests
       - name: Maven Verify
-        run: mvn -B clean verify
+        run: |
+          cd project
+          mvn -B clean verify

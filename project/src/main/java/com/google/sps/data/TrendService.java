@@ -30,7 +30,6 @@ import com.google.sps.data.TrendRSS;
 import com.google.sps.data.TrendRSSFeed;	
 import com.google.sps.data.TrendFrequencyParser;	
 
-
 /* Class that contains all the functions needed to parse trends from a RSS Feed, store those trends in Datastore, and retreive them from Datastore in a list. */
 public class TrendService {
   /* Returns a list of trends. */
