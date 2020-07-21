@@ -23,7 +23,8 @@ public final class APISecret {
 
   public static byte[] getSecretBytes(String name) throws IOException {
     SecretManagerServiceClient secretClient = getClient();
-    SecretVersionName secretVersionName = SecretVersionName.of("step-peas-in-a-pod", name, "latest");
+    SecretVersionName secretVersionName =
+        SecretVersionName.of("step-peas-in-a-pod", name, "latest");
     return secretClient.accessSecretVersion(secretVersionName).getPayload().getData().toByteArray();
   }
 
