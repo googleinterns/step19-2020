@@ -5,7 +5,7 @@ import com.google.cloud.secretmanager.v1.SecretVersionName;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 
-public final class Secrets {
+public final class APISecret {
   private static final Object SYNC_OBJECT = new Object();
   private static SecretManagerServiceClient client;
 
@@ -22,8 +22,8 @@ public final class Secrets {
   }
 
   public static byte[] getSecretBytes(String name) throws IOException {
-    var secretClient = getClient();
-    var secretVersionName = SecretVersionName.of("step-peas-in-a-pod", name, "latest");
+    SecretManagerServiceClient secretClient = getClient();
+    SecretVersionName secretVersionName = SecretVersionName.of("step-peas-in-a-pod", name, "latest");
     return secretClient.accessSecretVersion(secretVersionName).getPayload().getData().toByteArray();
   }
 
