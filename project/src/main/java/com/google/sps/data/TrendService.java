@@ -14,6 +14,10 @@
 
 package com.google.sps.data;
 
+import com.google.appengine.api.datastore.DatastoreService;	
+import com.google.appengine.api.datastore.DatastoreServiceFactory;	
+import com.google.appengine.api.datastore.Entity;	
+import com.google.appengine.api.datastore.PreparedQuery;
 import com.google.appengine.api.datastore.Query;	
 import com.google.appengine.api.datastore.Query.SortDirection;	
 import java.io.IOException;	
@@ -29,6 +33,7 @@ import com.google.sps.data.Trend;
 import com.google.sps.data.TrendRSS;	
 import com.google.sps.data.TrendRSSFeed;	
 import com.google.sps.data.TrendFrequencyParser;	
+
 
 /* Class that contains all the functions needed to parse trends from a RSS Feed, store those trends in Datastore, and retreive them from Datastore in a list. */
 public class TrendService {
