@@ -4,6 +4,7 @@ env:
   es2020: true
 extends:
   - google
+  - prettier
 parserOptions:
   ecmaVersion: 11
 rules: {}
