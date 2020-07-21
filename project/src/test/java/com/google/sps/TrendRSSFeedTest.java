@@ -7,34 +7,26 @@ import com.google.sps.data.TrendService;
 import com.google.appengine.api.datastore.DatastoreService;
 import com.google.appengine.api.datastore.DatastoreServiceFactory;
 import com.google.appengine.api.datastore.Entity;
-import com.google.appengine.api.datastore.PreparedQuery;
-import com.google.appengine.api.datastore.Query;
-import java.util.ArrayList;
-import java.net.URL;
 import java.util.List;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import static com.google.appengine.api.datastore.FetchOptions.Builder.withLimit;
 import com.google.appengine.tools.development.testing.LocalDatastoreServiceTestConfig;
 import com.google.appengine.tools.development.testing.LocalServiceTestHelper;
 import org.junit.Assert;
 import org.junit.Before;
-import org.junit.After;
 import org.junit.Test;
-import java.util.Arrays;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
-import java.net.MalformedURLException;
 
 @RunWith(JUnit4.class)
 public final class TrendRSSFeedTest {
   TrendService service = new TrendService();
   TrendFrequencyParser parser = new TrendFrequencyParser("https://mock.url");
 
-  private final LocalServiceTestHelper helper = new LocalServiceTestHelper(new LocalDatastoreServiceTestConfig());
-  
+  private final LocalServiceTestHelper helper =
+      new LocalServiceTestHelper(new LocalDatastoreServiceTestConfig());
+
   @Before
   public void setUp() {
     helper.setUp();
@@ -42,13 +34,19 @@ public final class TrendRSSFeedTest {
 
   @Test
   public void ReadTrendsTest() throws IOException {
-    TrendRSSFeed testfeed = parser.readTrendsFromStream(new FileInputStream(new File("src/test/java/com/google/sps/RSSFeed.xml")));
+    TrendRSSFeed testfeed =
+        parser.readTrendsFromStream(
+            new FileInputStream(new File("src/test/java/com/google/sps/RSSFeed.xml")));
     Assert.assertNotNull(testfeed);
   }
 
   @Test
   public void GetTrendsTest() throws IOException {
-    List<TrendRSS> results = parser.readTrendsFromStream(new FileInputStream(new File("src/test/java/com/google/sps/RSSFeed.xml"))).getTrends();
+    List<TrendRSS> results =
+        parser
+            .readTrendsFromStream(
+                new FileInputStream(new File("src/test/java/com/google/sps/RSSFeed.xml")))
+            .getTrends();
     Assert.assertEquals(results.size(), 20);
   }
 
@@ -57,7 +55,7 @@ public final class TrendRSSFeedTest {
     Assert.assertNull(service.convertToInt("hello"));
   }
 
-  @Test 
+  @Test
   public void IntConverterNumberStringTest() {
     Assert.assertEquals(398, service.convertToInt("398").intValue());
   }

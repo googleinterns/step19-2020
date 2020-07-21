@@ -21,26 +21,16 @@ import com.google.appengine.api.datastore.PreparedQuery;
 import com.google.appengine.api.datastore.Query;
 import com.google.appengine.api.datastore.Query.SortDirection;
 import java.io.IOException;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
-import java.net.URL;
 import java.util.List;
 import java.util.Iterator;
-import com.google.sps.data.Trend;
-import com.google.sps.data.TrendRSS;
-import com.google.sps.data.TrendRSSFeed;
-import com.google.sps.data.TrendFrequencyParser;
 import java.util.Iterator;
-
 
 /* Class that contains all the functions needed to parse trends from a RSS Feed, store those trends in Datastore, and retreive them from Datastore in a list. */
 public class TrendService {
   /* Returns a list of trends. */
   public List<Trend> showTrends() {
-    
+
     Query query = new Query("Trend").addSort("timestamp", SortDirection.DESCENDING);
 
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
@@ -50,7 +40,7 @@ public class TrendService {
     Iterator<Entity> totalTrends = results.asIterable().iterator();
 
     int i = 0;
-    int topicsLimit = 4; 
+    int topicsLimit = 4;
 
     while (totalTrends.hasNext() && i < topicsLimit) {
       Entity entity = totalTrends.next();
@@ -62,13 +52,13 @@ public class TrendService {
       trends.add(trend);
       i++;
     }
-    
+
     return trends;
   }
 
   /* Stores a Trend object in Datastore. */
   public Entity makeTrend(String topic, String frequency) {
-    
+
     long timestamp = System.currentTimeMillis();
     Integer freq = convertToInt(frequency);
     Entity trendEntity = new Entity("Trend");
@@ -89,7 +79,7 @@ public class TrendService {
 
   /* Converts a string to an Integer. */
   public Integer convertToInt(String stringNumber) {
-    String result = stringNumber.replaceAll("[^\\w\\s]","");
+    String result = stringNumber.replaceAll("[^\\w\\s]", "");
     try {
       Integer i = Integer.parseInt(result.trim());
       return i;
@@ -102,7 +92,9 @@ public class TrendService {
   public void newTrends() throws IOException {
     int topicsLimit = 4;
 
-    TrendFrequencyParser parser = new TrendFrequencyParser("https://trends.google.com/trends/trendingsearches/daily/rss?geo=US");
+    TrendFrequencyParser parser =
+        new TrendFrequencyParser(
+            "https://trends.google.com/trends/trendingsearches/daily/rss?geo=US");
     TrendRSSFeed feed = parser.readTrends();
     List<TrendRSS> trends = feed.getTrends();
     limitTrends(topicsLimit, trends);
