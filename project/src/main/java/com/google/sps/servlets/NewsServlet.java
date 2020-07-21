@@ -24,7 +24,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import com.google.sps.data.Trend;
 import com.google.sps.data.TrendService; // imports class needed to store trends and retrieve trends
-                                         // from Datastore
+// from Datastore
 
 /**
  * Servlet that returns articles and topics that are requested at the /news endpoint "num" parameter

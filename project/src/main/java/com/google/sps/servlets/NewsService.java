@@ -39,7 +39,6 @@ public class NewsService {
   // one instance, reuse
   private final OkHttpClient httpClient = new OkHttpClient();
   private final NewsRepository newsRepository = new NewsRepository();
-  
 
   private static final LanguageServiceClient language = createLangClient();
 
@@ -49,7 +48,7 @@ public class NewsService {
       return LanguageServiceClient.create();
     } catch (IOException e) {
       e.printStackTrace();
-      throw new RuntimeException(e); 
+      throw new RuntimeException(e);
     }
   }
 
@@ -128,8 +127,7 @@ public class NewsService {
   // We run a sentiment analysis on the String parameter and return a float representing the
   // sentiment
   private Float findSentimentScore(String articleTitle) {
-    Document doc =
-        Document.newBuilder().setContent(articleTitle).setType(Type.PLAIN_TEXT).build();
+    Document doc = Document.newBuilder().setContent(articleTitle).setType(Type.PLAIN_TEXT).build();
     AnalyzeSentimentResponse response = language.analyzeSentiment(doc);
     Sentiment sentiment = response.getDocumentSentiment();
     if (sentiment == null) {
