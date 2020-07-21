@@ -20,8 +20,8 @@ import javax.servlet.http.HttpServlet;
 import com.google.gson.Gson;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import com.google.sps.data.TrendService; //imports class needed to store trends and retrieve trends from Datastore
-
+import com.google.sps.data.TrendService; // imports class needed to store trends and retrieve trends
+// from Datastore
 
 @WebServlet("/trends")
 public class TrendServlet extends HttpServlet {
@@ -39,6 +39,4 @@ public class TrendServlet extends HttpServlet {
     TrendService trend = new TrendService();
     trend.newTrends();
   }
-} 
-
-
+}
