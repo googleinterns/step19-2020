@@ -25,9 +25,8 @@ import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.events.Characters;
 import javax.xml.stream.events.XMLEvent;
 
-import com.google.sps.data.TrendRSS;	
+import com.google.sps.data.TrendRSS;
 import com.google.sps.data.TrendRSSFeed;
-
 
 public class TrendFrequencyParser {
   // These are the xml tags that data is being extracted from.
