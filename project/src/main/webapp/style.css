@@ -278,6 +278,7 @@ li {
 .sentiment-container {
   position: absolute;
   right: 11vw;
+  max-width: 12vw;
 }
 
 .sentiment-key {
@@ -293,7 +294,7 @@ li {
 }
 
 .neg {
-  margin-right: 12vh;
+  margin-right: 11.5vh;
 }
 
 @keyframes up {

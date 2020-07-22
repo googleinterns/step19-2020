@@ -315,10 +315,15 @@ function changeLanguage(language) {
   const translation = getTranslation(language);
   const title = document.getElementById("title");
   title.innerText = translation.title;
-  title.setAttribute("style", translation.style);
+  title.setAttribute("style", translation.titleStyle);
   document.getElementById("home").innerText = translation.home;
   document.getElementById("trends").innerText = translation.trends;
   document.getElementById("topics").innerText = translation.topics;
+  document.getElementById("sentiment-key-title").innerText = translation.sentiment;
+  document.getElementById("neg").innerText = translation.negative;
+  document.getElementById("pos").innerText = translation.positive;
+  const sentiment = document.getElementById("sentiment-container");
+  sentiment.setAttribute("style", translation.textSize);
 }
 
 /**
@@ -331,22 +336,32 @@ function getTranslation(language) {
   let home = "home";
   let trends = "trends";
   let topics = "topics";
-  let style = "";
+  let titleStyle = "";
+  let sentiment = "sentiment key";
+  let negative = "neg";
+  let positive = "pos";
+  let textSize = "";
 
   if (language === "cn") {
     title = "热门话题";
     home = "主页";
     trends = "趋势";
     topics = "主题";
-    style = addStyleProperty(style, "font-size", "7vw");
-    style = addStyleProperty(style, "padding-left", "13vw");
+    sentiment = "情感分数";
+    negative = "负";
+    positive = "正";
+    textSize = addStyleProperty(textSize, "font-size", "4vh");
+    titleStyle = addStyleProperty(titleStyle, "font-size", "7vw");
+    titleStyle = addStyleProperty(titleStyle, "padding-left", "13vw");
   } else if (language === "es") {
     title = "tendencia de los temas";
     home = "inicio";
     trends = "tendencias";
     topics = "temas";
-    style = addStyleProperty(style, "font-size", "5vw");
-    style = addStyleProperty(style, "transforms", "translate(-23%, -70%)");
+    sentiment = "puntuación de sentimiento";
+    textSize = "";
+    titleStyle = addStyleProperty(titleStyle, "font-size", "5vw");
+    titleStyle = addStyleProperty(titleStyle, "transforms", "translate(-23%, -70%)");
   }
   const translation = {
     language: language,
@@ -354,7 +369,11 @@ function getTranslation(language) {
     home: home,
     trends: trends,
     topics: topics,
-    style: style,
+    titleStyle: titleStyle,
+    sentiment: sentiment,
+    negative: negative,
+    positive: positive,
+    textSize: textSize
   };
   return translation;
 }
