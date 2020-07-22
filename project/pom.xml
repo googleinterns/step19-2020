@@ -16,6 +16,13 @@
     <failOnMissingWebXml>false</failOnMissingWebXml>
   </properties>
 
+  <repositories>
+    <repository>
+      <id>jitpack.io</id>
+      <url>https://jitpack.io</url>
+    </repository>
+  </repositories>
+
   <dependencies>
     <dependency>
       <groupId>javax.servlet</groupId>
@@ -52,7 +59,7 @@
     <dependency>
       <groupId>com.google.cloud</groupId>
       <artifactId>google-cloud-language</artifactId>
-      <version>1.55.0</version>
+      <version>1.100.0</version>
     </dependency>
 
     <dependency>
@@ -74,6 +81,11 @@
       <scope>test</scope>
     </dependency>
 
+    <dependency>
+      <groupId>com.google.cloud</groupId>
+      <artifactId>google-cloud-secretmanager</artifactId>
+      <version>1.1.0</version>
+    </dependency>
   </dependencies>
 
   <build>
@@ -90,30 +102,6 @@
           <deploy.version>1</deploy.version>
         </configuration>
       </plugin>
-      <plugin>
-      <groupId>com.theoryinpractise</groupId>
-      <artifactId>googleformatter-maven-plugin</artifactId>
-      <version>1.7.3</version>
-      <executions>
-        <execution>
-          <id>reformat-sources</id>
-          <configuration>
-            <includeStale>false</includeStale>
-            <style>GOOGLE</style>
-            <formatMain>true</formatMain>
-            <formatTest>true</formatTest>
-            <filterModified>false</filterModified>
-            <skip>false</skip>
-            <fixImports>false</fixImports>
-            <maxLineLength>100</maxLineLength>
-          </configuration>
-          <goals>
-            <goal>format</goal>
-          </goals>
-          <phase>process-sources</phase>
-        </execution>
-      </executions>
-    </plugin>
     </plugins>
   </build>
 </project>

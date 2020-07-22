@@ -15,6 +15,7 @@
 package com.google.sps.servlets;
 
 import okhttp3.*;
+import java.io.IOException;
 import com.rometools.rome.feed.synd.SyndFeed;
 import com.google.cloud.language.v1.AnalyzeSentimentResponse;
 import com.google.cloud.language.v1.LanguageServiceClient;
@@ -25,6 +26,10 @@ import com.rometools.rome.feed.synd.SyndEntry;
 import com.rometools.rome.io.SyndFeedInput;
 import com.rometools.rome.io.XmlReader;
 import com.google.sps.data.Trend;
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+import com.google.gson.JsonArray;
 
 import java.net.*;
 import java.util.*;
@@ -34,6 +39,18 @@ public class NewsService {
   // one instance, reuse
   private final OkHttpClient httpClient = new OkHttpClient();
   private final NewsRepository newsRepository = new NewsRepository();
+
+  private static final LanguageServiceClient language = createLangClient();
+
+  // This creates a language service client that can be used to call the sentiment analyzer.
+  private static LanguageServiceClient createLangClient() {
+    try {
+      return LanguageServiceClient.create();
+    } catch (IOException e) {
+      e.printStackTrace();
+      throw new RuntimeException(e);
+    }
+  }
 
   // List of Topic names is passed in along with the number of articles for each topic, then Topic
   // Objects are generated pairing topic names with article lists which are all returned in one big
@@ -93,8 +110,6 @@ public class NewsService {
     List<Article> articles = new ArrayList<Article>();
     for (int i = 0; i < numArticles; i++) {
       SyndEntry syndEntry = syndEntries.get(i);
-      Float articleSentiment =
-          findSentimentScore(syndEntry.getTitle()); // We find the sentiment of the article's title
       Article article =
           new Article(
               syndEntry.getTitle(),
@@ -102,7 +117,7 @@ public class NewsService {
               syndEntry.getPublishedDate(),
               syndEntry.getDescription().getValue(),
               syndEntry.getSource().getTitleEx().getValue(),
-              articleSentiment);
+              findSentimentScore(syndEntry.getTitle()));
       articles.add(article);
     }
 
@@ -112,20 +127,13 @@ public class NewsService {
   // We run a sentiment analysis on the String parameter and return a float representing the
   // sentiment
   private Float findSentimentScore(String articleTitle) {
-
-    try (LanguageServiceClient language = LanguageServiceClient.create()) {
-      Document doc =
-          Document.newBuilder().setContent(articleTitle).setType(Type.PLAIN_TEXT).build();
-      AnalyzeSentimentResponse response = language.analyzeSentiment(doc);
-      Sentiment sentiment = response.getDocumentSentiment();
-      if (sentiment == null) {
-        return null;
-      } else {
-        return sentiment.getScore();
-      }
-    } catch (Exception exception) {
-      exception.printStackTrace();
+    Document doc = Document.newBuilder().setContent(articleTitle).setType(Type.PLAIN_TEXT).build();
+    AnalyzeSentimentResponse response = language.analyzeSentiment(doc);
+    Sentiment sentiment = response.getDocumentSentiment();
+    if (sentiment == null) {
       return null;
+    } else {
+      return sentiment.getScore();
     }
   }
 }
