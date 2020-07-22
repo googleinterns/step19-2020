@@ -183,10 +183,13 @@ function getTrendBubbles(content, colors) {
   const bubbleSecondRow = document.getElementById("frequency-row-2");
   const bubbleSizes = getTrendBubbleSize(content);
   const sentimentScore = getTrendBubbleScore(content);
+  console.log(sentimentScore);
   const length = bubbleSizes.size / 2;
   let i = 0;
   for (const [key, value] of bubbleSizes.entries()) {
     const color = colors.get(sentimentScore.get(key));
+    console.log(sentimentScore.get(key));
+    console.log(color);
     const child = createTrendBubble(key, value, color);
     if (i < length) {
       bubbleFirstRow.appendChild(child);
@@ -256,12 +259,25 @@ function getTrendBubbleSize(content) {
  * @return {number} The calculated size of the bubble.
  */
 function getSize(frequency, max, min) {
-  const maxSize = 23;
-  const minSize = 6;
+  let maxSize = 23;
+  let minSize = 6;
   let size = 20;
+  
+  // Adjusts bubble size based on screen width
+  if (screen.width < 1024) {
+    maxSize = 48;
+    minSize = 23;
+    size = 35;
+  } else if (screen.width < 480) {
+    maxSize = 43;
+    minSize = 15;
+    size = 40;
+  }
+
   if (max != min) {
     size = ((maxSize - minSize) * (frequency - min)) / (max - min) + minSize;
   }
+
   return parseInt(size.toFixed(0));
 }
 
@@ -295,13 +311,13 @@ function getAverageSentiment(articles) {
  * @return {string} the color of the sentiment.
  */
 function getColorGradient() {
-  const sentimentValueCount = 20;
+  const sentimentValueCount = 21;
   const chromaColor = chroma.scale(["#FED8F7", "#C4DDFE"]);
   const gradient = chromaColor.colors(sentimentValueCount);
   const colors = new Map();
   let j = 1;
-  for (let i = 0; i <= gradient.length; i++) {
-    colors.set(j.toFixed(1), gradient[i]);
+  for (let i = 0; i < gradient.length; i++) {
+    colors.set(parseFloat(j.toFixed(1)), gradient[i]);
     j -= 0.1;
   }
   return colors;
@@ -332,7 +348,7 @@ function changeLanguage(language) {
  * @return {object} The translated messages and corresponding styles.
  */
 function getTranslation(language) {
-  let title = "trending topics";
+  let title = "trending topics.";
   let home = "home";
   let trends = "trends";
   let topics = "topics";
@@ -341,9 +357,10 @@ function getTranslation(language) {
   let negative = "neg";
   let positive = "pos";
   let textSize = "";
+  textSize = addStyleProperty(textSize, "font-size", "2.5vh");
 
   if (language === "cn") {
-    title = "热门话题";
+    title = "热门话题.";
     home = "主页";
     trends = "趋势";
     topics = "主题";
@@ -351,16 +368,22 @@ function getTranslation(language) {
     negative = "负";
     positive = "正";
     textSize = addStyleProperty(textSize, "font-size", "4vh");
-    titleStyle = addStyleProperty(titleStyle, "font-size", "7vw");
-    titleStyle = addStyleProperty(titleStyle, "padding-left", "13vw");
+    if (screen.width >= 1024) {
+      titleStyle = addStyleProperty(titleStyle, "font-size", "7vw");
+      titleStyle = addStyleProperty(titleStyle, "padding-left", "13vw");
+    } else {
+      titleStyle = addStyleProperty(titleStyle, "padding-left", "8vw");
+    }
   } else if (language === "es") {
-    title = "tendencia de los temas";
+    title = "tendencia de los temas.";
     home = "inicio";
     trends = "tendencias";
     topics = "temas";
     sentiment = "puntuación de sentimiento";
-    textSize = "";
-    titleStyle = addStyleProperty(titleStyle, "font-size", "5vw");
+    textSize = addStyleProperty(textSize, "font-size", "2.5vh");
+    if (screen.width >= 1024) {
+      titleStyle = addStyleProperty(titleStyle, "font-size", "5vw");
+    }
     titleStyle = addStyleProperty(titleStyle, "transforms", "translate(-23%, -70%)");
   }
   const translation = {
@@ -383,4 +406,5 @@ function loadPage() {
   retrieveArticles(5, trend);
   setTimeout(showPage, 4000);
   trend.color = getColorGradient();
+  console.log(trend.color);
 }
