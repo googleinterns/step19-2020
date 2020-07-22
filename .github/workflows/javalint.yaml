@@ -23,3 +23,6 @@ jobs:
           add: "*.java"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - uses: ouzi-dev/commit-status-updater@v1.0.4
+        with:
+          status: "success"
