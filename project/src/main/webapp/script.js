@@ -3,8 +3,6 @@ const basePath = '/news';
 const numParam = 'num=';
 const langParam = 'lang=';
 
-
-
 const trend = {
   content: "",
   currentTrendVal: 1,
@@ -389,3 +387,21 @@ function loadPage() {
   setTimeout(showPage, 4000);
   trend.color = getColorGradient();
 }
+
+module.exports = {
+  toggleNavBar: toggleNavBar,
+  switchTrend: switchTrend,
+  getNextTrendValue: getNextTrendValue,
+  showPage: showPage,
+  getArticles: getArticles,
+  createArticleElement: createArticleElement,
+  getTrends: getTrends,
+  createTrendElement: createTrendElement,
+  getSize: getSize,
+  getTrendBubbleSize: getTrendBubbleSize,
+  addStyleProperty: addStyleProperty,
+  createTrendBubble: createTrendBubble,
+  getTrendBubbles: getTrendBubbles,
+  getTrendBubbleScore: getTrendBubbleScore,
+  getAverageSentiment: getAverageSentiment,
+};
