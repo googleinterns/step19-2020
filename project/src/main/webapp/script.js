@@ -385,7 +385,7 @@ function getTranslation(language) {
 
 /** Displays preloader. */
 function animatePreloader() {
-  let tl = anime.timeline({
+  const tl = anime.timeline({
     easing: "easeOutExpo",
     duration: 2600,
   });
