@@ -35,18 +35,21 @@ public class TrendService {
     String country = geo.getUserLocation();
     if (country.equals("US")) {
       return getDatastoreTrends();
-    } 
+    }
     return getForeignCountryTrends(country);
-    
-    
   }
 
   public List<Trend> getForeignCountryTrends(String country) {
-    List<TrendRSS> trendRSSList = getTrendRSSList(getForeignCountryTrends.formulateRSSFeedQuery(country));
+    List<TrendRSS> trendRSSList = getTrendRSSList(geo.formulateRSSFeedQuery(country));
     List<Trend> trends = new ArrayList<>();
     for (int i = 0; i < 4; i++) {
-      TrendRSS trendRSS = source.get(i);
-      Trend trend = new Trend(8080, trendRSS.getTitle(), convertToInt(trendRSS.getFreq()), System.currentTimeMillis());
+      TrendRSS trendRSS = trendRSSList.get(i);
+      Trend trend =
+          new Trend(
+              8080,
+              trendRSS.getTitle(),
+              convertToInt(trendRSS.getFreq()),
+              System.currentTimeMillis());
       trends.add(trend);
     }
     return trends;
@@ -113,7 +116,8 @@ public class TrendService {
   public List<TrendRSS> getTrendRSSList(String country) {
     TrendFrequencyParser parser =
         new TrendFrequencyParser(
-            String.format("https://trends.google.com/trends/trendingsearches/daily/rss?geo=%s", country));
+            String.format(
+                "https://trends.google.com/trends/trendingsearches/daily/rss?geo=%s", country));
     TrendRSSFeed feed = parser.readTrends();
     List<TrendRSS> trends = feed.getTrends();
     return trends;

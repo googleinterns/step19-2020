@@ -8,7 +8,7 @@ import java.nio.charset.StandardCharsets;
 public class APISecret {
   private static final Object SYNC_OBJECT = new Object();
   private static SecretManagerServiceClient client;
-  
+
   private static SecretManagerServiceClient getClient() throws IOException {
     if (client == null) {
       synchronized (SYNC_OBJECT) {
@@ -17,16 +17,17 @@ public class APISecret {
         }
       }
     }
-  
+
     return client;
   }
-  
+
   public static byte[] getSecretBytes(String name) throws IOException {
     SecretManagerServiceClient secretClient = getClient();
-    SecretVersionName secretVersionName = SecretVersionName.of("step-peas-in-a-pod", name, "latest");
+    SecretVersionName secretVersionName =
+        SecretVersionName.of("step-peas-in-a-pod", name, "latest");
     return secretClient.accessSecretVersion(secretVersionName).getPayload().getData().toByteArray();
   }
-  
+
   public static String getSecretString(String name) throws IOException {
     return new String(getSecretBytes(name), StandardCharsets.UTF_8);
   }
