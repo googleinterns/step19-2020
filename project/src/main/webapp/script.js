@@ -3,6 +3,8 @@ const basePath = '/news';
 const numParam = 'num=';
 const langParam = 'lang=';
 
+
+
 const trend = {
   content: "",
   currentTrendVal: 1,
