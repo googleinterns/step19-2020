@@ -11,10 +11,9 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: Install modules
-      run: |
         npm install
-        npm install jest
     - name: Run Jest tests
       run: |
         cd project/src/test/webapp
+        npm install jest
         jest test

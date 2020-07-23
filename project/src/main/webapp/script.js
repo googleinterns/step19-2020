@@ -88,7 +88,6 @@ function showPage() {
  * @param {number} numArticles The number of articles to retrieve.
  * @param {object} trend Holds the trends and articles retrieved.
  */
-
 async function retrieveArticles(numArticles, language, trend) {
   const requestURL = basePath + '?' + numParam + numArticles + '&' + langParam + language;
   const response = await fetch(requestURL);
