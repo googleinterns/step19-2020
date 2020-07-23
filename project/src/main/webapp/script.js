@@ -86,6 +86,7 @@ function showPage() {
  * Retrieves list of topics and associated articles
  * from the Backend Server in JSON form.
  * @param {number} numArticles The number of articles to retrieve.
+ * @param {object} language The Language of the articles being retrieved.
  * @param {object} trend Holds the trends and articles retrieved.
  */
 async function retrieveArticles(numArticles, language, trend) {
