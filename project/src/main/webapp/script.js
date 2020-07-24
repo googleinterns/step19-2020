@@ -183,13 +183,10 @@ function getTrendBubbles(content, colors) {
   const bubbleSecondRow = document.getElementById("frequency-row-2");
   const bubbleSizes = getTrendBubbleSize(content);
   const sentimentScore = getTrendBubbleScore(content);
-  console.log(sentimentScore);
   const length = bubbleSizes.size / 2;
   let i = 0;
   for (const [key, value] of bubbleSizes.entries()) {
     const color = colors.get(sentimentScore.get(key));
-    console.log(sentimentScore.get(key));
-    console.log(color);
     const child = createTrendBubble(key, value, color);
     if (i < length) {
       bubbleFirstRow.appendChild(child);
@@ -406,5 +403,4 @@ function loadPage() {
   retrieveArticles(5, trend);
   setTimeout(showPage, 4000);
   trend.color = getColorGradient();
-  console.log(trend.color);
 }
