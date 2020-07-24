@@ -28,9 +28,34 @@ import java.util.Iterator;
 
 /* Class that contains all the functions needed to parse trends from a RSS Feed, store those trends in Datastore, and retreive them from Datastore in a list. */
 public class TrendService {
+
+  GeoService geo = new GeoService();
   /* Returns a list of trends. */
   public List<Trend> showTrends() {
+    String country = geo.getUserLocation();
+    if (country.equals("US")) {
+      return getDatastoreTrends();
+    }
+    return getForeignCountryTrends(country);
+  }
 
+  public List<Trend> getForeignCountryTrends(String country) {
+    List<TrendRSS> trendRSSList = getTrendRSSList(geo.formulateRSSFeedQuery(country));
+    List<Trend> trends = new ArrayList<>();
+    for (int i = 0; i < 4; i++) {
+      TrendRSS trendRSS = trendRSSList.get(i);
+      Trend trend =
+          new Trend(
+              8080,
+              trendRSS.getTitle(),
+              convertToInt(trendRSS.getFreq()),
+              System.currentTimeMillis());
+      trends.add(trend);
+    }
+    return trends;
+  }
+
+  public List<Trend> getDatastoreTrends() {
     Query query = new Query("Trend").addSort("timestamp", SortDirection.DESCENDING);
 
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
@@ -88,16 +113,20 @@ public class TrendService {
     }
   }
 
-  /* Loops through the top four trends and stores them in Datastore. */
-  public void newTrends() throws IOException {
-    int topicsLimit = 4;
-
+  public List<TrendRSS> getTrendRSSList(String country) {
     TrendFrequencyParser parser =
         new TrendFrequencyParser(
-            "https://trends.google.com/trends/trendingsearches/daily/rss?geo=US");
+            String.format(
+                "https://trends.google.com/trends/trendingsearches/daily/rss?geo=%s", country));
     TrendRSSFeed feed = parser.readTrends();
     List<TrendRSS> trends = feed.getTrends();
-    limitTrends(topicsLimit, trends);
+    return trends;
+  }
+
+  /* Loops through the top four trends and stores them in Datastore. */
+  public void newTrends() throws IOException {
+    List<TrendRSS> trends = getTrendRSSList("US");
+    limitTrends(4, trends);
   }
 
   public void limitTrends(int limit, List<TrendRSS> source) {
