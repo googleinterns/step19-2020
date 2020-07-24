@@ -1,6 +1,6 @@
 body,
 html {
-  font-family: 'Courier New', Courier, monospace;
+  font-family: "Courier New", Courier, monospace;
   height: 100%;
   margin: 0;
 }
@@ -44,6 +44,20 @@ html {
   user-select: none;
 }
 
+.hamburger-icon,
+.languages,
+.languages div {
+  display: inline-block;
+}
+
+.languages {
+  margin: 4vh;
+}
+
+.languages div {
+  cursor: pointer;
+}
+
 .hamburger-icon {
   cursor: pointer;
   height: 3vh;
@@ -63,7 +77,7 @@ html {
 .hamburger-icon div::before,
 .hamburger-icon div::after {
   background-color: black;
-  content: '';
+  content: "";
   height: 0.4vh;
   position: absolute;
   top: 1.5vh;
@@ -91,11 +105,13 @@ ul {
 }
 
 nav {
+  background-color: white;
   border-left: solid 0.2vw;
   display: none;
   position: absolute;
   right: 5%;
   top: 15%;
+  z-index: 99;
 }
 
 nav,
@@ -127,7 +143,7 @@ li {
 .arrow-transition,
 .arrow-transition:hover {
   margin-left: 50vw;
-  margin-top: 88vh;
+  margin-top: 70vh;
 }
 
 .slideshow-left {
@@ -226,9 +242,10 @@ li {
 
 .subHeaders {
   margin-top: -2vh;
+  font-size: 2vh;
 }
 
-.subHeader,
+.subHeaders,
 .sentiment-container {
   font-size: 1.5vw;
 }
@@ -262,10 +279,11 @@ li {
 .sentiment-container {
   position: absolute;
   right: 11vw;
+  max-width: 12vw;
 }
 
 .sentiment-key {
-  background-image: linear-gradient(to right, #fed8f7 , #c4ddfe);
+  background-image: linear-gradient(to right, #fed8f7, #c4ddfe);
   height: 3vh;
   margin: 0.5vh;
   width: 12vw;
@@ -277,7 +295,7 @@ li {
 }
 
 .neg {
-  margin-right: 12vh;
+  margin-right: 11vh;
 }
 
 @keyframes up {
@@ -313,8 +331,12 @@ li {
 }
 
 @keyframes fade-in {
-  from { opacity: 0; }
-  to { opacity: 1; }
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
 @media only screen and (min-device-width: 320px) and (max-device-width: 480px) {
@@ -442,6 +464,29 @@ li {
   .subHeaders {
     font-size: 5vw;
   }
+
+   .sentiment-container {
+    right: 23vw;
+    top: 108vh;
+    max-width: 52vw;
+    font-size: 5vw;
+  }
+
+  .sentiment-key {
+    width: 50vw;
+  }
+
+  .neg {
+    margin-right: 13vh;
+  }
+
+  .trend-frequency {
+    padding-left: 15vw;
+  }
+
+  .languages {
+    font-size: 2vh;
+  }
 }
 
 @media only screen and (min-device-width: 768px) and (max-device-width: 1024px) {
@@ -491,7 +536,7 @@ li {
   }
 
   nav,
-  title {
+  .title {
     font-size: 12vw;
   }
 
@@ -512,10 +557,6 @@ li {
     left: 22%;
     max-width: 70vw;
     top: 118%;
-  }
-
-  .trend-frequency-data div {
-    margin: 6vw 0;
   }
 
   .slideshow-left {
@@ -553,5 +594,29 @@ li {
   .headers,
   .subHeaders {
     font-size: 6vw;
+  }
+
+  .sentiment-container {
+    right: 23vw;
+    top: 108vh;
+    max-width: 52vw;
+    font-size: 5vw;
+  }
+
+  .sentiment-key {
+    width: 50vw;
+  }
+
+  .neg {
+    margin-right: 20vh;
+  }
+
+  .trend-frequency {
+    padding-left: 17vw;
+    padding-top: 12vw;
+  }
+
+  .languages {
+    font-size: 2.5vh;
   }
 }
