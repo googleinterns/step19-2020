@@ -55,13 +55,19 @@ public class NewsService {
   // List of Topic names is passed in along with the number of articles for each topic, then Topic
   // Objects are generated pairing topic names with article lists which are all returned in one big
   // Topic Object list.
-  public List<Topic> populateTopics(List<Trend> trends, int numArticles) {
+  public List<Topic> populateTopics(List<Trend> trends, String language, int numArticles) {
     List<Topic> topics = new ArrayList<Topic>();
     List<Article> articles;
     for (int i = 0; i < trends.size(); i++) {
       String topicName = trends.get(i).getTitle();
       long frequency = trends.get(i).getFrequency();
-      articles = retrieveNewArticles(topicName, numArticles);
+      // Not every region has consistent news sources, so if we can't find the necessary amount of
+      // articles, we default to American English articles which tend to be the most consistently
+      // available
+      articles = retrieveNewArticles(topicName, language, numArticles);
+      if (articles.size() == 0) {
+        articles = retrieveNewArticles(topicName, "en-US", numArticles);
+      }
       Topic topic = new Topic(topicName, frequency, articles);
       topics.add(topic);
     }
@@ -69,11 +75,12 @@ public class NewsService {
     return topics;
   }
 
-  // Retrieves articles from the Google News RSS Feed using the topic parameter as the search query
   // The Topic parameter allows for spaces and non-alphanumeric characters. Null and "" are invalid
   // arguments.
-  public List<Article> retrieveNewArticles(String topic, int numArticles) {
-    String url = String.format("https://news.google.com/rss/search?q=%s", topic);
+  // Some of the country codes are America: en-US, Great Britain: en-GB, Mexico: es-MX, Germany:
+  // de-DE,
+  public List<Article> retrieveNewArticles(String topic, String language, int numArticles) {
+    String url = String.format("https://news.google.com/rss/search?q=%s&hl=%s", topic, language);
     List<Article> articles;
     try {
       articles = cleanSyndFeed(getSyndFeed(url), numArticles);
@@ -99,6 +106,7 @@ public class NewsService {
   private List<Article> cleanSyndFeed(SyndFeed syndFeed, int numArticles) {
     // We extract the entries into a manageable list
     List<SyndEntry> syndEntries = syndFeed.getEntries();
+    if (syndEntries.size() < numArticles) return new ArrayList<Article>();
     // We have to remove the first two element in the List since it's filled with metadata and
     // irrelevant info for our purposes
     syndEntries.remove(0);

@@ -1,6 +1,8 @@
 /* eslint-disable no-unused-vars */
-const basePath = "/news";
-const numParam = "num=";
+const basePath = '/news';
+const numParam = 'num=';
+const langParam = 'lang=';
+
 const trend = {
   content: "",
   currentTrendVal: 1,
@@ -84,10 +86,11 @@ function showPage() {
  * Retrieves list of topics and associated articles
  * from the Backend Server in JSON form.
  * @param {number} numArticles The number of articles to retrieve.
+ * @param {object} language The Language of the articles being retrieved.
  * @param {object} trend Holds the trends and articles retrieved.
  */
-async function retrieveArticles(numArticles, trend) {
-  const requestURL = basePath + "?" + numParam + numArticles;
+async function retrieveArticles(numArticles, language, trend) {
+  const requestURL = basePath + '?' + numParam + numArticles + '&' + langParam + language;
   const response = await fetch(requestURL);
   trend.content = await response.json();
   getArticles(trend.currentTrendVal, trend.content);
@@ -400,7 +403,25 @@ function getTranslation(language) {
 
 /** Shows preloader on page load and fetches articles. */
 function loadPage() {
-  retrieveArticles(5, trend);
+  retrieveArticles(5, 'en-US', trend);
   setTimeout(showPage, 4000);
   trend.color = getColorGradient();
 }
+
+module.exports = {
+  toggleNavBar: toggleNavBar,
+  switchTrend: switchTrend,
+  getNextTrendValue: getNextTrendValue,
+  showPage: showPage,
+  getArticles: getArticles,
+  createArticleElement: createArticleElement,
+  getTrends: getTrends,
+  createTrendElement: createTrendElement,
+  getSize: getSize,
+  getTrendBubbleSize: getTrendBubbleSize,
+  addStyleProperty: addStyleProperty,
+  createTrendBubble: createTrendBubble,
+  getTrendBubbles: getTrendBubbles,
+  getTrendBubbleScore: getTrendBubbleScore,
+  getAverageSentiment: getAverageSentiment,
+};
