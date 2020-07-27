@@ -90,6 +90,7 @@ async function retrieveArticles(numArticles, trend) {
   const requestURL = basePath + "?" + numParam + numArticles;
   const response = await fetch(requestURL);
   trend.content = await response.json();
+  getVideos();
   getArticles(trend.currentTrendVal, trend.content);
   getTrends(trend.currentTrendVal, trend.content);
   getTrendBubbles(trend.content, trend.color);
@@ -376,6 +377,40 @@ function getTranslation(language) {
     textSize: textSize
   };
   return translation;
+}
+
+/**
+ * Creates an element that represents an article.
+ * @param {object} article Contains the article information.
+ * @return {HTMLDivElement} The article element.
+ */
+function createVideoElement(first) {
+  const videoElement = document.createElement("div");
+  videoElement.className = first ? "video" : "video first";
+
+  const linkElement = document.createElement("a");
+  linkElement.setAttribute("href", "#");
+
+  const titleElement = document.createElement("h1");
+  titleElement.className = "headers";
+  titleElement.innerText = "Video Title";
+
+  const dateElement = document.createElement("h3");
+  dateElement.className = "subHeaders";
+  dateElement.innerText = "date: " + "7/27/20";
+
+  linkElement.appendChild(titleElement);
+  videoElement.appendChild(linkElement);
+  videoElement.appendChild(dateElement);
+
+  return videoElement;
+}
+
+function getVideos() {
+  const videoContainer = document.getElementById("video-container");
+  videoContainer.innerHTML = "";  
+  videoContainer.appendChild(createVideoElement(true));
+  videoContainer.appendChild(createVideoElement(false));
 }
 
 /** Shows preloader on page load and fetches articles. */

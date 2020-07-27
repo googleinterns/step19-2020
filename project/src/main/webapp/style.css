@@ -297,6 +297,22 @@ li {
   margin-right: 11.5vh;
 }
 
+.video {
+  border: solid black;  
+  display: inline-block;
+  padding: 1vw 3vw;
+  width: 19.5vw;
+  text-align: center;
+}
+
+.video-container {
+  margin: 5vh 23vw;
+}
+
+.first {
+  float: right;
+}
+
 @keyframes up {
   0% {
     opacity: 0;
@@ -449,7 +465,8 @@ li {
     width: 1.8vh;
   }
 
-  .articles {
+  .articles,
+  .video {
     margin: 5vh 17vw;
     padding: 1vw 2vw;
     text-align: center;
@@ -564,7 +581,8 @@ li {
     margin-top: -2.5vw;
   }
 
-  .articles {
+  .articles,
+  .video {
     margin: 5vh 19vw;
     padding: 1vw 2vw;
     text-align: center;
