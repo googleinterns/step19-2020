@@ -44,7 +44,6 @@ public class NewsServlet extends HttpServlet {
     List<Trend> trends = trendService.showTrends(country);
     response.setContentType("text/html;");
     int numArticles = Integer.parseInt(request.getParameter("num"));
-    List<Topic> topics = newsService.populateTopics(trends, numArticles, country);
     String language = request.getParameter("lang");
     List<Topic> topics = newsService.populateTopics(trends, language, numArticles, country);
     Collections.reverse(topics);
