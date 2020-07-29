@@ -27,14 +27,6 @@ import com.google.sps.data.TrendService; // imports class needed to store trends
 public class TrendServlet extends HttpServlet {
 
   @Override
-  public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    Gson gson = new Gson();
-    TrendService trend = new TrendService();
-    response.setContentType("application/json;");
-    response.getWriter().println(gson.toJson(trend.showTrends()));
-  }
-
-  @Override
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
     TrendService trend = new TrendService();
     trend.newTrends();
