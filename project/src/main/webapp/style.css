@@ -12,27 +12,17 @@ html {
 }
 
 .preloader-container {
-  left: 47vw;
+  left: 42vw;
   position: absolute;
-  top: 40vh;
+  top: 26vh;
 }
 
 .preloader-container div {
-  background-color: black;
-  display: inline-block;
-  height: 7vh;
+  background-color: white;
+  position: absolute;
+  height: 6.5vh;
   margin: 0.5vh;
-  opacity: 0;
-  transition: 3s ease;
-  width: 1vh;
-}
-
-.down {
-  animation: down 2s linear 1s;
-}
-
-.up {
-  animation: up 2s linear 1s;
+  width: 6.5vh;
 }
 
 .content {
@@ -296,38 +286,6 @@ li {
 
 .neg {
   margin-right: 11vh;
-}
-
-@keyframes up {
-  0% {
-    opacity: 0;
-    transform: translateY(1rem);
-  }
-
-  50% {
-    opacity: 1;
-  }
-
-  100% {
-    opacity: 0;
-    transform: translateY(-1rem);
-  }
-}
-
-@keyframes down {
-  0% {
-    opacity: 0;
-    transform: translateY(-1rem);
-  }
-
-  50% {
-    opacity: 1;
-  }
-
-  100% {
-    opacity: 0;
-    transform: translateY(1rem);
-  }
 }
 
 @keyframes fade-in {

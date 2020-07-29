@@ -335,7 +335,8 @@ function changeLanguage(language) {
   document.getElementById("home").innerText = translation.home;
   document.getElementById("trends").innerText = translation.trends;
   document.getElementById("topics").innerText = translation.topics;
-  document.getElementById("sentiment-key-title").innerText = translation.sentiment;
+  document.getElementById("sentiment-key-title").innerText =
+    translation.sentiment;
   document.getElementById("neg").innerText = translation.negative;
   document.getElementById("pos").innerText = translation.positive;
   const sentiment = document.getElementById("sentiment-container");
@@ -396,15 +397,57 @@ function getTranslation(language) {
     sentiment: sentiment,
     negative: negative,
     positive: positive,
-    textSize: textSize
+    textSize: textSize,
   };
   return translation;
 }
 
+/** Displays preloader. */
+function animatePreloader() {
+  const tl = anime.timeline({
+    easing: "easeOutExpo",
+    duration: 2600,
+  });
+
+  tl.add({
+    targets: ".square",
+    translateX: 200,
+    borderRadius: ["0%", "50%"],
+    backgroundColor: "#000000",
+    easing: "easeInOutQuad",
+  });
+
+  tl.add({
+    targets: ".square",
+    translateY: 200,
+    borderRadius: ["50%", "0"],
+    backgroundColor: "#4c4c4c",
+    easing: "easeInOutQuad",
+  });
+
+  tl.add({
+    targets: ".square",
+    translateX: 0,
+    borderRadius: ["0", "50%"],
+    borderColor: "rgb(0, 0, 0)",
+    backgroundColor: "#b2b2b2",
+    easing: "easeInOutQuad",
+  });
+
+  tl.add({
+    targets: ".square",
+    translateY: 0,
+    borderRadius: ["50%", "0"],
+    backgroundColor: "#ffffff",
+    easing: "easeInOutQuad",
+  });
+}
+
 /** Shows preloader on page load and fetches articles. */
 function loadPage() {
+  animatePreloader();
   retrieveArticles(5, 'en-US', trend);
-  setTimeout(showPage, 4000);
+  setTimeout(showPage, 10400);
   trend.color = getColorGradient();
 }
 
