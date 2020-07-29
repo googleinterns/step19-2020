@@ -388,6 +388,17 @@ function loadPage() {
   trend.color = getColorGradient();
 }
 
+/** Reads passed in text outloud to the user under the stipulation that they have interacted with the page (pressed a button/ entered a menu) 
+ * @param {string} text The text that should be read outloud.
+ */
+function textToSpeech(text) {
+  console.log('here');
+  var msg = new SpeechSynthesisUtterance(text);
+  msg.voiceURI = 'native';
+  msg.volume = 1;
+  window.speechSynthesis.speak(msg);
+}
+
 module.exports = {
   toggleNavBar: toggleNavBar,
   switchTrend: switchTrend,
