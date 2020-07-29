@@ -1,18 +1,11 @@
 package com.google.sps;
 
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
-import java.util.List;
-import java.util.ArrayList;
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
-import java.net.MalformedURLException;
 import com.google.sps.data.GeoService;
-import java.util.Collections;
 import java.net.URL;
 import com.google.gson.JsonObject;
 import java.io.RandomAccessFile;
@@ -23,8 +16,12 @@ public final class GeoTest {
 
   @Test
   public void readUrlTest() throws IOException {
-    String actual = geoService.readUrl(new URL("https://pkgstore.datahub.io/core/country-list/data_json/data/8c458f2d15d9f2119654b29ede6e45b8/data_json.json"));
-    RandomAccessFile file = new RandomAccessFile("src/test/java/com/google/sps/CountryJson.txt", "r");
+    String actual =
+        geoService.readUrl(
+            new URL(
+                "https://pkgstore.datahub.io/core/country-list/data_json/data/8c458f2d15d9f2119654b29ede6e45b8/data_json.json"));
+    RandomAccessFile file =
+        new RandomAccessFile("src/test/java/com/google/sps/CountryJson.txt", "r");
     String expected = file.readLine();
     Assert.assertEquals(expected, actual);
   }
@@ -61,5 +58,5 @@ public final class GeoTest {
     String expected = "global";
     String actual = geoService.formulateRSSFeedQuery("CN");
     Assert.assertEquals(expected, actual);
-  }    
+  }
 }
