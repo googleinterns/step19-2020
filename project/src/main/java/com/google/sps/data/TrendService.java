@@ -39,8 +39,8 @@ public class TrendService {
 
   GeoService geo = new GeoService();
   /* Returns a list of trends. */
-  public List<Trend> showTrends() {
-    String country = geo.getUserLocation();
+  public List<Trend> showTrends(String country) {
+
     if (country.equals("US")) {
       return getDatastoreTrends();
     }
