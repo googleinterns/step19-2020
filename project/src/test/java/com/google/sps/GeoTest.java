@@ -7,7 +7,6 @@ import org.junit.runners.JUnit4;
 import java.io.IOException;
 import com.google.sps.data.GeoService;
 import java.net.URL;
-import com.google.gson.JsonObject;
 import java.io.RandomAccessFile;
 
 @RunWith(JUnit4.class)
@@ -23,26 +22,6 @@ public final class GeoTest {
     RandomAccessFile file =
         new RandomAccessFile("src/test/java/com/google/sps/CountryJson.txt", "r");
     String expected = file.readLine();
-    Assert.assertEquals(expected, actual);
-  }
-
-  @Test
-  public void getUserCountryTest() throws IOException {
-    String expected = "US";
-    JsonObject testCoords = new JsonObject();
-    testCoords.addProperty("lat", "40.7128");
-    testCoords.addProperty("lng", "-74.0060");
-    String actual = geoService.getUserCountry(testCoords);
-    Assert.assertEquals(expected, actual);
-  }
-
-  @Test
-  public void getUserCountryTestForeign() throws IOException {
-    String expected = "FR";
-    JsonObject testCoords = new JsonObject();
-    testCoords.addProperty("lat", "48.8566");
-    testCoords.addProperty("lng", "2.3522");
-    String actual = geoService.getUserCountry(testCoords);
     Assert.assertEquals(expected, actual);
   }
 
