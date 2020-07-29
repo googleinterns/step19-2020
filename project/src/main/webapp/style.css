@@ -12,27 +12,17 @@ html {
 }
 
 .preloader-container {
-  left: 47vw;
+  left: 42vw;
   position: absolute;
-  top: 40vh;
+  top: 26vh;
 }
 
 .preloader-container div {
-  background-color: black;
-  display: inline-block;
-  height: 7vh;
+  background-color: white;
+  position: absolute;
+  height: 6.5vh;
   margin: 0.5vh;
-  opacity: 0;
-  transition: 3s ease;
-  width: 1vh;
-}
-
-.down {
-  animation: down 2s linear 1s;
-}
-
-.up {
-  animation: up 2s linear 1s;
+  width: 6.5vh;
 }
 
 .content {
@@ -242,9 +232,10 @@ li {
 
 .subHeaders {
   margin-top: -2vh;
+  font-size: 2vh;
 }
 
-.subHeader,
+.subHeaders,
 .sentiment-container {
   font-size: 1.5vw;
 }
@@ -294,7 +285,7 @@ li {
 }
 
 .neg {
-  margin-right: 11.5vh;
+  margin-right: 11vh;
 }
 
 .video {
@@ -311,38 +302,6 @@ li {
 
 .first {
   float: right;
-}
-
-@keyframes up {
-  0% {
-    opacity: 0;
-    transform: translateY(1rem);
-  }
-
-  50% {
-    opacity: 1;
-  }
-
-  100% {
-    opacity: 0;
-    transform: translateY(-1rem);
-  }
-}
-
-@keyframes down {
-  0% {
-    opacity: 0;
-    transform: translateY(-1rem);
-  }
-
-  50% {
-    opacity: 1;
-  }
-
-  100% {
-    opacity: 0;
-    transform: translateY(1rem);
-  }
 }
 
 @keyframes fade-in {
@@ -480,6 +439,29 @@ li {
   .subHeaders {
     font-size: 5vw;
   }
+
+   .sentiment-container {
+    right: 23vw;
+    top: 108vh;
+    max-width: 52vw;
+    font-size: 5vw;
+  }
+
+  .sentiment-key {
+    width: 50vw;
+  }
+
+  .neg {
+    margin-right: 13vh;
+  }
+
+  .trend-frequency {
+    padding-left: 15vw;
+  }
+
+  .languages {
+    font-size: 2vh;
+  }
 }
 
 @media only screen and (min-device-width: 768px) and (max-device-width: 1024px) {
@@ -529,7 +511,7 @@ li {
   }
 
   nav,
-  title {
+  .title {
     font-size: 12vw;
   }
 
@@ -550,10 +532,6 @@ li {
     left: 22%;
     max-width: 70vw;
     top: 118%;
-  }
-
-  .trend-frequency-data div {
-    margin: 6vw 0;
   }
 
   .slideshow-left {
@@ -592,5 +570,29 @@ li {
   .headers,
   .subHeaders {
     font-size: 6vw;
+  }
+
+  .sentiment-container {
+    right: 23vw;
+    top: 108vh;
+    max-width: 52vw;
+    font-size: 5vw;
+  }
+
+  .sentiment-key {
+    width: 50vw;
+  }
+
+  .neg {
+    margin-right: 20vh;
+  }
+
+  .trend-frequency {
+    padding-left: 17vw;
+    padding-top: 12vw;
+  }
+
+  .languages {
+    font-size: 2.5vh;
   }
 }

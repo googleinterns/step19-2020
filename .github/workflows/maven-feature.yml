@@ -1,4 +1,4 @@
-name: Feature Branch
+name: Feature Branch Backend Tests
 
 on:
   push:
