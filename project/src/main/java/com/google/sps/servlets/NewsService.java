@@ -26,6 +26,8 @@ import com.rometools.rome.feed.synd.SyndEntry;
 import com.rometools.rome.io.SyndFeedInput;
 import com.rometools.rome.io.XmlReader;
 import com.google.sps.data.Trend;
+import com.google.sps.data.VideoService;
+import com.google.sps.data.Video;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
@@ -39,6 +41,7 @@ public class NewsService {
   // one instance, reuse
   private final OkHttpClient httpClient = new OkHttpClient();
   private final NewsRepository newsRepository = new NewsRepository();
+  private final VideoService videoService = new VideoService();
 
   private static final LanguageServiceClient language = createLangClient();
 
@@ -55,9 +58,12 @@ public class NewsService {
   // List of Topic names is passed in along with the number of articles for each topic, then Topic
   // Objects are generated pairing topic names with article lists which are all returned in one big
   // Topic Object list.
-  public List<Topic> populateTopics(List<Trend> trends, String language, int numArticles) {
+
+  public List<Topic> populateTopics(
+      List<Trend> trends, String language, int numArticles, String country) throws IOException {
     List<Topic> topics = new ArrayList<Topic>();
     List<Article> articles;
+    List<Video> videos;
     for (int i = 0; i < trends.size(); i++) {
       String topicName = trends.get(i).getTitle();
       long frequency = trends.get(i).getFrequency();
@@ -65,10 +71,12 @@ public class NewsService {
       // articles, we default to American English articles which tend to be the most consistently
       // available
       articles = retrieveNewArticles(topicName, language, numArticles);
+      videos = videoService.getRelatedVideos(topicName, country);
+
       if (articles.size() == 0) {
         articles = retrieveNewArticles(topicName, "en-US", numArticles);
       }
-      Topic topic = new Topic(topicName, frequency, articles);
+      Topic topic = new Topic(topicName, frequency, articles, videos);
       topics.add(topic);
     }
 

@@ -26,8 +26,16 @@ public class GeoService {
 
   private final OkHttpClient httpClient = new OkHttpClient();
 
-  private String API_KEY =
-      "Please insert the actual API Key (found in our project console) when you pull.";
+  private String API_KEY = getGeoKey();
+
+  private String getGeoKey() {
+    try {
+      return APISecret.getSecretString("GEO_API_KEY");
+    } catch (IOException e) {
+      e.printStackTrace();
+      return null;
+    }
+  }
 
   // This function can be used to get all the countries which Google has trend data on. It has a
   // runtime of around 20s
@@ -170,7 +178,12 @@ public class GeoService {
     }
   }
 
-  public String getUserLocation() throws IOException {
-    return getUserCountry(getUserCoordinates());
+  public String getUserLocation() {
+    try {
+      return getUserCountry(getUserCoordinates());
+    } catch (IOException e) {
+      e.printStackTrace();
+      throw new RuntimeException(e);
+    }
   }
 }
