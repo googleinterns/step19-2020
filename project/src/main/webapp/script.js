@@ -51,6 +51,7 @@ function switchTrend(val, arrow, trends) {
   if (trend.content.length === 0) {
     return "";
   } else {
+    getVideos(trend.currentTrendVal, trend.content);  
     getTrends(trend.currentTrendVal, trend.content);
     getArticles(trend.currentTrendVal, trend.content);
   }
@@ -93,10 +94,42 @@ async function retrieveArticles(numArticles, language, trend) {
   const requestURL = basePath + '?' + numParam + numArticles + '&' + langParam + language;
   const response = await fetch(requestURL);
   trend.content = await response.json();
-  getVideos();
-  getArticles(trend.currentTrendVal, trend.content);
+  getVideos(trend.currentTrendVal, trend.content, "video-container");
+  getArticles(trend.currentTrendVal, trend.content, "article-container");
   getTrends(trend.currentTrendVal, trend.content);
   getTrendBubbles(trend.content, trend.color);
+}
+
+/**
+ * Creates an element that represents an article.
+ * @param {object} article Contains the article information.
+ * @return {HTMLDivElement} The article element.
+ */
+function createVideoElement(video, first) {
+  const videoElement = document.createElement("div");
+  videoElement.className = first ? "video" : "video";
+
+  const linkElement = document.createElement("a");
+  linkElement.setAttribute("href", video.video);
+
+  const titleElement = document.createElement("h1");
+  titleElement.className = "headers no-link";
+  titleElement.innerText = video.title;
+
+  const descriptionElement = document.createElement("h3");
+  descriptionElement.className = "description";
+  descriptionElement.innerText = video.description;
+
+  const imageElement = document.createElement("img");
+  imageElement.setAttribute("src",video.image);
+  imageElement.className = "thumbnail";
+
+  linkElement.appendChild(imageElement);
+  videoElement.appendChild(titleElement);
+  videoElement.appendChild(descriptionElement);
+  videoElement.appendChild(linkElement);
+
+  return videoElement;
 }
 
 /**
@@ -104,10 +137,10 @@ async function retrieveArticles(numArticles, language, trend) {
  * @param {number} val The value corresponding to the current trend.
  * @param {Array} content Array of Topic objects.
  */
-function getArticles(val, content) {
+function getArticles(val, content, container) {
   const trend = content[val - 1];
-  const articles = trend.articles;
-  const articleContainer = document.getElementById("article-container");
+  const articles = container === "video-container" ? trend.videos : trend.articles;
+  const articleContainer = document.getElementById(container);
   articleContainer.innerHTML = "";
   let right = false;
   articles.forEach((article) => {
@@ -116,6 +149,19 @@ function getArticles(val, content) {
     right = !right ? true : false;
   });
 }
+
+// function getVideos(val, content) {
+//   const trend = content[val - 1];
+//   const videos = trend.videos;
+//   const videoContainer = document.getElementById("video-container");
+//   videoContainer.innerHTML = "";
+//   let first = false;
+//   videos.forEach((video) => {
+//     const child = createVideoElement(video, first);
+//     videoContainer.appendChild(child);
+//     first = !first ? true : false;
+//   }); 
+// }
 
 /**
  * Creates an element that represents an article.
@@ -403,40 +449,6 @@ function getTranslation(language) {
   return translation;
 }
 
-/**
- * Creates an element that represents an article.
- * @param {object} article Contains the article information.
- * @return {HTMLDivElement} The article element.
- */
-function createVideoElement(first) {
-  const videoElement = document.createElement("div");
-  videoElement.className = first ? "video" : "video first";
-
-  const linkElement = document.createElement("a");
-  linkElement.setAttribute("href", "#");
-
-  const titleElement = document.createElement("h1");
-  titleElement.className = "headers";
-  titleElement.innerText = "Video Title";
-
-  const dateElement = document.createElement("h3");
-  dateElement.className = "subHeaders";
-  dateElement.innerText = "date: " + "7/27/20";
-
-  linkElement.appendChild(titleElement);
-  videoElement.appendChild(linkElement);
-  videoElement.appendChild(dateElement);
-
-  return videoElement;
-}
-
-function getVideos() {
-  const videoContainer = document.getElementById("video-container");
-  videoContainer.innerHTML = "";  
-  videoContainer.appendChild(createVideoElement(true));
-  videoContainer.appendChild(createVideoElement(false));
-}
-
 /** Displays preloader. */
 function animatePreloader() {
   const tl = anime.timeline({
@@ -486,20 +498,20 @@ function loadPage() {
   trend.color = getColorGradient();
 }
 
-module.exports = {
-  toggleNavBar: toggleNavBar,
-  switchTrend: switchTrend,
-  getNextTrendValue: getNextTrendValue,
-  showPage: showPage,
-  getArticles: getArticles,
-  createArticleElement: createArticleElement,
-  getTrends: getTrends,
-  createTrendElement: createTrendElement,
-  getSize: getSize,
-  getTrendBubbleSize: getTrendBubbleSize,
-  addStyleProperty: addStyleProperty,
-  createTrendBubble: createTrendBubble,
-  getTrendBubbles: getTrendBubbles,
-  getTrendBubbleScore: getTrendBubbleScore,
-  getAverageSentiment: getAverageSentiment,
-};
+// module.exports = {
+//   toggleNavBar: toggleNavBar,
+//   switchTrend: switchTrend,
+//   getNextTrendValue: getNextTrendValue,
+//   showPage: showPage,
+//   getArticles: getArticles,
+//   createArticleElement: createArticleElement,
+//   getTrends: getTrends,
+//   createTrendElement: createTrendElement,
+//   getSize: getSize,
+//   getTrendBubbleSize: getTrendBubbleSize,
+//   addStyleProperty: addStyleProperty,
+//   createTrendBubble: createTrendBubble,
+//   getTrendBubbles: getTrendBubbles,
+//   getTrendBubbleScore: getTrendBubbleScore,
+//   getAverageSentiment: getAverageSentiment,
+// };

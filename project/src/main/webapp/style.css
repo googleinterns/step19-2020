@@ -210,14 +210,16 @@ li {
   background-color: rgb(226, 226, 226);
 }
 
-.articles {
+.articles,
+.video {
   border: solid black;
   margin: 5vh 23vw;
   padding: 1vw 3vw;
 }
 
 .headers,
-.subHeaders {
+.subHeaders,
+.description {
   font-weight: normal;
 }
 
@@ -232,7 +234,6 @@ li {
 
 .subHeaders {
   margin-top: -2vh;
-  font-size: 2vh;
 }
 
 .subHeaders,
@@ -289,19 +290,27 @@ li {
 }
 
 .video {
-  border: solid black;  
-  display: inline-block;
-  padding: 1vw 3vw;
-  width: 19.5vw;
   text-align: center;
 }
 
-.video-container {
-  margin: 5vh 23vw;
+.description {
+  display: inline-block;
+  font-size: 1.5vw;
+  margin-right: 1.5vw;
+  width: 25vw;
+}
+
+.thumbnail {
+  display: inline-block;
+  margin-top: -2vw;
 }
 
 .first {
   float: right;
+}
+
+.no-link:hover {
+  color: black;
 }
 
 @keyframes fade-in {
@@ -437,7 +446,7 @@ li {
   }
 
   .subHeaders {
-    font-size: 5vw;
+    font-size: 4vw;
   }
 
    .sentiment-container {
@@ -461,6 +470,16 @@ li {
 
   .languages {
     font-size: 2vh;
+  }
+  
+  .description {
+    font-size: 4vw;
+    margin-top: -1vw;
+    width: 60vw;
+  }
+
+  .thumbnail {
+    width: 60vw;
   }
 }
 
@@ -594,5 +613,15 @@ li {
 
   .languages {
     font-size: 2.5vh;
+  }
+
+  .description {
+    font-size: 4vw;
+    margin-top: -1vw;
+    width: 55vw;
+  }
+
+  .thumbnail {
+    width: 55vw;
   }
 }
