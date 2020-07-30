@@ -210,14 +210,16 @@ li {
   background-color: rgb(226, 226, 226);
 }
 
-.articles {
+.articles,
+.video {
   border: solid black;
   margin: 5vh 23vw;
   padding: 1vw 3vw;
 }
 
 .headers,
-.subHeaders {
+.subHeaders,
+.description {
   font-weight: normal;
 }
 
@@ -232,7 +234,6 @@ li {
 
 .subHeaders {
   margin-top: -2vh;
-  font-size: 2vh;
 }
 
 .subHeaders,
@@ -286,6 +287,30 @@ li {
 
 .neg {
   margin-right: 11vh;
+}
+
+.video {
+  text-align: center;
+}
+
+.description {
+  display: inline-block;
+  font-size: 1.5vw;
+  margin-right: 1.5vw;
+  width: 25vw;
+}
+
+.thumbnail {
+  display: inline-block;
+  margin-top: -2vw;
+}
+
+.first {
+  float: right;
+}
+
+.no-link:hover {
+  color: black;
 }
 
 @keyframes fade-in {
@@ -408,7 +433,8 @@ li {
     width: 1.8vh;
   }
 
-  .articles {
+  .articles,
+  .video {
     margin: 5vh 17vw;
     padding: 1vw 2vw;
     text-align: center;
@@ -420,7 +446,7 @@ li {
   }
 
   .subHeaders {
-    font-size: 5vw;
+    font-size: 4vw;
   }
 
    .sentiment-container {
@@ -444,6 +470,16 @@ li {
 
   .languages {
     font-size: 2vh;
+  }
+  
+  .description {
+    font-size: 4vw;
+    margin-top: -1vw;
+    width: 60vw;
+  }
+
+  .thumbnail {
+    width: 60vw;
   }
 }
 
@@ -542,7 +578,8 @@ li {
     margin-top: -2.5vw;
   }
 
-  .articles {
+  .articles,
+  .video {
     margin: 5vh 19vw;
     padding: 1vw 2vw;
     text-align: center;
@@ -576,5 +613,15 @@ li {
 
   .languages {
     font-size: 2.5vh;
+  }
+
+  .description {
+    font-size: 4vw;
+    margin-top: -1vw;
+    width: 55vw;
+  }
+
+  .thumbnail {
+    width: 55vw;
   }
 }
