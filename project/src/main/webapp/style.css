@@ -288,6 +288,10 @@ li {
   margin-right: 11vh;
 }
 
+.text-to-speech {
+  font-size: 1vw;
+}
+
 @keyframes fade-in {
   from {
     opacity: 0;

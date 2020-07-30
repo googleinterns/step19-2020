@@ -142,10 +142,18 @@ function createArticleElement(article, right) {
   const dateElement = document.createElement("h3");
   dateElement.className = "subHeaders";
   dateElement.innerText = "date: " + article.pubDate;
+
+  const speechElement = document.createElement("button");
+  speechElement.className = "text-to-speech";
+  const textToSpeech = "textToSpeech(\"" + article.title + "\")";
+  speechElement.innerText = "tts";
+  speechElement.setAttribute("onclick", textToSpeech);
+
   linkElement.appendChild(titleElement);
   articleElement.appendChild(linkElement);
   articleElement.appendChild(authorElement);
   articleElement.appendChild(dateElement);
+  articleElement.appendChild(speechElement);
 
   return articleElement;
 }
