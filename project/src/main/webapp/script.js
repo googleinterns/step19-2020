@@ -102,7 +102,7 @@ async function retrieveArticles(numArticles, language, trend) {
 
 /**
  * Creates an element that represents an video.
- * @param {object} article Contains the video information.
+ * @param {object} video Contains the video information.
  * @return {HTMLDivElement} The video element.
  */
 function createVideoElement(video) {
@@ -136,6 +136,7 @@ function createVideoElement(video) {
  * Displays articles on page.
  * @param {number} val The value corresponding to the current trend.
  * @param {Array} content Array of Topic objects.
+ * @param {string} container The name of the id used to add elements to.
  */
 function getArticles(val, content, container) {
   const trend = content[val - 1];
