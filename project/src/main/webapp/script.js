@@ -51,9 +51,9 @@ function switchTrend(val, arrow, trends) {
   if (trend.content.length === 0) {
     return "";
   } else {
-    getVideos(trend.currentTrendVal, trend.content);  
+    getArticles(trend.currentTrendVal, trend.content, "video-container");
+    getArticles(trend.currentTrendVal, trend.content, "article-container");
     getTrends(trend.currentTrendVal, trend.content);
-    getArticles(trend.currentTrendVal, trend.content);
   }
 }
 
@@ -94,20 +94,20 @@ async function retrieveArticles(numArticles, language, trend) {
   const requestURL = basePath + '?' + numParam + numArticles + '&' + langParam + language;
   const response = await fetch(requestURL);
   trend.content = await response.json();
-  getVideos(trend.currentTrendVal, trend.content, "video-container");
+  getArticles(trend.currentTrendVal, trend.content, "video-container");
   getArticles(trend.currentTrendVal, trend.content, "article-container");
   getTrends(trend.currentTrendVal, trend.content);
   getTrendBubbles(trend.content, trend.color);
 }
 
 /**
- * Creates an element that represents an article.
- * @param {object} article Contains the article information.
- * @return {HTMLDivElement} The article element.
+ * Creates an element that represents an video.
+ * @param {object} article Contains the video information.
+ * @return {HTMLDivElement} The video element.
  */
-function createVideoElement(video, first) {
+function createVideoElement(video) {
   const videoElement = document.createElement("div");
-  videoElement.className = first ? "video" : "video";
+  videoElement.className = "video";
 
   const linkElement = document.createElement("a");
   linkElement.setAttribute("href", video.video);
@@ -139,29 +139,17 @@ function createVideoElement(video, first) {
  */
 function getArticles(val, content, container) {
   const trend = content[val - 1];
-  const articles = container === "video-container" ? trend.videos : trend.articles;
+  const video = container === "video-container" ? true : false;
+  const articles = video ? trend.videos : trend.articles;
   const articleContainer = document.getElementById(container);
   articleContainer.innerHTML = "";
   let right = false;
-  articles.forEach((article) => {
-    const child = createArticleElement(article, right);
+  articles.forEach((article) => {  
+    const child = video ? createVideoElement(article) : createArticleElement(article, right);
     articleContainer.appendChild(child);
     right = !right ? true : false;
   });
 }
-
-// function getVideos(val, content) {
-//   const trend = content[val - 1];
-//   const videos = trend.videos;
-//   const videoContainer = document.getElementById("video-container");
-//   videoContainer.innerHTML = "";
-//   let first = false;
-//   videos.forEach((video) => {
-//     const child = createVideoElement(video, first);
-//     videoContainer.appendChild(child);
-//     first = !first ? true : false;
-//   }); 
-// }
 
 /**
  * Creates an element that represents an article.
@@ -498,20 +486,20 @@ function loadPage() {
   trend.color = getColorGradient();
 }
 
-// module.exports = {
-//   toggleNavBar: toggleNavBar,
-//   switchTrend: switchTrend,
-//   getNextTrendValue: getNextTrendValue,
-//   showPage: showPage,
-//   getArticles: getArticles,
-//   createArticleElement: createArticleElement,
-//   getTrends: getTrends,
-//   createTrendElement: createTrendElement,
-//   getSize: getSize,
-//   getTrendBubbleSize: getTrendBubbleSize,
-//   addStyleProperty: addStyleProperty,
-//   createTrendBubble: createTrendBubble,
-//   getTrendBubbles: getTrendBubbles,
-//   getTrendBubbleScore: getTrendBubbleScore,
-//   getAverageSentiment: getAverageSentiment,
-// };
+module.exports = {
+  toggleNavBar: toggleNavBar,
+  switchTrend: switchTrend,
+  getNextTrendValue: getNextTrendValue,
+  showPage: showPage,
+  getArticles: getArticles,
+  createArticleElement: createArticleElement,
+  getTrends: getTrends,
+  createTrendElement: createTrendElement,
+  getSize: getSize,
+  getTrendBubbleSize: getTrendBubbleSize,
+  addStyleProperty: addStyleProperty,
+  createTrendBubble: createTrendBubble,
+  getTrendBubbles: getTrendBubbles,
+  getTrendBubbleScore: getTrendBubbleScore,
+  getAverageSentiment: getAverageSentiment,
+};
