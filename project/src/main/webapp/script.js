@@ -51,8 +51,9 @@ function switchTrend(val, arrow, trends) {
   if (trend.content.length === 0) {
     return "";
   } else {
+    getArticles(trend.currentTrendVal, trend.content, "video-container");
+    getArticles(trend.currentTrendVal, trend.content, "article-container");
     getTrends(trend.currentTrendVal, trend.content);
-    getArticles(trend.currentTrendVal, trend.content);
   }
 }
 
@@ -93,24 +94,59 @@ async function retrieveArticles(numArticles, language, trend) {
   const requestURL = basePath + '?' + numParam + numArticles + '&' + langParam + language;
   const response = await fetch(requestURL);
   trend.content = await response.json();
-  getArticles(trend.currentTrendVal, trend.content);
+  getArticles(trend.currentTrendVal, trend.content, "video-container");
+  getArticles(trend.currentTrendVal, trend.content, "article-container");
   getTrends(trend.currentTrendVal, trend.content);
   getTrendBubbles(trend.content, trend.color);
+}
+
+/**
+ * Creates an element that represents an video.
+ * @param {object} video Contains the video information.
+ * @return {HTMLDivElement} The video element.
+ */
+function createVideoElement(video) {
+  const videoElement = document.createElement("div");
+  videoElement.className = "video";
+
+  const linkElement = document.createElement("a");
+  linkElement.setAttribute("href", video.video);
+
+  const titleElement = document.createElement("h1");
+  titleElement.className = "headers no-link";
+  titleElement.innerText = video.title;
+
+  const descriptionElement = document.createElement("h3");
+  descriptionElement.className = "description";
+  descriptionElement.innerText = video.description;
+
+  const imageElement = document.createElement("img");
+  imageElement.setAttribute("src",video.image);
+  imageElement.className = "thumbnail";
+
+  linkElement.appendChild(imageElement);
+  videoElement.appendChild(titleElement);
+  videoElement.appendChild(descriptionElement);
+  videoElement.appendChild(linkElement);
+
+  return videoElement;
 }
 
 /**
  * Displays articles on page.
  * @param {number} val The value corresponding to the current trend.
  * @param {Array} content Array of Topic objects.
+ * @param {string} container The name of the id used to add elements to.
  */
-function getArticles(val, content) {
+function getArticles(val, content, container) {
   const trend = content[val - 1];
-  const articles = trend.articles;
-  const articleContainer = document.getElementById("article-container");
+  const video = container === "video-container" ? true : false;
+  const articles = video ? trend.videos : trend.articles;
+  const articleContainer = document.getElementById(container);
   articleContainer.innerHTML = "";
   let right = false;
-  articles.forEach((article) => {
-    const child = createArticleElement(article, right);
+  articles.forEach((article) => {  
+    const child = video ? createVideoElement(article) : createArticleElement(article, right);
     articleContainer.appendChild(child);
     right = !right ? true : false;
   });

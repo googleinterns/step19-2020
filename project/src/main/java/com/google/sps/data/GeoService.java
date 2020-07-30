@@ -61,7 +61,7 @@ public class GeoService {
   }
 
   // This function turns the data from the passed in URL to a readable string.
-  private String readUrl(URL url) throws IOException {
+  public String readUrl(URL url) throws IOException {
     BufferedReader reader = null;
     try {
       reader = new BufferedReader(new InputStreamReader(url.openStream()));
