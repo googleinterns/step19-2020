@@ -294,6 +294,10 @@ li {
   font-size: 1vw;
 }
 
+.tts-video {
+  display: flex;
+}
+
 .video {
   text-align: center;
 }
