@@ -124,10 +124,17 @@ function createVideoElement(video) {
   imageElement.setAttribute("src",video.image);
   imageElement.className = "thumbnail";
 
+  const speechElement = document.createElement("button");
+  speechElement.className = "text-to-speech tts-video";
+  const textToSpeech = "textToSpeech(\"" + video.title + "\")";
+  speechElement.innerText = "tts";
+  speechElement.setAttribute("onclick", textToSpeech);
+
   linkElement.appendChild(imageElement);
   videoElement.appendChild(titleElement);
   videoElement.appendChild(descriptionElement);
   videoElement.appendChild(linkElement);
+  videoElement.appendChild(speechElement);
 
   return videoElement;
 }
@@ -178,10 +185,18 @@ function createArticleElement(article, right) {
   const dateElement = document.createElement("h3");
   dateElement.className = "subHeaders";
   dateElement.innerText = "date: " + article.pubDate;
+
+  const speechElement = document.createElement("button");
+  speechElement.className = "text-to-speech";
+  const textToSpeech = "textToSpeech(\"" + article.title + "\")";
+  speechElement.innerText = "tts";
+  speechElement.setAttribute("onclick", textToSpeech);
+
   linkElement.appendChild(titleElement);
   articleElement.appendChild(linkElement);
   articleElement.appendChild(authorElement);
   articleElement.appendChild(dateElement);
+  articleElement.appendChild(speechElement);
 
   return articleElement;
 }
