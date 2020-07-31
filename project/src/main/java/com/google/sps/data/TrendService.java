@@ -93,7 +93,7 @@ public class TrendService {
   }
 
   /* Stores a Trend object in Datastore. */
-  public Entity makeTrend(String topic, String frequency){
+  public Entity makeTrend(String topic, String frequency) {
 
     long timestamp = System.currentTimeMillis();
     Integer freq = convertToInt(frequency);

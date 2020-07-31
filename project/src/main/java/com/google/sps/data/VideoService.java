@@ -66,7 +66,7 @@ public class VideoService {
     List<Video> videos = new ArrayList<>();
     Iterator<Entity> totalVideos = results.asIterable().iterator();
     int i = 0;
-    while (totalVideos.hasNext() && i < 3) {
+    while (totalVideos.hasNext() && i < 2) {
       Entity entity = totalVideos.next();
       String title = (String) entity.getProperty("title");
       String description = (String) entity.getProperty("description");
@@ -90,13 +90,15 @@ public class VideoService {
     videoEntity.setProperty("topic", topicName);
     videoEntity.setProperty("title", video.get("title").getAsString());
     videoEntity.setProperty("description", video.get("description").getAsString());
-    videoEntity.setProperty("thumbnail", video
-    .get("thumbnails")
-    .getAsJsonObject()
-    .get("medium")
-    .getAsJsonObject()
-    .get("url")
-    .getAsString());
+    videoEntity.setProperty(
+        "thumbnail",
+        video
+            .get("thumbnails")
+            .getAsJsonObject()
+            .get("medium")
+            .getAsJsonObject()
+            .get("url")
+            .getAsString());
     videoEntity.setProperty("link", videoLink);
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
     datastore.put(videoEntity);
