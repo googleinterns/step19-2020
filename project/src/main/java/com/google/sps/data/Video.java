@@ -19,12 +19,14 @@ public class Video {
   private final String description;
   private final String image;
   private final String video;
+  private final String date;
 
-  public Video(String title, String description, String image, String video) {
+  public Video(String title, String description, String image, String video, String date) {
     this.title = title;
     this.description = description;
     this.image = image;
     this.video = video;
+    this.date = date;
   }
 
   public String getTitle() {
@@ -43,7 +45,11 @@ public class Video {
     return video;
   }
 
+  public String getDate() {
+    return date;
+  }
+
   public String toString() {
-    return String.format("%s %s %s %s", title, description, image, video);
+    return String.format("%s %s %s %s %s", title, description, image, video, date);
   }
 }

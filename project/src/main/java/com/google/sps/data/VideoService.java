@@ -17,7 +17,10 @@ import com.google.appengine.api.datastore.Entity;
 import com.google.appengine.api.datastore.PreparedQuery;
 import com.google.appengine.api.datastore.Query;
 import com.google.appengine.api.datastore.Query.*;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Iterator;
+import java.util.Locale;
 
 public class VideoService {
 
@@ -72,7 +75,8 @@ public class VideoService {
       String description = (String) entity.getProperty("description");
       String thumbnail = (String) entity.getProperty("thumbnail");
       String link = (String) entity.getProperty("link");
-      videos.add(new Video(title, description, thumbnail, link));
+      String date = (String) entity.getProperty("date");
+      videos.add(new Video(title, description, thumbnail, link, date));
       i++;
     }
     return videos;
@@ -86,6 +90,7 @@ public class VideoService {
 
   public void storeVideos(String id, String topicName, JsonObject video) {
     String videoLink = String.format("https://www.youtube.com/watch?v=%s", id);
+    String date = convertToReadableDate(video.get("publishedAt").getAsString());
     Entity videoEntity = new Entity("Video");
     videoEntity.setProperty("topic", topicName);
     videoEntity.setProperty("title", video.get("title").getAsString());
@@ -100,7 +105,17 @@ public class VideoService {
             .get("url")
             .getAsString());
     videoEntity.setProperty("link", videoLink);
+    videoEntity.setProperty("date", date);
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
     datastore.put(videoEntity);
+  }
+
+  public String convertToReadableDate(String date) {
+    DateTimeFormatter inputFormatter =
+        DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss'Z'", Locale.ENGLISH);
+    DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("dd-MM-yyy", Locale.ENGLISH);
+    LocalDate newDate = LocalDate.parse(date, inputFormatter);
+    String formattedDate = outputFormatter.format(newDate);
+    return formattedDate;
   }
 }
