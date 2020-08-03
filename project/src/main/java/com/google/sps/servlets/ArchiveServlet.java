@@ -22,6 +22,9 @@ import java.text.SimpleDateFormat;
 import java.text.ParseException;
 
 @WebServlet("/archive")
+// This servlet can be used to access trends from previous days. The client-side
+// sends a request containing a specific date and the servlet returns a Json of all
+// trends stored on that date.
 public class ArchiveServlet extends HttpServlet {
 
   public long millisInDay = 86400000;
@@ -32,13 +35,12 @@ public class ArchiveServlet extends HttpServlet {
     long millis = 0;
     try {
       millis = convertStringtoMillis(stringDate);
-      System.out.println(millis);
     } catch (ParseException e) {
       e.printStackTrace();
     }
     PreparedQuery results = getFilteredQuery(millis);
     Iterator<Entity> totalTrends = results.asIterable().iterator();
-    
+
     response.setContentType("application/json");
     String json = convertToJson(getTrends(totalTrends));
     response.getWriter().println(json);
@@ -58,10 +60,13 @@ public class ArchiveServlet extends HttpServlet {
 
   private PreparedQuery getFilteredQuery(long time) {
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
-    Filter startFilter = new FilterPredicate("timestamp", FilterOperator.GREATER_THAN_OR_EQUAL, time);
-    Filter endFilter = new FilterPredicate("timestamp", FilterOperator.LESS_THAN_OR_EQUAL, time + millisInDay);
+    Filter startFilter =
+        new FilterPredicate("timestamp", FilterOperator.GREATER_THAN_OR_EQUAL, time);
+    Filter endFilter =
+        new FilterPredicate("timestamp", FilterOperator.LESS_THAN_OR_EQUAL, time + millisInDay);
     CompositeFilter dayRangeFilter = CompositeFilterOperator.and(startFilter, endFilter);
-    Query query = new Query("Trend").setFilter(dayRangeFilter).addSort("timestamp", SortDirection.DESCENDING);
+    Query query =
+        new Query("Trend").setFilter(dayRangeFilter).addSort("timestamp", SortDirection.DESCENDING);
     return datastore.prepare(query);
   }
 
