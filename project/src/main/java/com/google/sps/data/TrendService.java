@@ -50,7 +50,7 @@ public class TrendService {
     // If trends for the country are already present in the Datastore,
     // they are returned to the user. If not, they are retrieved on demand
     // and then stored.
-    if (trends.size() != 0) {
+    if (!trends.isEmpty()) {
       return trends;
     }
     return getForeignCountryTrends(country);
