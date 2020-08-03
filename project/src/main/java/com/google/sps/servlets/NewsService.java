@@ -41,7 +41,7 @@ public class NewsService {
   // one instance, reuse
   private final OkHttpClient httpClient = new OkHttpClient();
   private final NewsRepository newsRepository = new NewsRepository();
-  private final VideoService videoService = new VideoService();
+  private final VideoService vid = new VideoService();
 
   private static final LanguageServiceClient language = createLangClient();
 
@@ -71,7 +71,7 @@ public class NewsService {
       // articles, we default to American English articles which tend to be the most consistently
       // available
       articles = retrieveNewArticles(topicName, language, numArticles);
-      videos = videoService.getRelatedVideos(topicName, country);
+      videos = vid.getVideos(topicName);
 
       if (articles.size() == 0) {
         articles = retrieveNewArticles(topicName, "en-US", numArticles);

@@ -33,11 +33,14 @@ import com.google.sps.data.Trend;
 import com.google.sps.data.TrendRSS;
 import com.google.sps.data.TrendRSSFeed;
 import com.google.sps.data.TrendFrequencyParser;
+import com.google.sps.data.VideoService;
+import com.google.sps.data.Video;
 
 /* Class that contains all the functions needed to parse trends from a RSS Feed, store those trends in Datastore, and retreive them from Datastore in a list. */
 public class TrendService {
 
   GeoService geo = new GeoService();
+  VideoService vid = new VideoService();
   /* Returns a list of trends. */
   public List<Trend> showTrends(String country) {
 
@@ -137,9 +140,10 @@ public class TrendService {
     limitTrends(4, trends);
   }
 
-  public void limitTrends(int limit, List<TrendRSS> source) {
+  public void limitTrends(int limit, List<TrendRSS> source) throws IOException {
     for (int i = 0; i < limit; i++) {
       TrendRSS trend = source.get(i);
+      vid.newRelatedVideos(trend.getTitle(), "US");
       storeTrend(makeTrend(trend.getTitle(), trend.getFreq()));
     }
   }
