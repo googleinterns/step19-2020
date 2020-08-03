@@ -46,7 +46,7 @@ public class TrendService {
   public List<Trend> showTrends(String country) {
 
     country = geo.formulateRSSFeedQuery(country);
-    List<Trend> trends =  getDatastoreTrends(country);
+    List<Trend> trends = getDatastoreTrends(country);
     // If trends for the country are already present in the Datastore,
     // they are returned to the user. If not, they are retrieved on demand
     // and then stored.
@@ -63,12 +63,7 @@ public class TrendService {
       TrendRSS trendRSS = trendRSSList.get(i);
       String title = trendRSS.getTitle();
       String freq = trendRSS.getFreq();
-      Trend trend =
-          new Trend(
-              8080,
-              title,
-              convertToInt(freq),
-              System.currentTimeMillis());
+      Trend trend = new Trend(8080, title, convertToInt(freq), System.currentTimeMillis());
       storeTrend(makeTrend(title, freq, country));
       trends.add(trend);
     }
@@ -78,7 +73,8 @@ public class TrendService {
   public List<Trend> getDatastoreTrends(String country) {
 
     Filter propertyFilter = new FilterPredicate("country", FilterOperator.EQUAL, country);
-    Query query = new Query("Trend").setFilter(propertyFilter).addSort("timestamp", SortDirection.DESCENDING);
+    Query query =
+        new Query("Trend").setFilter(propertyFilter).addSort("timestamp", SortDirection.DESCENDING);
 
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
     PreparedQuery results = datastore.prepare(query);
@@ -93,7 +89,7 @@ public class TrendService {
     while (totalTrends.hasNext() && i < topicsLimit) {
       Entity entity = totalTrends.next();
       long timestamp = (long) entity.getProperty("timestamp");
-      // This checks to see if the trends in the datastore are more than 
+      // This checks to see if the trends in the datastore are more than
       // a day old. If so, they are out-of-date and not returned.
       if (System.currentTimeMillis() - timestamp < millisInDay) {
         long id = entity.getKey().getId();
