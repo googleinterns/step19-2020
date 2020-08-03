@@ -91,6 +91,8 @@ function showPage() {
  * @param {number} numArticles The number of articles to retrieve.
  * @param {object} language The Language of the articles being retrieved.
  * @param {object} trend Holds the trends and articles retrieved.
+ * @param {number} lat The latitude of the user's location.
+ * @param {number} long The longitude of the user's location.
  */
 async function retrieveArticles(numArticles, language, trend, lat, long) {
   const location = longParam + long + "&" + latParam + lat;
@@ -531,7 +533,9 @@ function getUserLocation() {
   }
 }
 
-/** Gets articles from user location. */
+/** Gets articles from user location. 
+ * @param {Object} position Defines the current location.
+ */
 function getArticlesFromLocation(position) {
   const lat = position.coords.latitude;
   const long = position.coords.longitude;
