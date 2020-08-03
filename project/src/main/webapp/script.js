@@ -363,7 +363,7 @@ function getAverageSentiment(articles) {
  */
 function getColorGradient() {
   const sentimentValueCount = 21;
-  const chromaColor = chroma.scale(["#FED8F7", "#C4DDFE"]);
+  const chromaColor = chroma.scale(["#C4DDFE", "#FED8F7"]);
   const gradient = chromaColor.colors(sentimentValueCount);
   const colors = new Map();
   let j = 1;
