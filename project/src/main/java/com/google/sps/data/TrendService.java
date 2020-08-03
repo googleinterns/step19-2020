@@ -53,10 +53,10 @@ public class TrendService {
     if (!trends.isEmpty()) {
       return trends;
     }
-    return getForeignCountryTrends(country);
+    return getTrendsforCountry(country);
   }
 
-  public List<Trend> getForeignCountryTrends(String country) {
+  public List<Trend> getTrendsforCountry(String country) {
     List<TrendRSS> trendRSSList = getTrendRSSList(country);
     List<Trend> trends = new ArrayList<>();
     for (int i = 0; i < 4; i++) {
