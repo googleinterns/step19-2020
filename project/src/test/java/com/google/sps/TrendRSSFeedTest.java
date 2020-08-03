@@ -68,19 +68,19 @@ public final class TrendRSSFeedTest {
   @Test
   public void CheckTitleAfterMakeTrendTest() {
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
-    Entity trend = service.makeTrend("Marsha P. Johnson", "2,000,000+");
+    Entity trend = service.makeTrend("Marsha P. Johnson", "2,000,000+", "US");
     Assert.assertEquals("Marsha P. Johnson", trend.getProperty("title"));
   }
 
   @Test
   public void CheckFreqAfterMakeTrendTest() {
-    Entity trend = service.makeTrend("Marsha P. Johnson", "2,000,000+");
+    Entity trend = service.makeTrend("Marsha P. Johnson", "2,000,000+", "US");
     Assert.assertEquals(2000000, trend.getProperty("traffic"));
   }
 
   @Test
   public void CheckFreqAfterInvalidMakeTrendTest() {
-    Entity trend = service.makeTrend("Marsha P. Johnson", "hi");
+    Entity trend = service.makeTrend("Marsha P. Johnson", "hi", "US");
     Assert.assertEquals(0, trend.getProperty("traffic"));
   }
 }

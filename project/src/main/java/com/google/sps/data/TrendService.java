@@ -35,6 +35,7 @@ import com.google.sps.data.TrendRSSFeed;
 import com.google.sps.data.TrendFrequencyParser;
 import com.google.sps.data.VideoService;
 import com.google.sps.data.Video;
+import com.google.appengine.api.datastore.Query.*;
 
 /* Class that contains all the functions needed to parse trends from a RSS Feed, store those trends in Datastore, and retreive them from Datastore in a list. */
 public class TrendService {
@@ -44,30 +45,36 @@ public class TrendService {
   /* Returns a list of trends. */
   public List<Trend> showTrends(String country) {
 
-    if (country.equals("US")) {
-      return getDatastoreTrends();
+    country = geo.formulateRSSFeedQuery(country);
+    List<Trend> trends = getDatastoreTrends(country);
+    // If trends for the country are already present in the Datastore,
+    // they are returned to the user. If not, they are retrieved on demand
+    // and then stored.
+    if (!trends.isEmpty()) {
+      return trends;
     }
-    return getForeignCountryTrends(country);
+    return getTrendsforCountry(country);
   }
 
-  public List<Trend> getForeignCountryTrends(String country) {
-    List<TrendRSS> trendRSSList = getTrendRSSList(geo.formulateRSSFeedQuery(country));
+  public List<Trend> getTrendsforCountry(String country) {
+    List<TrendRSS> trendRSSList = getTrendRSSList(country);
     List<Trend> trends = new ArrayList<>();
     for (int i = 0; i < 4; i++) {
       TrendRSS trendRSS = trendRSSList.get(i);
-      Trend trend =
-          new Trend(
-              8080,
-              trendRSS.getTitle(),
-              convertToInt(trendRSS.getFreq()),
-              System.currentTimeMillis());
+      String title = trendRSS.getTitle();
+      String freq = trendRSS.getFreq();
+      Trend trend = new Trend(8080, title, convertToInt(freq), System.currentTimeMillis());
+      storeTrend(makeTrend(title, freq, country));
       trends.add(trend);
     }
     return trends;
   }
 
-  public List<Trend> getDatastoreTrends() {
-    Query query = new Query("Trend").addSort("timestamp", SortDirection.DESCENDING);
+  public List<Trend> getDatastoreTrends(String country) {
+
+    Filter propertyFilter = new FilterPredicate("country", FilterOperator.EQUAL, country);
+    Query query =
+        new Query("Trend").setFilter(propertyFilter).addSort("timestamp", SortDirection.DESCENDING);
 
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
     PreparedQuery results = datastore.prepare(query);
@@ -77,15 +84,20 @@ public class TrendService {
 
     int i = 0;
     int topicsLimit = 4;
+    long millisInDay = 86400000;
 
     while (totalTrends.hasNext() && i < topicsLimit) {
       Entity entity = totalTrends.next();
-      long id = entity.getKey().getId();
-      String title = (String) entity.getProperty("title");
-      long frequency = (long) entity.getProperty("traffic");
       long timestamp = (long) entity.getProperty("timestamp");
-      Trend trend = new Trend(id, title, frequency, timestamp);
-      trends.add(trend);
+      // This checks to see if the trends in the datastore are more than
+      // a day old. If so, they are out-of-date and not returned.
+      if (System.currentTimeMillis() - timestamp < millisInDay) {
+        long id = entity.getKey().getId();
+        String title = (String) entity.getProperty("title");
+        long frequency = (long) entity.getProperty("traffic");
+        Trend trend = new Trend(id, title, frequency, timestamp);
+        trends.add(trend);
+      }
       i++;
     }
 
@@ -93,7 +105,7 @@ public class TrendService {
   }
 
   /* Stores a Trend object in Datastore. */
-  public Entity makeTrend(String topic, String frequency) {
+  public Entity makeTrend(String topic, String frequency, String country) {
 
     long timestamp = System.currentTimeMillis();
     Integer freq = convertToInt(frequency);
@@ -105,6 +117,7 @@ public class TrendService {
       trendEntity.setProperty("traffic", 0);
     }
     trendEntity.setProperty("timestamp", timestamp);
+    trendEntity.setProperty("country", country);
     return trendEntity;
   }
 
@@ -144,7 +157,7 @@ public class TrendService {
     for (int i = 0; i < limit; i++) {
       TrendRSS trend = source.get(i);
       vid.newRelatedVideos(trend.getTitle(), "US");
-      storeTrend(makeTrend(trend.getTitle(), trend.getFreq()));
+      storeTrend(makeTrend(trend.getTitle(), trend.getFreq(), "US"));
     }
   }
 }
