@@ -1,7 +1,9 @@
 /* eslint-disable no-unused-vars */
-const basePath = '/news';
-const numParam = 'num=';
-const langParam = 'lang=';
+const basePath = "/news";
+const numParam = "num=";
+const langParam = "lang=";
+const longParam = "long=";
+const latParam = "lat=";
 
 const trend = {
   content: "",
@@ -89,9 +91,21 @@ function showPage() {
  * @param {number} numArticles The number of articles to retrieve.
  * @param {object} language The Language of the articles being retrieved.
  * @param {object} trend Holds the trends and articles retrieved.
+ * @param {number} lat The latitude of the user's location.
+ * @param {number} long The longitude of the user's location.
  */
-async function retrieveArticles(numArticles, language, trend) {
-  const requestURL = basePath + '?' + numParam + numArticles + '&' + langParam + language;
+async function retrieveArticles(numArticles, language, trend, lat, long) {
+  const location = longParam + long + "&" + latParam + lat;
+  const requestURL =
+    basePath +
+    "?" +
+    numParam +
+    numArticles +
+    "&" +
+    langParam +
+    language +
+    "&" +
+    location;
   const response = await fetch(requestURL);
   trend.content = await response.json();
   getArticles(trend.currentTrendVal, trend.content, "video-container");
@@ -121,12 +135,12 @@ function createVideoElement(video) {
   descriptionElement.innerText = video.description;
 
   const imageElement = document.createElement("img");
-  imageElement.setAttribute("src",video.image);
+  imageElement.setAttribute("src", video.image);
   imageElement.className = "thumbnail";
 
   const speechElement = document.createElement("button");
   speechElement.className = "text-to-speech tts-video";
-  const textToSpeech = "textToSpeech(\"" + video.title + "\")";
+  const textToSpeech = 'textToSpeech("' + video.title + '")';
   speechElement.innerText = "tts";
   speechElement.setAttribute("onclick", textToSpeech);
 
@@ -152,8 +166,10 @@ function getArticles(val, content, container) {
   const articleContainer = document.getElementById(container);
   articleContainer.innerHTML = "";
   let right = false;
-  articles.forEach((article) => {  
-    const child = video ? createVideoElement(article) : createArticleElement(article, right);
+  articles.forEach((article) => {
+    const child = video
+      ? createVideoElement(article)
+      : createArticleElement(article, right);
     articleContainer.appendChild(child);
     right = !right ? true : false;
   });
@@ -188,7 +204,7 @@ function createArticleElement(article, right) {
 
   const speechElement = document.createElement("button");
   speechElement.className = "text-to-speech";
-  const textToSpeech = "textToSpeech(\"" + article.title + "\")";
+  const textToSpeech = 'textToSpeech("' + article.title + '")';
   speechElement.innerText = "tts";
   speechElement.setAttribute("onclick", textToSpeech);
 
@@ -313,7 +329,7 @@ function getSize(frequency, max, min) {
   let maxSize = 23;
   let minSize = 6;
   let size = 20;
-  
+
   // Adjusts bubble size based on screen width
   if (screen.width < 1024) {
     maxSize = 48;
@@ -436,7 +452,11 @@ function getTranslation(language) {
     if (screen.width >= 1024) {
       titleStyle = addStyleProperty(titleStyle, "font-size", "5vw");
     }
-    titleStyle = addStyleProperty(titleStyle, "transforms", "translate(-23%, -70%)");
+    titleStyle = addStyleProperty(
+      titleStyle,
+      "transforms",
+      "translate(-23%, -70%)"
+    );
   }
   const translation = {
     language: language,
@@ -494,22 +514,40 @@ function animatePreloader() {
   });
 }
 
-/** Shows preloader on page load and fetches articles. */
-function loadPage() {
-  animatePreloader();
-  retrieveArticles(5, 'en-US', trend);
-  setTimeout(showPage, 10400);
-  trend.color = getColorGradient();
-}
-
-/** Reads passed in text out loud to the user under the stipulation that they have interacted with the page (pressed a button/ entered a menu). 
+/** Reads passed in text out loud to the user under the stipulation that they have interacted with the page (pressed a button/ entered a menu).
  * @param {string} text The text that should be read out loud.
  */
 function textToSpeech(text) {
   const msg = new SpeechSynthesisUtterance(text);
-  msg.voiceURI = 'native';
+  msg.voiceURI = "native";
   msg.volume = 1;
   window.speechSynthesis.speak(msg);
+}
+
+/** Prompts user to allow access to location. */
+function getUserLocation() {
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(getArticlesFromLocation);
+  } else {
+    retrieveArticles(5, "en-us", trend, 0, 0);
+  }
+}
+
+/** Gets articles from user location. 
+ * @param {Object} position Defines the current location.
+ */
+function getArticlesFromLocation(position) {
+  const lat = position.coords.latitude;
+  const long = position.coords.longitude;
+  retrieveArticles(5, "en-us", trend, lat, long);
+}
+
+/** Shows preloader on page load and fetches articles. */
+function loadPage() {
+  getUserLocation();
+  animatePreloader();
+  setTimeout(showPage, 10400);
+  trend.color = getColorGradient();
 }
 
 module.exports = {
