@@ -111,40 +111,14 @@ public class GeoService {
     return validCountryList;
   }
 
-  // This function sends a POST request to the Geolocation API and gets back the coordinates from
-  // the IP Address which the request was sent from.
-  public JsonObject getUserCoordinates() throws IOException {
-    RequestBody formBody = new FormBody.Builder().build();
-
-    Request request =
-        new Request.Builder()
-            .url(
-                String.format(
-                    "https://www.googleapis.com/geolocation/v1/geolocate?key=%s", API_KEY))
-            .addHeader("User-Agent", "OkHttp Bot")
-            .addHeader("Content-Type", "application/json; utf-8")
-            .post(formBody)
-            .build();
-
-    try (Response response = httpClient.newCall(request).execute()) {
-
-      if (!response.isSuccessful()) throw new IOException("Unexpected code " + response);
-
-      JsonObject location = new Gson().fromJson(response.body().string(), JsonObject.class);
-      JsonObject coords = location.get("location").getAsJsonObject();
-
-      return coords;
-    }
-  }
-
   // This function takes in a set of coordinates and sends a request to the Geocoding API. The
   // function returns the country
   // code of those coordinates.
-  public String getUserCountry(JsonObject coordinates) throws IOException {
+  public String getUserCountry(String lat, String lon) throws IOException {
     String url =
         String.format(
             "https://maps.googleapis.com/maps/api/geocode/json?latlng=%s,%s&key=%s",
-            coordinates.get("lat").getAsString(), coordinates.get("lng").getAsString(), API_KEY);
+            lat, lon, API_KEY);
     Request request = new Request.Builder().url(url).build();
     try (Response response = httpClient.newCall(request).execute()) {
 
@@ -175,15 +149,6 @@ public class GeoService {
       return country;
     } else {
       return "global";
-    }
-  }
-
-  public String getUserLocation() {
-    try {
-      return getUserCountry(getUserCoordinates());
-    } catch (IOException e) {
-      e.printStackTrace();
-      throw new RuntimeException(e);
     }
   }
 }
