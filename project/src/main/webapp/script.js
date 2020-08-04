@@ -529,7 +529,7 @@ function getUserLocation() {
   if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(getArticlesFromLocation);
   } else {
-    retrieveArticles(5, "en-us", trend, 0, 0);
+    retrieveArticles(5, "en-us", trend, null, null);
   }
 }
 
