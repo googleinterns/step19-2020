@@ -40,7 +40,14 @@ public class NewsServlet extends HttpServlet {
 
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    String country = geoService.getUserLocation();
+    String lat = request.getParameter("lat");
+    String lon = request.getParameter("long");
+    String country;
+    if (lat == null || lon == null) {
+      country = "US";
+    } else {
+      country = geoService.getUserCountry(lat, lon);
+    }
     List<Trend> trends = trendService.showTrends(country);
     response.setContentType("text/html;");
     int numArticles = Integer.parseInt(request.getParameter("num"));
