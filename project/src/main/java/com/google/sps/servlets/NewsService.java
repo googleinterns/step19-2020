@@ -59,8 +59,8 @@ public class NewsService {
   // Objects are generated pairing topic names with article lists which are all returned in one big
   // Topic Object list.
 
-  public List<Topic> populateTopics(
-      List<Trend> trends, String language, int numArticles, String country) throws IOException {
+  public List<Topic> populateTopics(List<Trend> trends, String language, int numArticles)
+      throws IOException {
     List<Topic> topics = new ArrayList<Topic>();
     List<Article> articles;
     List<Video> videos;
