@@ -29,7 +29,7 @@ import com.google.sps.data.TrendRSS;
 import com.google.sps.data.TrendRSSFeed;
 
 public class TrendFrequencyParser {
-  // These are the xml tags that data is being extracted from. 
+  // These are the xml tags that data is being extracted from.
   static final String TITLE = "title";
   static final String TRAFFIC = "approx_traffic";
   static final String ITEM = "item";
@@ -45,6 +45,11 @@ public class TrendFrequencyParser {
   }
 
   public TrendRSSFeed readTrends() {
+    InputStream in = read();
+    return readTrendsFromStream(in);
+  }
+
+  public TrendRSSFeed readTrendsFromStream(InputStream stream) {
     TrendRSSFeed feed = null;
     try {
       boolean isFeedHeader = true;
@@ -52,13 +57,12 @@ public class TrendFrequencyParser {
       String trendFrequency = "";
 
       XMLInputFactory inputFactory = XMLInputFactory.newInstance();
-      InputStream in = read();
-      XMLEventReader eventReader = inputFactory.createXMLEventReader(in);
+      XMLEventReader eventReader = inputFactory.createXMLEventReader(stream);
       while (eventReader.hasNext()) {
         XMLEvent event = eventReader.nextEvent();
         if (event.isStartElement()) {
           String localPart = event.asStartElement().getName().getLocalPart();
-          switch(localPart) {
+          switch (localPart) {
             case ITEM:
               if (isFeedHeader) {
                 isFeedHeader = false;
@@ -91,7 +95,8 @@ public class TrendFrequencyParser {
   }
 
   /* This is used to get text from an xml tag. */
-  private String getCharacterData(XMLEvent event, XMLEventReader eventReader) throws XMLStreamException {
+  private String getCharacterData(XMLEvent event, XMLEventReader eventReader)
+      throws XMLStreamException {
     String result = "";
     event = eventReader.nextEvent();
     if (event instanceof Characters) {

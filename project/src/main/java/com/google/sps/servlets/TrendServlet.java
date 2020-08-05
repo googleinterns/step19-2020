@@ -20,26 +20,15 @@ import javax.servlet.http.HttpServlet;
 import com.google.gson.Gson;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import com.google.sps.data.TrendService; //imports class needed to store trends and retrieve trends from Datastore
-
+import com.google.sps.data.TrendService; // imports class needed to store trends and retrieve trends
+// from Datastore
 
 @WebServlet("/trends")
 public class TrendServlet extends HttpServlet {
 
   @Override
-  public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    Gson gson = new Gson();
-    TrendService trend = new TrendService();
-    
-    response.setContentType("application/json;");
-    response.getWriter().println(gson.toJson(trend.showTrends()));
-  }
-
-  @Override
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
     TrendService trend = new TrendService();
-    trend.getTrends();
+    trend.newTrends();
   }
-} 
-
-
+}

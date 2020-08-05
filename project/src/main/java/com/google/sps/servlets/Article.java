@@ -22,21 +22,23 @@ import com.googlecode.objectify.annotation.Id;
 /** Article class that serves as a Model for each article retrieved by the API. */
 @Entity
 public class Article {
-  @Id
-  private Long id;
+  @Id private Long id;
 
   private String title;
   private String link;
   private Date pubDate;
   private String description;
   private String source;
+  private Float sentiment;
 
-  public Article(String title, String link, Date pubDate, String description, String source) {
+  public Article(
+      String title, String link, Date pubDate, String description, String source, Float sentiment) {
     this.title = title;
     this.link = link;
     this.pubDate = pubDate;
     this.description = description;
     this.source = source;
+    this.sentiment = sentiment;
   }
 
   public String getTitle() {
@@ -60,6 +62,12 @@ public class Article {
   }
 
   public String toString() {
-    return String.format("%s %s %s %s %s", title, link, pubDate.toString(), description, source);
+    return String.format(
+        "%s %s %s %s %s %.3f",
+        title, link, pubDate.toString(), description, source, sentiment.floatValue());
+  }
+
+  public Float getSentiment() {
+    return sentiment;
   }
 }

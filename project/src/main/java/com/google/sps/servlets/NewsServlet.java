@@ -23,23 +23,39 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import com.google.sps.data.Trend;
-import com.google.sps.data.TrendService; //imports class needed to store trends and retrieve trends from Datastore
+import com.google.sps.data.TrendService; // imports class needed to store trends and retrieve trends
+// from Datastore
+import com.google.sps.data.GeoService;
 
-/** Servlet that returns articles and topics that are requested at the /news endpoint "num" parameter required. */
+/**
+ * Servlet that returns articles and topics that are requested at the /news endpoint "num" parameter
+ * required.
+ */
 @WebServlet("/news")
 public class NewsServlet extends HttpServlet {
 
-  private NewsService newsService = new NewsService(new RssFeedFetcher());
+  private NewsService newsService = new NewsService();
   private TrendService trendService = new TrendService();
+  private GeoService geoService = new GeoService();
 
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    List<Trend> trends = trendService.showTrends();
+    String lat = request.getParameter("lat");
+    String lon = request.getParameter("long");
+    String country;
+    if (lat == null || lon == null) {
+      country = "US";
+    } else {
+      country = geoService.getUserCountry(lat, lon);
+    }
+    List<Trend> trends = trendService.showTrends(country);
     response.setContentType("text/html;");
     int numArticles = Integer.parseInt(request.getParameter("num"));
-    List<Topic> topics = newsService.populateTopics(trends, numArticles);
+    String language = request.getParameter("lang");
+    List<Topic> topics = newsService.populateTopics(trends, "AU", numArticles);
+    Collections.reverse(topics);
     String jsonString = convertToJson(topics).replaceAll("’", "\u0027");
-    jsonString = jsonString.replaceAll("‘",  "\u0027");
+    jsonString = jsonString.replaceAll("‘", "\u0027");
     response.getWriter().println(jsonString);
   }
 

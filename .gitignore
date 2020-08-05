@@ -7,3 +7,5 @@
 /project/dependency-reduced-pom.xml
 /project/buildNumber.properties
 /project/.mvn/timing.properties
+/project/src/test/webapp/node_modules/
+node_modules/

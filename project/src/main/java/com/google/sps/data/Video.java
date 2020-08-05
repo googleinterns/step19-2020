@@ -14,27 +14,42 @@
 
 package com.google.sps.data;
 
-/* Stores one instance of a trend. */
-
-public final class Trend {
-
-  private final long id;
+public class Video {
   private final String title;
-  private final long frequency;
-  private final long timestamp;
+  private final String description;
+  private final String image;
+  private final String video;
+  private final String date;
 
-  public Trend(long id, String title, long frequency, long timestamp) {
-    this.id = id;
+  public Video(String title, String description, String image, String video, String date) {
     this.title = title;
-    this.frequency = frequency;
-    this.timestamp = timestamp;
+    this.description = description;
+    this.image = image;
+    this.video = video;
+    this.date = date;
   }
 
   public String getTitle() {
     return title;
   }
 
-  public long getFrequency() {
-    return frequency;
+  public String getImage() {
+    return image;
+  }
+
+  public String getDescription() {
+    return description;
+  }
+
+  public String getVideo() {
+    return video;
+  }
+
+  public String getDate() {
+    return date;
+  }
+
+  public String toString() {
+    return String.format("%s %s %s %s %s", title, description, image, video, date);
   }
 }

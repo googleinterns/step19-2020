@@ -16,23 +16,25 @@ package com.google.sps.servlets;
 
 import java.util.*;
 
+import com.google.sps.data.Video;
 import com.googlecode.objectify.annotation.Entity;
 import com.googlecode.objectify.annotation.Id;
 
 /** Topic class that serves as a Model for each Topic that is paired with a list of articles. */
 @Entity
 public class Topic {
-  @Id
-  private Long id;
+  @Id private Long id;
 
   private String name;
   private long frequency;
   private List<Article> articles;
+  private List<Video> videos;
 
-  public Topic(String name, long frequency, List<Article> articles) {
+  public Topic(String name, long frequency, List<Article> articles, List<Video> videos) {
     this.name = name;
     this.frequency = frequency;
     this.articles = articles;
+    this.videos = videos;
   }
 
   public String getName() {
@@ -47,7 +49,11 @@ public class Topic {
     return articles;
   }
 
+  public List<Video> getVideos() {
+    return videos;
+  }
+
   public String toString() {
-    return String.format("Topic - %s : %s", name, articles);
+    return String.format("Topic - %s : %s, %s", name, articles, videos);
   }
 }
