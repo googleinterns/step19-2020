@@ -1,0 +1,7 @@
+indexes:
+
+- kind: Trend
+  properties:
+  - name: country
+  - name: timestamp
+    direction: desc
