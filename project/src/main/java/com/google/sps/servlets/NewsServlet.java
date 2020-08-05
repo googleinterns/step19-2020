@@ -34,7 +34,7 @@ import com.google.sps.data.GeoService;
 @WebServlet("/news")
 public class NewsServlet extends HttpServlet {
 
-  private NewsService newsService = new NewsService();
+  private NewsService newsService = new NewsService(new RssFeedFetcher());
   private TrendService trendService = new TrendService();
   private GeoService geoService = new GeoService();
 

@@ -42,6 +42,11 @@ public class NewsService {
   private final OkHttpClient httpClient = new OkHttpClient();
   private final NewsRepository newsRepository = new NewsRepository();
   private final VideoService vid = new VideoService();
+  private Fetcher fetcher;
+
+  public NewsService(Fetcher fetcher) {
+    this.fetcher = fetcher;
+  }
 
   private static final LanguageServiceClient language = createLangClient();
 
@@ -101,14 +106,7 @@ public class NewsService {
   }
 
   private SyndFeed getSyndFeed(String url) throws Exception {
-    // Encode URL so that it can include spaces
-    String encodedUrl = url.replaceAll(" ", "%20");
-    // Building SyndFeed
-    URL feedSource = new URL(encodedUrl);
-    SyndFeedInput input = new SyndFeedInput();
-    SyndFeed feed = input.build(new XmlReader(feedSource));
-
-    return feed;
+    return fetcher.getSyndFeed(url);
   }
 
   private List<Article> cleanSyndFeed(SyndFeed syndFeed, int numArticles) {
