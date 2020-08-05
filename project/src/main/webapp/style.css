@@ -3,6 +3,7 @@ html {
   font-family: "Courier New", Courier, monospace;
   height: 100%;
   margin: 0;
+  scroll-behavior: smooth;
 }
 
 .preloader {
@@ -333,13 +334,7 @@ li {
 
 @media only screen and (min-device-width: 320px) and (max-device-width: 480px) {
   .preloader-container {
-    left: 42vw;
-  }
-
-  .preloader-container div {
-    height: 150px;
-    margin: 10px;
-    width: 15px;
+    left: 37vw;
   }
 
   .hamburger-icon {
@@ -408,7 +403,7 @@ li {
   }
 
   .trend-frequency-data div {
-    margin: 6vw 0;
+    margin: 0;
   }
 
   .slideshow-left {
@@ -438,8 +433,8 @@ li {
   }
 
   .dots {
-    height: 1.8vh;
-    width: 1.8vh;
+    height: 1.4vh;
+    width: 1.4vh;
   }
 
   .articles,
@@ -458,7 +453,7 @@ li {
     font-size: 4vw;
   }
 
-   .sentiment-container {
+  .sentiment-container {
     right: 23vw;
     top: 108vh;
     max-width: 52vw;
@@ -474,7 +469,7 @@ li {
   }
 
   .trend-frequency {
-    padding-left: 15vw;
+    padding-left: 11vw;
   }
 
   .languages {
@@ -490,17 +485,17 @@ li {
   .thumbnail {
     width: 60vw;
   }
+
+  .text-to-speech {
+    font-size: 4vw;
+    margin-bottom: 3vw;
+    padding: .5vw 2vw;
+  }
 }
 
 @media only screen and (min-device-width: 768px) and (max-device-width: 1024px) {
   .preloader-container {
-    left: 42vw;
-  }
-
-  .preloader-container div {
-    height: 150px;
-    margin: 10px;
-    width: 15px;
+    left: 37vw;
   }
 
   .hamburger-icon {
@@ -616,8 +611,12 @@ li {
   }
 
   .trend-frequency {
-    padding-left: 17vw;
+    padding-left: 11vw;
     padding-top: 12vw;
+  }
+
+  .trend-frequency-data div {
+    margin: 0;
   }
 
   .languages {
@@ -632,5 +631,12 @@ li {
 
   .thumbnail {
     width: 55vw;
+  }
+
+  .text-to-speech {
+    font-size: 3vw;
+    margin-top: -3vw;
+    margin-bottom: 2vw;
+    padding: .5vw 2vw;
   }
 }
