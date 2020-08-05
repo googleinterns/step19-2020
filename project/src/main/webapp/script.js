@@ -332,13 +332,13 @@ function getSize(frequency, max, min) {
 
   // Adjusts bubble size based on screen width
   if (screen.width < 1024) {
-    maxSize = 48;
-    minSize = 23;
-    size = 35;
+    maxSize = 40;
+    minSize = 19;
+    size = 30;
   } else if (screen.width < 480) {
-    maxSize = 43;
+    maxSize = 40;
     minSize = 15;
-    size = 40;
+    size = 37;
   }
 
   if (max != min) {
