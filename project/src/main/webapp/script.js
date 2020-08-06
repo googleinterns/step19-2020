@@ -146,8 +146,8 @@ function createVideoElement(video) {
 
   linkElement.appendChild(imageElement);
   videoElement.appendChild(titleElement);
-  videoElement.appendChild(descriptionElement);
   videoElement.appendChild(linkElement);
+  videoElement.appendChild(descriptionElement);
   videoElement.appendChild(speechElement);
 
   return videoElement;
