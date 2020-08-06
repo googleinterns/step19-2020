@@ -304,15 +304,14 @@ li {
 }
 
 .description {
-  display: inline-block;
   font-size: 1.5vw;
-  margin-right: 1.5vw;
-  width: 25vw;
+  margin-right: auto;
+  margin-left: auto;
 }
 
 .thumbnail {
-  display: inline-block;
-  margin-top: -2vw;
+  margin-top: -1vw;
+  width: 22vw;
 }
 
 .first {
@@ -484,6 +483,7 @@ li {
 
   .thumbnail {
     width: 60vw;
+    margin-bottom: 5vw;
   }
 
   .text-to-speech {
@@ -631,6 +631,7 @@ li {
 
   .thumbnail {
     width: 55vw;
+    margin-bottom: 4vw;
   }
 
   .text-to-speech {
