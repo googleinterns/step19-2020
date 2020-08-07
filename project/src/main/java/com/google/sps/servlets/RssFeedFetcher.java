@@ -23,7 +23,7 @@ import java.net.*;
 import java.util.*;
 
 public class RssFeedFetcher implements Fetcher {
-  public SyndFeed getSyndFeed(String url) throws Exception{
+  public SyndFeed getSyndFeed(String url) throws Exception {
     // Encode URL so that it can include spaces
     String encodedUrl = url.replaceAll(" ", "%20");
     // Building SyndFeed
